@@ -207,3 +207,8 @@ function initSliderBtns() {
 }
 
 document.addEventListener('DOMContentLoaded', initSliderBtns);
+
+// ═══ Expose globals untuk Vite ═══
+window.buildSliders = buildSliders;
+window.startAuto    = startAuto;
+window.goTo         = goTo;

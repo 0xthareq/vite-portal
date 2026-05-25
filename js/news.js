@@ -125,3 +125,8 @@ function openNewsPdf(pdfUrl, label) {
 
   overlay.classList.add('open');
 }
+
+// ═══ Expose globals untuk Vite ═══
+window.buildNews   = buildNews;
+window.openNewsPdf = openNewsPdf;
+

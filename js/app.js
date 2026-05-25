@@ -1,8 +1,5 @@
-
-
 document.addEventListener('DOMContentLoaded', async () => {
 
-  // Tampilkan loading sementara data diambil dari server
   [1, 2].forEach(n => {
     const t = document.getElementById('track' + n);
     if (t) t.innerHTML = `
@@ -16,27 +13,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   try {
-    // Ambil data terbaru dari GitHub via /api/save-data
     const data = await window.fetchPortalData();
-    buildSliders(data.slides || []);
-    buildNews(data.news || []);
-    startAuto();
+    window.buildSliders(data.slides || []);
+    window.buildNews(data.news || []);
+    window.startAuto();
 
   } catch (err) {
     console.error('Gagal memuat data dari server:', err);
-
-    // Fallback: coba dari cache localStorage jika API gagal
     try {
       const cached = localStorage.getItem('portal_v3_cache');
       if (cached) {
         const { data } = JSON.parse(cached);
-        buildSliders(data.slides || []);
-        buildNews(data.news || []);
-        startAuto();
-        console.info('Data dimuat dari cache.');
+        window.buildSliders(data.slides || []);
+        window.buildNews(data.news || []);
+        window.startAuto();
       }
-    } catch (_) {
-      console.warn('Cache juga tidak tersedia.');
-    }
+    } catch (_) {}
   }
 });
