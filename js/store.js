@@ -119,3 +119,11 @@ async function uploadPdf(file) {
 
   return res.json(); // { success, path, url }
 }
+// ═══ Expose globals untuk Vite ═══
+window.fetchPortalData = fetchPortalData;
+window.savePortalData  = savePortalData;
+window.uploadImage     = uploadImage;
+window.uploadPdf       = uploadPdf;
+window.genId           = genId;
+window.formatSize      = formatSize;
+window.fileToBase64    = fileToBase64;
