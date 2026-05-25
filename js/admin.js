@@ -12,7 +12,7 @@ let isUploading = false;
 
 // ── INIT ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  const session = await requireAuth();
+  const session = await window.requireAuth();
   if (!session) return;
 
   el('sidebarUser').textContent = session.displayName;
@@ -79,7 +79,7 @@ function initSidebarNav() {
 async function loadData() {
   showPageLoading(true);
   try {
-    const data = await fetchPortalData(true);
+    const data = await window.fetchPortalData(true);
     slides = data.slides || [];
     news   = data.news   || [];
     renderAll();
@@ -236,7 +236,7 @@ async function saveSlide() {
       });
     }
 
-    await savePortalData(slides, news);
+    await window.savePortalData(slides, news);
     renderAll();
     closeSlideModal();
     toastMsg('Slide berhasil disimpan ✅ — website akan update dalam ~1 menit');
@@ -252,7 +252,7 @@ async function deleteSlide(id) {
   if (!confirm('Hapus slide ini?')) return;
   slides = slides.filter(s => s.id !== id);
   try {
-    await savePortalData(slides, news);
+    await window.savePortalData(slides, news);
     renderAll();
     toastMsg('Slide dihapus', 'err');
   } catch (err) {
@@ -289,7 +289,7 @@ function initUploads() {
     isUploading = true;
 
     try {
-      const result = await uploadImage(file);
+      const result = await window.uploadImage(file);
       tempImgUrl = result.url;
       el('imgPreview').src = tempImgUrl;
       el('imgPre').classList.add('show');
@@ -311,7 +311,7 @@ function initUploads() {
     isUploading = true;
 
     try {
-      const result = await uploadPdf(file);
+      const result = await window.uploadPdf(file);
       tempPdfUrl = result.url;
       el('pdfPreContent').innerHTML = `<div class="pdf-pre-box">📄 ${file.name} (${formatSize(file.size)})</div>`;
       el('pdfPre').classList.add('show');
@@ -394,7 +394,7 @@ async function saveNews_() {
     } else {
       news.unshift({ id: genId('n'), date, text, link, pdfLink });
     }
-    await savePortalData(slides, news);
+    await window.savePortalData(slides, news);
     renderNews(); updateStats();
     closeNewsModal();
 
@@ -410,7 +410,7 @@ async function deleteNews(idx) {
   if (!confirm('Hapus berita ini?')) return;
   news.splice(idx, 1);
   try {
-    await savePortalData(slides, news);
+    await window.savePortalData(slides, news);
     renderNews(); updateStats();
     toastMsg('Berita dihapus', 'err');
   } catch (err) {
@@ -467,3 +467,19 @@ function logout() {
 
 // ── HELPER ────────────────────────────────────────────
 function el(id) { return document.getElementById(id); }
+
+// ═══ Expose globals untuk Vite ═══
+window.openAddSlide    = openAddSlide;
+window.openEditSlide   = openEditSlide;
+window.saveSlide       = saveSlide;
+window.deleteSlide     = deleteSlide;
+window.closeSlideModal = closeSlideModal;
+window.togglePdfSection = togglePdfSection;
+window.openAddNews     = openAddNews;
+window.openEditNews    = openEditNews;
+window.saveNews_       = saveNews_;
+window.deleteNews      = deleteNews;
+window.closeNewsModal  = closeNewsModal;
+window.previewImg      = previewImg;
+window.logout          = logout;
+window.toastMsg        = toastMsg;

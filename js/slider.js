@@ -133,7 +133,7 @@ function buildSliders(slides) {
         </div>`;
 
       /* ─── FIX #2: Kirim group + index agar popup bisa navigasi ─── */
-      el.addEventListener('click', () => openPopup(slide, group, i));
+      el.addEventListener('click', () => window.openPopup(slide, group, i));
 
       return el;
     });

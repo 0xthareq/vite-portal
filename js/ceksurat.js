@@ -375,3 +375,7 @@ function closeQR() {
 }
 
 // Klik overlay tutup modal
+// ═══ Expose globals untuk Vite ═══
+window.cariSurat = cariSurat;
+window.openQR    = openQR;
+window.closeQR   = closeQR;
