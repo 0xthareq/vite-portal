@@ -1,3 +1,18 @@
+// ═══ Import store dulu, expose ke window ═══
+import {
+  fetchPortalData, savePortalData,
+  uploadImage, uploadPdf,
+  genId, formatSize, fileToBase64
+} from '../../js/store.js'
+
+window.fetchPortalData = fetchPortalData;
+window.savePortalData  = savePortalData;
+window.uploadImage     = uploadImage;
+window.uploadPdf       = uploadPdf;
+window.genId           = genId;
+window.formatSize      = formatSize;
+window.fileToBase64    = fileToBase64;
+
 // ═══ CSS ═══
 import '../../css/base.css'
 import '../../css/animations.css'
@@ -10,9 +25,8 @@ import '../../css/chatbot.css'
 import '../../css/layanan-popup.css'
 import '../../css/kontak.css'
 
-// ═══ JS — urutan sama seperti HTML asli ═══
+// ═══ JS lainnya ═══
 import '../../js/kontak.js'
-import '../../js/store.js'
 import '../../js/header.js'
 import '../../js/slider.js'
 import '../../js/popup.js'

@@ -127,3 +127,5 @@ window.uploadPdf       = uploadPdf;
 window.genId           = genId;
 window.formatSize      = formatSize;
 window.fileToBase64    = fileToBase64;
+// Export untuk Vite
+export { fetchPortalData, savePortalData, uploadImage, uploadPdf, genId, formatSize, fileToBase64 };
