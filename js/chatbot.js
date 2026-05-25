@@ -56,7 +56,7 @@ function scoreItem(normalizedQuery, item) {
 }
 
 function findAnswer(query) {
-  if (typeof ASMANISA_KB === 'undefined') {
+  if (typeof window.ASMANISA_KB === 'undefined') {
     console.error('[Asmanisa] kb.js belum dimuat!');
     return null;
   }
@@ -67,7 +67,7 @@ function findAnswer(query) {
   let bestItem  = null;
   let bestScore = 0;
 
-  for (const item of ASMANISA_KB) {
+  for (const item of window.ASMANISA_KB) {
     const score = scoreItem(q, item);
     if (score > bestScore) {
       bestScore = score;

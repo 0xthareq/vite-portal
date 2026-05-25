@@ -564,3 +564,5 @@ const ASMANISA_KB = [
   },
 
 ];
+// ═══ Expose globals untuk Vite ═══
+window.ASMANISA_KB = ASMANISA_KB;
