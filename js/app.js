@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // Ambil data terbaru dari GitHub via /api/save-data
-    const data = await fetchPortalData();
+    const data = await window.fetchPortalData();
     buildSliders(data.slides || []);
     buildNews(data.news || []);
     startAuto();
