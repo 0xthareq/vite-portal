@@ -1,0 +1,259 @@
+/*
+ * kontak.css
+ * ─────────────────────────────────────────────
+ * CSS popup Kontak — gaya seragam dengan
+ * layanan-popup.css (putih bersih, overlay tipis)
+ * Semua class pakai prefix "kt-" agar tidak
+ * bentrok dengan CSS portal lainnya
+ * ─────────────────────────────────────────────
+ */
+
+/* ── Overlay backdrop ── */
+.kt-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(14, 50, 96, 0.20);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.kt-overlay.kt-open {
+  display: flex;
+  animation: ktFadeIn .2s ease;
+}
+
+@keyframes ktFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal box ── */
+.kt-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(26, 79, 138, 0.12);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(14, 50, 96, 0.14),
+    0 4px 16px rgba(14, 50, 96, 0.08);
+  animation: ktSlideUp .28s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@keyframes ktSlideUp {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Header ── */
+.kt-header {
+  padding: 18px 18px 14px;
+  border-bottom: 0.5px solid #dce5f0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kt-header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #e8f0fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kt-header-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #1a4f8a;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kt-header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0e3260;
+}
+
+.kt-header-sub {
+  font-size: 12px;
+  color: #5a6e82;
+  margin-top: 2px;
+}
+
+/* ── Tombol tutup ── */
+.kt-close {
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 0.5px solid #dce5f0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #5a6e82;
+  flex-shrink: 0;
+  transition: background .15s, color .15s;
+}
+
+.kt-close:hover { background: #f4f7fb; color: #0e3260; }
+
+/* ── Daftar kontak ── */
+.kt-list {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ── Item kartu kontak ── */
+.kt-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  border: 0.5px solid transparent;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+  cursor: pointer;
+}
+
+.kt-item:hover {
+  background: #f4f7fb;
+  border-color: #dce5f0;
+}
+
+/* ── Avatar inisial ── */
+.kt-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── Info nama & nomor ── */
+.kt-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.kt-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1c2b3a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kt-phone {
+  font-size: 11.5px;
+  color: #5a6e82;
+  margin-top: 1px;
+}
+
+/* ── Icon WhatsApp bulat hijau ── */
+.kt-wa-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.kt-item:hover .kt-wa-icon {
+  transform: scale(1.08);
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.38);
+}
+
+.kt-wa-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+/* ── Footer ── */
+.kt-footer {
+  padding: 11px 18px;
+  border-top: 0.5px solid #dce5f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kt-footer-note {
+  font-size: 12px;
+  color: #5a6e82;
+}
+
+.kt-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #e6f7f0;
+  color: #0f6e56;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+/* Container list kontak */
+#kt-list {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar */
+#kt-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#kt-list::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 999px;
+}
+
+/* Deskripsi kecil bawah nama */
+.kt-desc {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ── Responsive mobile ── */
+@media (max-width: 520px) {
+  .kt-modal     { border-radius: 16px; }
+  .kt-name      { font-size: 13px; }
+  .kt-phone     { font-size: 11px; }
+  .kt-avatar    { width: 34px; height: 34px; font-size: 11px; }
+  .kt-wa-icon   { width: 28px; height: 28px; }
+  .kt-wa-icon svg { width: 14px; height: 14px; }
+}

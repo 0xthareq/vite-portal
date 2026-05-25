@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Kebijakan Privasi – FMIPA UNTAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="/assets/images/logologin.png">
+  <style>
+    /* ── HERO ── */
+    .kp-hero {
+      background: linear-gradient(135deg, #2589e9 0%, #1a6fcf 60%, #0f52a0 100%);
+      padding: 72px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .kp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Crect x='0' y='0' width='1' height='40'/%3E%3Crect x='0' y='0' width='40' height='1'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .kp-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 100px;
+      padding: 5px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .kp-hero h1 {
+      font-size: clamp(26px, 4.5vw, 42px);
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 14px;
+      line-height: 1.2;
+    }
+    .kp-hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      max-width: 500px;
+      margin: 0 auto 20px;
+      line-height: 1.65;
+    }
+    .kp-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ── SUMMARY CARDS ── */
+    .kp-summary {
+      max-width: 900px;
+      margin: -32px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      position: relative;
+      z-index: 10;
+    }
+    @media (max-width: 640px) { .kp-summary { grid-template-columns: 1fr; } }
+    .kp-sum-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(37,137,233,0.13);
+      border: 1.5px solid #e5e7eb;
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .kp-sum-icon { font-size: 26px; margin-bottom: 8px; }
+    .kp-sum-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .kp-sum-desc { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+    /* ── CONTENT ── */
+    .kp-content {
+      max-width: 820px;
+      margin: 56px auto 80px;
+      padding: 0 24px;
+    }
+
+    /* TOC */
+    .kp-toc {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 48px;
+    }
+    .kp-toc-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #2589e9;
+      margin-bottom: 14px;
+    }
+    .kp-toc ol {
+      margin: 0;
+      padding-left: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+    }
+    @media (max-width: 560px) { .kp-toc ol { grid-template-columns: 1fr; } }
+    .kp-toc ol li { margin: 0; }
+    .kp-toc ol a {
+      font-size: 13.5px;
+      color: #2589e9;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .18s;
+    }
+    .kp-toc ol a:hover { color: #1a6fcf; text-decoration: underline; }
+
+    /* Section */
+    .kp-section {
+      margin-bottom: 48px;
+      scroll-margin-top: 90px;
+    }
+    .kp-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #eff6ff;
+    }
+    .kp-section-num {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      background: #2589e9;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .kp-section h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #111827;
+      margin: 0;
+    }
+    .kp-section p {
+      font-size: 14.5px;
+      color: #4b5563;
+      line-height: 1.8;
+      margin: 0 0 14px;
+    }
+    .kp-section p:last-child { margin-bottom: 0; }
+    .kp-section ul, .kp-section ol {
+      padding-left: 24px;
+      margin: 10px 0 14px;
+    }
+    .kp-section ul li, .kp-section ol li {
+      font-size: 14.5px;
+      color: #4b5563;
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+    .kp-section a { color: #2589e9; font-weight: 600; text-decoration: none; }
+    .kp-section a:hover { text-decoration: underline; }
+
+    /* Highlight box */
+    .kp-highlight {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #166534;
+      line-height: 1.7;
+    }
+    .kp-highlight strong { color: #14532d; }
+
+    .kp-warning {
+      background: #fff7ed;
+      border: 1.5px solid #fed7aa;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #92400e;
+      line-height: 1.7;
+    }
+    .kp-info {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #1e40af;
+      line-height: 1.7;
+    }
+    .kp-info strong { color: #1e3a8a; }
+
+    /* Divider */
+    .kp-divider {
+      height: 1px;
+      background: linear-gradient(to right, #2589e9, #e5e7eb, transparent);
+      margin: 48px 0;
+    }
+
+    /* Contact section */
+    .kp-contact {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .kp-contact h3 { font-size: 19px; font-weight: 800; color: #111827; margin: 0 0 8px; }
+    .kp-contact p { font-size: 14px; color: #6b7280; margin: 0 0 22px; }
+    .kp-contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #2589e9;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: background .18s, transform .15s;
+    }
+    .kp-contact-btn:hover { background: #1a6fcf; transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="logo-group">
+        <img src="assets/images/logo-untan.png" alt="Logo FMIPA UNTAN"/>
+      </div>
+      <div class="logo-divider"></div>
+      <div class="brand-text">
+        <span class="label">FMIPA Untan</span>
+        <span class="name">Akademik & Kemahasiswaan</span>
+      </div>
+    </a>
+    <div class="header-spacer"></div>
+    <nav class="main-nav">
+      <a href="index.html">Beranda</a>
+
+      <div class="nav-item dropdown">
+        <span>Info Penting ▾</span>
+        <div class="dropdown-menu">
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=14HAQ4UAs_QiSS4Zg0e2M3q1CsHX7zGbX',title:'Pedoman Akademik'})">Pedoman Akademik</a>
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71',title:'Kalender Akademik'})">Kalender Akademik</a>
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1c093F5EznNhtH_48ZbrsTDRILkvxVBnM',title:'Kode Etik Untan'})">Kode Etik Untan</a>
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1iE5rlnfnTdvad4svmKDW1QyZXXh7JRkD',title:'Edaran PISN'})">Edaran PISN</a>
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=10G0cmbmU1_Fjn3m1SRmLUIzJ3VEdRjK4',title:'Perbaikan Data PDDIKTI'})">Perbaikan Data PDDIKTI</a>
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1fV2sJh5zzpKd65WZ5_2XY2woL0shd-GH',title:'Prosedur Pengajuan Cuti'})">Prosedur Pengajuan Cuti</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <span>Download ▾</span>
+        <div class="dropdown-menu">
+          <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1mNeuaIv-AsfNzMgqRului4uO5otE6Vbg',title:'Akreditasi UNTAN'})">Akreditasi UNTAN</a>
+          <a href="https://docs.google.com/document/d/1QQFK0vpB2VYwZN9XRjxiJWRfck6HUCTu/edit" target="_blank" rel="noopener noreferrer">Draft Syarat Sidang</a>
+          <a href="https://docs.google.com/document/d/10O5ifI5A3WheOjYs9ZWEKtOAe9NsoB7r/edit" target="_blank" rel="noopener noreferrer">Draft Bebas Laboratorium</a>
+        </div>
+      </div>
+
+      <a href="ceksurat.html">Cek Surat</a>
+      <a onclick="openKontakPopup()" style="cursor:pointer">Kontak</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Beranda</a>
+    <div class="mobile-dropdown">
+      <div class="mobile-title">Info Penting</div>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=14HAQ4UAs_QiSS4Zg0e2M3q1CsHX7zGbX',title:'Pedoman Akademik'})">Pedoman Akademik</a>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71',title:'Kalender Akademik'})">Kalender Akademik</a>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1c093F5EznNhtH_48ZbrsTDRILkvxVBnM',title:'Kode Etik Untan'})">Kode Etik Untan</a>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1iE5rlnfnTdvad4svmKDW1QyZXXh7JRkD',title:'Edaran PISN'})">Edaran PISN</a>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=10G0cmbmU1_Fjn3m1SRmLUIzJ3VEdRjK4',title:'Perbaikan Data PDDIKTI'})">Perbaikan Data PDDIKTI</a>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1fV2sJh5zzpKd65WZ5_2XY2woL0shd-GH',title:'Prosedur Pengajuan Cuti'})">Prosedur Pengajuan Cuti</a>
+    </div>
+    <div class="mobile-dropdown">
+      <div class="mobile-title">Download</div>
+      <a onclick="openPopup({popupType:'pdf',popupUrl:'https://drive.google.com/uc?export=download&id=1mNeuaIv-AsfNzMgqRului4uO5otE6Vbg',title:'Akreditasi UNTAN'})">Akreditasi UNTAN</a>
+      <a href="https://docs.google.com/document/d/1QQFK0vpB2VYwZN9XRjxiJWRfck6HUCTu/edit" target="_blank" rel="noopener noreferrer">Draft Syarat Sidang</a>
+      <a href="https://docs.google.com/document/d/10O5ifI5A3WheOjYs9ZWEKtOAe9NsoB7r/edit" target="_blank" rel="noopener noreferrer">Draft Bebas Laboratorium</a>
+    </div>
+    <a href="ceksurat.html">Cek Surat</a>
+    <a onclick="openKontakPopup()" style="cursor:pointer">Kontak</a>
+  </div>
+</header>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+<div class="kp-hero">
+  <div class="kp-hero-badge">🔒 Privasi & Transparansi</div>
+  <h1>Kebijakan Privasi</h1>
+  <p>Portal Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura berkomitmen menjaga transparansi dan kepercayaan pengguna.</p>
+  <div class="kp-updated">📅 Terakhir diperbarui: April 2026</div>
+</div>
+
+<!-- ═══ SUMMARY CARDS ══════════════════════════════════════════════ -->
+<div class="kp-summary">
+  <div class="kp-sum-card">
+    <div class="kp-sum-icon">🚫</div>
+    <div class="kp-sum-title">Tidak Ada Pengumpulan Data</div>
+    <div class="kp-sum-desc">Kami tidak mengumpulkan atau menyimpan data pribadi pengunjung</div>
+  </div>
+  <div class="kp-sum-card">
+    <div class="kp-sum-icon">📡</div>
+    <div class="kp-sum-title">Hanya Penyampai Informasi</div>
+    <div class="kp-sum-desc">Portal ini murni meneruskan informasi resmi dari sumber terpercaya</div>
+  </div>
+  <div class="kp-sum-card">
+    <div class="kp-sum-icon">🏛️</div>
+    <div class="kp-sum-title">Sumber Resmi</div>
+    <div class="kp-sum-desc">Data bersumber dari Untan dan Kemendiktisaintek</div>
+  </div>
+</div>
+
+<!-- ═══ CONTENT ════════════════════════════════════════════════════ -->
+<div class="kp-content">
+
+  <!-- TOC -->
+  <div class="kp-toc">
+    <div class="kp-toc-title">📋 Daftar Isi</div>
+    <ol>
+      <li><a href="#s1">Tentang Portal Ini</a></li>
+      <li><a href="#s2">Data yang Tidak Kami Kumpulkan</a></li>
+      <li><a href="#s3">Sumber Informasi</a></li>
+      <li><a href="#s4">Penggunaan Layanan Pihak Ketiga</a></li>
+      <li><a href="#s5">Cookie dan Penyimpanan Browser</a></li>
+      <li><a href="#s6">Keamanan</a></li>
+      <li><a href="#s7">Hak Pengguna</a></li>
+      <li><a href="#s8">Perubahan Kebijakan</a></li>
+      <li><a href="#s9">Hubungi Kami</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="kp-section" id="s1">
+    <div class="kp-section-header">
+      <div class="kp-section-num">1</div>
+      <h2>Tentang Portal Ini</h2>
+    </div>
+    <p>Portal Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura (selanjutnya disebut "Portal") adalah platform informasi yang dikelola oleh bagian Akademik & Kemahasiswaan Fakultas Matematika dan Ilmu Pengetahuan Alam, Universitas Tanjungpura, Pontianak.</p>
+    <p>Portal ini berfungsi sebagai <strong>media penyampaian informasi resmi</strong> kepada civitas akademika FMIPA Untan, meliputi mahasiswa, dosen, dan tenaga kependidikan. Kami tidak beroperasi sebagai platform komersial dan tidak memiliki kepentingan dalam memproses data pribadi pengguna.</p>
+    <div class="kp-highlight">
+      <strong>Pernyataan Inti:</strong> Portal ini hanya menyampaikan informasi. Kami tidak meminta, mengumpulkan, menyimpan, memproses, atau menjual data pribadi pengguna dalam bentuk apapun.
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="kp-section" id="s2">
+    <div class="kp-section-header">
+      <div class="kp-section-num">2</div>
+      <h2>Data yang Tidak Kami Kumpulkan</h2>
+    </div>
+    <p>Sebagai portal informasi, kami secara tegas <strong>tidak mengumpulkan</strong> data-data berikut dari pengunjung:</p>
+    <ul>
+      <li>Nama, alamat email, atau nomor telepon</li>
+      <li>Nomor Induk Mahasiswa (NIM) atau identitas akademik lainnya</li>
+      <li>Alamat IP atau lokasi geografis pengguna</li>
+      <li>Data perangkat atau sistem operasi yang digunakan</li>
+      <li>Riwayat penelusuran atau aktivitas di luar portal ini</li>
+      <li>Informasi keuangan atau pembayaran dalam bentuk apapun</li>
+    </ul>
+    <div class="kp-info">
+      <strong>Catatan tentang Cek Surat:</strong> Fitur Cek Surat menggunakan nama atau NIM yang kamu masukkan <em>hanya untuk keperluan pencarian real-time</em>. Data tersebut tidak disimpan di server kami dan langsung diteruskan ke layanan Google Apps Script yang dikelola oleh bagian akademik FMIPA Untan.
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="kp-section" id="s3">
+    <div class="kp-section-header">
+      <div class="kp-section-num">3</div>
+      <h2>Sumber Informasi</h2>
+    </div>
+    <p>Seluruh informasi yang ditampilkan di portal ini bersumber dari lembaga resmi dan terpercaya, yaitu:</p>
+    <ul>
+      <li><strong>Universitas Tanjungpura (Untan)</strong> — termasuk dokumen kebijakan akademik, kalender akademik, kode etik, pedoman akademik, dan pengumuman resmi lainnya.</li>
+      <li><strong>Kementerian Pendidikan Tingi, Sains, dan Teknologi — Direktorat Jenderal Pendidikan Tinggi, Sains, dan Teknologi (Kemendiktisaintek)</strong> — termasuk regulasi nasional terkait pendidikan tinggi, PDDIKTI, dan kebijakan kemahasiswaan.</li>
+    </ul>
+    <p>Portal ini tidak membuat, merumuskan, atau menerbitkan kebijakan akademik sendiri. Semua konten yang tersedia adalah reproduksi atau ringkasan dari dokumen resmi yang telah diterbitkan oleh kedua lembaga di atas.</p>
+    <div class="kp-highlight">
+      Jika terdapat perbedaan informasi antara portal ini dengan dokumen resmi yang diterbitkan langsung oleh Untan atau Kemendiktisaintek, maka <strong>dokumen resmi dari lembaga bersangkutan yang berlaku</strong>.
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="kp-section" id="s4">
+    <div class="kp-section-header">
+      <div class="kp-section-num">4</div>
+      <h2>Penggunaan Layanan Pihak Ketiga</h2>
+    </div>
+    <p>Portal ini menggunakan beberapa layanan pihak ketiga untuk menyampaikan informasi. Layanan tersebut memiliki kebijakan privasi masing-masing:</p>
+    <ul>
+      <li><strong>Google Drive & Google Docs</strong> — digunakan untuk menyimpan dan berbagi dokumen resmi (PDF, formulir, dll). Akses dokumen tunduk pada <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Kebijakan Privasi Google</a>.</li>
+      <li><strong>Google Forms</strong> — digunakan untuk formulir pengajuan layanan akademik. Data yang diisi pada Google Form tunduk pada <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Kebijakan Privasi Google</a> dan dikelola langsung oleh bagian akademik FMIPA Untan.</li>
+      <li><strong>Google Fonts</strong> — digunakan untuk memuat font tampilan portal. Google dapat mencatat permintaan font sesuai kebijakannya.</li>
+    </ul>
+    <div class="kp-warning">
+      Saat mengakses layanan eksternal seperti Bio Ijazah (<a href="https://xandria.pduntan.id" target="_blank" rel="noopener noreferrer">xandria.pduntan.id</a>) atau Satu UNTAN (<a href="https://satu.untan.ac.id" target="_blank" rel="noopener noreferrer">satu.untan.ac.id</a>), kamu meninggalkan portal ini dan tunduk pada kebijakan privasi platform tersebut masing-masing.
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="kp-section" id="s5">
+    <div class="kp-section-header">
+      <div class="kp-section-num">5</div>
+      <h2>Cookie dan Penyimpanan Browser</h2>
+    </div>
+    <p>Portal ini menggunakan <strong>localStorage</strong> (penyimpanan lokal browser) hanya untuk tujuan teknis berupa cache data konten portal (slider dan berita), sehingga halaman dapat dimuat lebih cepat.</p>
+    <ul>
+      <li>Data cache disimpan di perangkatmu sendiri, bukan di server kami</li>
+      <li>Cache secara otomatis kedaluwarsa dalam 5 menit</li>
+      <li>Cache tidak mengandung data pribadi, hanya konten publik portal (judul slide, teks berita)</li>
+      <li>Kamu dapat menghapus cache kapan saja melalui pengaturan browser</li>
+    </ul>
+    <p>Portal ini <strong>tidak menggunakan cookie pelacakan</strong>, cookie analitik pihak ketiga, atau teknologi pelacakan berbasis iklan.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="kp-section" id="s6">
+    <div class="kp-section-header">
+      <div class="kp-section-num">6</div>
+      <h2>Keamanan</h2>
+    </div>
+    <p>Meskipun portal ini tidak menyimpan data pribadi pengguna, kami menerapkan praktik keamanan standar untuk menjaga integritas informasi yang disampaikan:</p>
+    <ul>
+      <li>Koneksi HTTPS terenkripsi untuk semua halaman portal</li>
+      <li>Akses Admin Panel dilindungi autentikasi berbasis token JWT</li>
+      <li>Konten portal dikelola melalui sistem yang hanya dapat diakses oleh staf yang berwenang</li>
+    </ul>
+    <div class="kp-info">
+      Karena kami tidak menyimpan data pribadi pengguna, risiko kebocoran data pribadi dari portal ini bersifat minimal. Jika kamu menemukan kerentanan keamanan, silakan laporkan kepada tim kami melalui menu Kontak.
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="kp-section" id="s7">
+    <div class="kp-section-header">
+      <div class="kp-section-num">7</div>
+      <h2>Hak Pengguna</h2>
+    </div>
+    <p>Karena portal ini tidak mengumpulkan data pribadi, tidak ada data pribadi pengguna yang perlu diakses, diperbarui, atau dihapus dari sistem kami. Kamu menggunakan portal ini sepenuhnya sebagai pengunjung anonim.</p>
+    <p>Jika kamu memiliki pertanyaan terkait data yang mungkin tersimpan pada layanan pihak ketiga yang terhubung (seperti Google Forms atau Satu UNTAN), silakan hubungi bagian akademik FMIPA Untan secara langsung atau layanan terkait sesuai kebijakan privasi mereka.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="kp-section" id="s8">
+    <div class="kp-section-header">
+      <div class="kp-section-num">8</div>
+      <h2>Perubahan Kebijakan</h2>
+    </div>
+    <p>Kebijakan Privasi ini dapat diperbarui sewaktu-waktu seiring perkembangan portal. Setiap perubahan akan ditandai dengan pembaruan tanggal di bagian atas halaman ini. Kami menyarankan pengguna untuk meninjau halaman ini secara berkala.</p>
+    <p>Penggunaan portal setelah perubahan kebijakan dipublikasikan dianggap sebagai persetujuan terhadap kebijakan yang telah diperbarui.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="kp-section" id="s9">
+    <div class="kp-section-header">
+      <div class="kp-section-num">9</div>
+      <h2>Hubungi Kami</h2>
+    </div>
+    <p>Jika kamu memiliki pertanyaan, masukan, atau kekhawatiran terkait Kebijakan Privasi ini, kamu dapat menghubungi tim Akademik & Kemahasiswaan FMIPA Untan melalui menu <strong>Kontak</strong> yang tersedia di portal ini.</p>
+    <p>Tim kami aktif pada hari kerja, Senin – Jumat, pada jam kerja.</p>
+  </div>
+
+  <div class="kp-divider"></div>
+
+  <!-- CTA -->
+  <div class="kp-contact">
+    <h3>Ada pertanyaan?</h3>
+    <p>Hubungi staf akademik kami jika ada hal yang ingin kamu tanyakan seputar kebijakan ini atau layanan portal.</p>
+    <button class="kp-contact-btn" onclick="openKontakPopup()">📞 Hubungi Kami</button>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <div class="footer-texture"></div>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="brand">
+        <div class="logo-group">
+          <img src="assets/images/logologin.png" alt="Logo FMIPA UNTAN"/>
+        </div>
+        <div class="brand-text">
+          <span class="label">FMIPA Untan</span>
+          <span class="name">Akademik & Kemahasiswaan</span>
+        </div>
+      </a>
+      <p class="footer-desc">Portal Layanan Akademik dan Kemahasiswaan<br>Fakultas MIPA Universitas Tanjungpura</p>
+    </div>
+    <div class="footer-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="#" onclick="openLayananPopup(); return false;">Jenis Layanan</a></li>
+        <li><a href="https://xandria.pduntan.id/login" target="_blank" rel="noopener noreferrer">Bio Ijazah</a></li>
+        <li><a href="https://satu.untan.ac.id/gate/login" target="_blank" rel="noopener noreferrer">Satu UNTAN</a></li>
+        <li><a href="ceksurat.html">Cek Surat</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Bantuan</h5>
+      <ul>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="#" onclick="openKontakPopup(); return false;">Kontak</a></li>
+        <li><a href="kebijakan-privasi.html">Kebijakan Privasi</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>© 2026 <a href="https://www.instagram.com/kaum.surya/" target="_blank" rel="noopener noreferrer">Akademik &amp; Kemahasiswaan FMIPA Untan</a></span>
+    <span class="footer-badge">✨ Portal v3.0</span>
+  </div>
+</footer>
+
+<!-- Popup -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-inner" id="popupInner"></div>
+  <button class="popup-close" id="popupClose">✕</button>
+</div>
+
+<!-- Kontak Popup -->
+<div id="kt-overlay" class="kt-overlay">
+  <div class="kt-modal">
+    <div class="kt-header">
+      <div class="kt-header-icon">📞</div>
+      <div>
+        <div class="kt-header-title">Hubungi Kami</div>
+        <div class="kt-header-sub">Klik nama untuk chat WhatsApp</div>
+      </div>
+      <button class="kt-close" id="kt-close-btn">✕</button>
+    </div>
+    <div class="kt-list" id="kt-list"></div>
+    <div class="kt-footer">
+      <span class="kt-footer-note">Aktif pada jam kerja · Senin – Jumat</span>
+      <span class="kt-badge">WhatsApp</span>
+    </div>
+  </div>
+</div>
+<!-- ═══ LAYANAN POPUP ═════════════════════════════════════════════ -->
+<div class="lp-overlay" id="lp-overlay">
+  <div class="lp-modal">
+    <div class="lp-header">
+      <div class="lp-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="2" width="6" height="4" rx="1"/>
+          <path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/>
+          <line x1="8" y1="10" x2="16" y2="10"/>
+          <line x1="8" y1="14" x2="16" y2="14"/>
+          <line x1="8" y1="18" x2="12" y2="18"/>
+        </svg>
+      </div>
+      <div>
+        <div class="lp-header-title">Jenis Layanan Akademik</div>
+        <div class="lp-header-sub">Pilih formulir sesuai kebutuhan</div>
+      </div>
+      <button class="lp-close" onclick="closeLayananPopup()">✕</button>
+    </div>
+    <div class="lp-search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="lp-search" placeholder="Cari layanan..." oninput="lpFilter(this.value)"/>
+    </div>
+    <div class="lp-list" id="lp-list"></div>
+    <div class="lp-footer">
+      <span id="lp-count">7 layanan tersedia</span>
+      <span class="lp-badge">Google Form</span>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/entries/kebijakan-privasi.js"></script>
+</body>
+</html>

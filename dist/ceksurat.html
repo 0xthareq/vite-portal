@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Cek Surat – FMIPA UNTAN</title>
+
+  <!-- Font portal -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600&display=swap" rel="stylesheet"/>
+  <!-- Font scramble effect -->
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="/assets/logologin-jPekz-o_.png">
+
+  <!-- CSS Portal (urutan penting) -->  <!-- CSS khusus Cek Surat -->  <script type="module" crossorigin src="/assets/entry/ceksurat-C56Zanlm.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/chunks/modulepreload-polyfill-YP0FEG5d.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/layanan-popup-kBS-I_1f.js">
+  <link rel="stylesheet" crossorigin href="/assets/layanan-popup-gqr2OiI8.css">
+  <link rel="stylesheet" crossorigin href="/assets/ceksurat-C09T6yg5.css">
+</head>
+<body>
+
+<!-- ═══ HEADER PORTAL ════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="logo-group">
+        <img src="/assets/logo-untan-BA7O4QBw.png" alt="Logo FMIPA UNTAN"/>
+      </div>
+      <div class="logo-divider"></div>
+      <div class="brand-text">
+        <span class="label">FMIPA Untan</span>
+        <span class="name">Akademik & Kemahasiswaan</span>
+      </div>
+    </a>
+    <div class="header-spacer"></div>
+  <nav class="main-nav">
+  <a href="index.html">Beranda</a>
+
+  <!-- INFO PENTING -->
+  <div class="nav-item dropdown">
+    <span>Info Penting ▾</span>
+    <div class="dropdown-menu">
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=14HAQ4UAs_QiSS4Zg0e2M3q1CsHX7zGbX',
+          title:'Pedoman Akademik'
+          })">Pedoman Akademik</a>
+
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71',
+          title:'Kalender Akademik'
+          })">Kalender Akademik</a>
+      
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=1c093F5EznNhtH_48ZbrsTDRILkvxVBnM',
+          title:'Kode Etik Untan'
+          })">Kode Etik Untan</a>
+
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=1iE5rlnfnTdvad4svmKDW1QyZXXh7JRkD',
+          title:'Edaran PISN'
+          })">Edaran PISN</a>
+
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=10G0cmbmU1_Fjn3m1SRmLUIzJ3VEdRjK4',
+          title:'Perbaikan Data PDDIKTI'
+          })">Perbaikan Data PDDIKTI</a>
+
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=1fV2sJh5zzpKd65WZ5_2XY2woL0shd-GH',
+          title:'Prosedur Pengajuan Cuti'
+          })">Prosedur Pengajuan Cuti</a>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div class="nav-item dropdown">
+    <span>Download ▾</span>
+    <div class="dropdown-menu">
+      <a onclick="openPopup({
+          popupType:'pdf',
+          popupUrl:'https://drive.google.com/uc?export=download&id=1mNeuaIv-AsfNzMgqRului4uO5otE6Vbg',
+          title:'Akreditasi UNTAN'
+          })">Akreditasi UNTAN</a>
+      <a href="https://docs.google.com/document/d/1QQFK0vpB2VYwZN9XRjxiJWRfck6HUCTu/edit" 
+      target="_blank" rel="noopener noreferrer">Draft Syarat Sidang</a>
+      <a href="https://docs.google.com/document/d/10O5ifI5A3WheOjYs9ZWEKtOAe9NsoB7r/edit" 
+      target="_blank" rel="noopener noreferrer">Draft Bebas Laboratorium</a>
+    </div>
+  </div>
+
+<!--Ceksurat-->
+ <a href="ceksurat.html" class="active">Cek Surat</a> 
+<!--Kontak-->  
+  <a onclick="openKontakPopup()" style="cursor:pointer">Kontak</a>
+</nav>
+
+    <!-- Hamburger (mobile) -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav drawer -->
+ <div class="mobile-nav" id="mobileNav">
+
+  <a href="index.html">Beranda</a>
+
+  <!-- INFO PENTING -->
+  <div class="mobile-dropdown">
+    <div class="mobile-title">Info Penting</div>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=14HAQ4UAs_QiSS4Zg0e2M3q1CsHX7zGbX',
+      title:'Pedoman Akademik'
+    })">Pedoman Akademik</a>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71',
+      title:'Kalender Akademik'
+    })">Kalender Akademik</a>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=1c093F5EznNhtH_48ZbrsTDRILkvxVBnM',
+      title:'Kode Etik Untan'
+    })">Kode Etik Untan</a>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=1iE5rlnfnTdvad4svmKDW1QyZXXh7JRkD',
+      title:'Edaran PISN'
+    })">Edaran PISN</a>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=10G0cmbmU1_Fjn3m1SRmLUIzJ3VEdRjK4',
+      title:'Perbaikan Data PDDIKTI'
+    })">Perbaikan Data PDDIKTI</a>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=1fV2sJh5zzpKd65WZ5_2XY2woL0shd-GH',
+      title:'Prosedur Pengajuan Cuti'
+    })">Prosedur Pengajuan Cuti</a>
+
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div class="mobile-dropdown">
+    <div class="mobile-title">Download</div>
+
+    <a onclick="openPopup({
+      popupType:'pdf',
+      popupUrl:'https://drive.google.com/uc?export=download&id=1mNeuaIv-AsfNzMgqRului4uO5otE6Vbg',
+      title:'Akreditasi UNTAN'
+    })">Akreditasi UNTAN</a>
+
+    <a href="https://docs.google.com/document/d/1QQFK0vpB2VYwZN9XRjxiJWRfck6HUCTu/edit"
+       target="_blank" rel="noopener noreferrer">
+       Draft Syarat Sidang
+    </a>
+
+    <a href="https://docs.google.com/document/d/10O5ifI5A3WheOjYs9ZWEKtOAe9NsoB7r/edit"
+       target="_blank" rel="noopener noreferrer">
+       Draft Bebas Laboratorium
+    </a>
+
+  </div>
+  <!-- Menu lain di mobile-->
+  <a href="ceksurat.html">Cek Surat</a>
+  <a onclick="openKontakPopup()" style="cursor:pointer">Kontak</a>
+</div>
+</header>
+
+<!-- ═══ BACKGROUND PARTIKEL (canvas) ═════════════════════════════ -->
+<canvas id="pixelCanvas"></canvas>
+
+<!-- ═══ HERO CARD SCRAMBLE ════════════════════════════════════════ -->
+<div class="cs-card-container">
+  <div class="cs-cyber-card" id="tilt-card">
+    <div class="cs-judul-container">
+      <div id="linesurat"  class="cs-judul-surat">Cek Status</div>
+      <div id="linesurat2" class="cs-judul-surat">Surat Mahasiswa</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SEARCH FORM ═══════════════════════════════════════════════ -->
+<div class="cs-search-wrapper">
+  <div class="cs-search-card">
+    <h2 class="cs-search-title">Cari Status Surat Kamu</h2>
+    <p class="cs-search-sub" id="searchSub">Masukkan nama atau NIM dan pilih jenis surat</p>
+
+    <div class="cs-search-row">
+      <input
+        type="text"
+        id="searchInput"
+        class="cs-search-input"
+        placeholder="Nama atau NIM..."
+        autocomplete="off"
+      />
+      <select id="himpunanSelect" class="cs-search-input" style="display:none">
+        <option value="" selected disabled>Pilih Nama Himpunan</option>
+        <option value="HIMATIKA">HIMATIKA – Himpunan Mahasiswa Matematika</option>
+        <option value="HIMABIO">HIMABIO – Himpunan Mahasiswa Biologi</option>
+        <option value="HIMAFIS">HIMAFIS – Himpunan Mahasiswa Fisika</option>
+        <option value="HMG">HMG – Himpunan Mahasiswa Geofisika</option>
+        <option value="HIMASTA">HIMASTA – Himpunan Mahasiswa Statistika</option>
+        <option value="KOMIK">KOMIK – Komunitas Mahasiswa Kristen</option>
+        <option value="Art Laboratory">Art Laboratory</option>
+        <option value="MSI">MSI – MIPA Science Institute</option>
+        <option value="HIMASTER">HIMASTER – Himpunan Mahasiswa Sistem Komputer</option>
+        <option value="HIMKI">HIMKI – Himpunan Mahasiswa Kimia</option>
+        <option value="HMIK">HMIK – Himpunan Mahasiswa Ilmu Kelautan</option>
+        <option value="HMSI">HMSI – Himpunan Mahasiswa Sistem Informasi</option>
+        <option value="FIKRI">FIKRI – Forum Keluarga Mahasiswa Islam</option>
+        <option value="IMASIKA">IMASIKA – Ikatan Mahasiswa Katolik</option>
+        <option value="BEM">BEM – Badan Eksekutif Mahasiswa</option>
+        <option value="DPM">DPM – Dewan Perwakilan Mahasiswa</option>
+      </select>
+      <select id="jenisSurat" class="cs-search-select">
+        <option value="" selected disabled>Pilih Jenis Surat</option>
+        <option value="aktif_kuliah">Surat Aktif Kuliah</option>
+        <option value="ket_lulus">Surat Keterangan Lulus</option>
+        <option value="cuti_kuliah">Surat Cuti Kuliah</option>
+        <option value="undur_diri">Surat Pengunduran Diri</option>
+        <option value="pindah_kuliah">Surat Pindah Kuliah</option>
+        <option value="izin_kegiatan">Surat Izin Kegiatan</option>
+      </select>
+      <button class="cs-search-btn" onclick="cariSurat()">
+        <span>🔍</span> Cari
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ KONTAK IZIN KEGIATAN (muncul saat izin_kegiatan dipilih) ═══ -->
+<div id="kontakKegiatan" style="display:none; margin: 12px auto; max-width: 860px; padding: 0 16px;">
+  <div style="background:#fffbeb; border:1px solid #fcd34d; border-radius:12px; padding:14px 18px; font-size:14px; color:#78350f; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+    <span style="font-size:20px;">📞</span>
+    <span id="kontakKegiatanText">Jika surat belum terdaftar atau butuh konfirmasi, silakan hubungi PIC di Menu <strong>Kontak</strong>.</span>
+  </div>
+</div>
+
+<!-- ═══ HASIL PENCARIAN ═══════════════════════════════════════════ -->
+<div id="hasil" class="cs-hasil-wrapper"></div>
+
+<!-- ═══ QR MODAL ══════════════════════════════════════════════════ -->
+<div id="qrModal" class="cs-qr-modal">
+  <div class="cs-qr-content">
+    <div class="cs-qr-header">
+      <span class="cs-qr-icon">📄</span>
+      <h3 class="cs-qr-title">Scan QR untuk membuka file</h3>
+    </div>
+    <img id="qrImage" class="cs-qr-image" src="" alt="QR Code"/>
+    <p class="cs-qr-note">Arahkan kamera HP ke QR code di atas</p>
+    <a id="qrDownloadBtn" href="#" target="_blank" rel="noopener"
+       class="cs-qr-download">
+      ⬇️ Download File
+    </a>
+    <button class="cs-qr-close" onclick="closeQR()">✕ Tutup</button>
+  </div>
+</div>
+
+<!-- ═══ FOOTER PORTAL ═════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <div class="footer-texture"></div>
+  <div class="footer-top">
+    <!-- Brand column -->
+    <div class="footer-brand">
+      <a href="index.html" class="brand">
+        <div class="logo-group">
+          <img src="/assets/logologin-jPekz-o_.png" alt="Logo FMIPA UNTAN"/>
+        </div>
+        <div class="brand-text">
+          <span class="label">FMIPA Untan</span>
+          <span class="name">Akademik & Kemahasiswaan</span>
+        </div>
+      </a>
+      <p class="footer-desc">Portal Layanan Akademik dan Kemahasiswaan<br>Fakultas MIPA Universitas Tanjungpura</p>
+    </div>
+
+    <!-- Layanan -->
+    <div class="footer-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="#" onclick="openLayananPopup(); return false;">Jenis Layanan</a></li>
+        <li><a href="https://xandria.pduntan.id/login" target="_blank" rel="noopener noreferrer">Bio Ijazah</a></li>
+        <li><a href="https://satu.untan.ac.id/gate/login" target="_blank" rel="noopener noreferrer">Satu UNTAN</a></li>
+        <li><a href="ceksurat.html">Cek Surat</a></li>
+      </ul>
+    </div>
+
+    <!-- Bantuan -->
+    <div class="footer-col">
+      <h5>Bantuan</h5>
+      <ul>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="#" onclick="openKontakPopup(); return false;">Kontak</a></li>
+        <li><a href="kebijakan-privasi.html">Kebijakan Privasi</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-bottom">
+    <span>© 2026 <a href="https://www.instagram.com/kaum.surya/" target="_blank" rel="noopener noreferrer">Akademik &amp; Kemahasiswaan FMIPA Untan</a></span>
+    <span class="footer-badge">✨ Portal v3.0</span>
+  </div>
+</footer>
+
+<!-- ═══ POPUP ════════════════════════════════════════ -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-inner" id="popupInner"></div>
+  <button class="popup-close" id="popupClose">✕</button>
+</div>
+
+<!-- ═══ Popup Kontak ═══════════════════════════════════ -->
+<div id="kt-overlay" class="kt-overlay">
+  <div class="kt-modal">
+    <div class="kt-header">
+      <div class="kt-header-icon">📞</div>
+      <div>
+        <div class="kt-header-title">Hubungi Kami</div>
+        <div class="kt-header-sub">Klik nama untuk chat WhatsApp</div>
+      </div>
+      <button class="kt-close" id="kt-close-btn">✕</button>
+    </div>
+    <div class="kt-list" id="kt-list"></div>
+    <div class="kt-footer">
+      <span class="kt-footer-note">
+        Aktif pada jam kerja · Senin – Jumat
+      </span>
+      <span class="kt-badge">WhatsApp</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Popup Layanan ════════════════════════════════════════════ -->
+<div class="lp-overlay" id="lp-overlay">
+  <div class="lp-modal">
+    <div class="lp-header">
+      <div class="lp-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="2" width="6" height="4" rx="1"/>
+          <path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/>
+          <line x1="8" y1="10" x2="16" y2="10"/>
+          <line x1="8" y1="14" x2="16" y2="14"/>
+          <line x1="8" y1="18" x2="12" y2="18"/>
+        </svg>
+      </div>
+      <div>
+        <div class="lp-header-title">Jenis Layanan Akademik</div>
+        <div class="lp-header-sub">Pilih formulir sesuai kebutuhan</div>
+      </div>
+      <button class="lp-close" onclick="closeLayananPopup()">✕</button>
+    </div>
+    <div class="lp-search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="lp-search" placeholder="Cari layanan..." oninput="lpFilter(this.value)"/>
+    </div>
+    <div class="lp-list" id="lp-list"></div>
+    <div class="lp-footer">
+      <span id="lp-count">7 layanan tersedia</span>
+      <span class="lp-badge">Google Form</span>
+    </div>
+  </div>
+</div>
+
+<!-- JS kontak --><!-- JS Portal (hamburger) --><!-- JS Khusus Cek Surat -->
+<!-- Partikel kuning (background) -->
+<script>
+(function() {
+  const canvas = document.getElementById('pixelCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = [
+    [255,255,180],[255,240,140],[255,230,100],[255,210,60]
+  ];
+  const pixels = Array.from({ length: 120 }, () => {
+    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 2,
+      vx: (Math.random() - .5) * .25,
+      vy: (Math.random() - .5) * .25,
+      a: Math.random() * .18 + .08,
+      c
+    };
+  });
+
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pixels.forEach(p => {
+      ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+      p.x = (p.x + p.vx + canvas.width)  % canvas.width;
+      p.y = (p.y + p.vy + canvas.height) % canvas.height;
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+
+</body>
+</html>

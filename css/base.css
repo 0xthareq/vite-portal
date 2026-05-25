@@ -1,0 +1,53 @@
+/*
+ * base.css — Lens.xyz inspired: clean, minimal, fast
+ * No backdrop-filter, no heavy GPU effects
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue:          #2589e9;
+  --blue-dark:     #1a6cc9;
+  --blue-soft:     #eff6ff;
+  --primary:       #2589e9;
+  --primary-dark:  #1a6cc9;
+  --primary-light: #5aaaf0;
+
+  --bg:            #ffffff;
+  --bg-subtle:     #f9fafb;
+  --surface:       #ffffff;
+
+  --text:          #111827;
+  --text-muted:    #6b7280;
+  --text-light:    #9ca3af;
+
+  --border:        #e5e7eb;
+  --border-soft:   #f3f4f6;
+
+  --radius:        14px;
+  --radius-sm:     8px;
+  --radius-lg:     20px;
+
+  /* Diagonal line texture — like Lens.xyz */
+  --diag-lines: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 18px,
+    rgba(0,0,0,0.032) 18px,
+    rgba(0,0,0,0.032) 19px
+  );
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
