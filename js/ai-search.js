@@ -256,7 +256,7 @@ async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) 
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
         'HTTP-Referer': window.location.origin,
-        'X-Title': 'Asmanisa AI — FMIPA Untan'
+        'X-Title': 'Asmanisa AI - FMIPA Untan'
       },
       body: JSON.stringify({
         model: AI_MODEL,
