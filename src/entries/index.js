@@ -24,6 +24,7 @@ import '../../css/footer.css'
 import '../../css/chatbot.css'
 import '../../css/layanan-popup.css'
 import '../../css/kontak.css'
+import '../../css/ai-search.css'
 
 // ═══ JS lainnya ═══
 import '../../js/kontak.js'
@@ -35,3 +36,4 @@ import '../../js/kb.js'
 import '../../js/chatbot.js'
 import '../../js/app.js'
 import '../../js/layanan-popup.js'
+import '../../js/ai-search.js'

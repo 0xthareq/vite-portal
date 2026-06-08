@@ -12,6 +12,8 @@
   <link rel="modulepreload" crossorigin href="/assets/chunks/layanan-popup-kBS-I_1f.js">
   <link rel="stylesheet" crossorigin href="/assets/layanan-popup-gqr2OiI8.css">
   <link rel="stylesheet" crossorigin href="/assets/index-BmYHdIt-.css">
+  <!-- AI Search Bar -->
+  <link rel="stylesheet" href="/assets/ai-search.css">
 </head>
 <body>
 
@@ -193,6 +195,62 @@
 </div>
 </header>
 <!-- ══════════════════════════════════════════════════════════════════ -->
+
+
+<!-- ═══ AI SEARCH STRIP ══════════════════════════════════════════ -->
+<div class="ai-search-strip" id="aiSearchStrip">
+  <div class="ai-search-inner">
+
+    <!-- Label kecil -->
+    <div class="ai-search-label">
+      <span class="ai-search-label-dot"></span>
+      AI FMIPA · Tanya apa saja
+    </div>
+
+    <!-- Form pencarian -->
+    <div class="ai-search-form">
+      <svg class="ai-star-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L14.09 8.26L21 9.27L16.5 13.64L17.64 20.54L12 17.5L6.36 20.54L7.5 13.64L3 9.27L9.91 8.26L12 2Z"
+          fill="currentColor" opacity="0.2"/>
+        <path d="M12 2L14.09 8.26L21 9.27L16.5 13.64L17.64 20.54L12 17.5L6.36 20.54L7.5 13.64L3 9.27L9.91 8.26L12 2Z"
+          stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <input type="text" class="ai-search-input" id="aiSearchInput"
+        placeholder="Tanyakan apa saja tentang FMIPA Untan... (contoh: Kapan jadwal UAS? Kapan Yudisium?)"
+        autocomplete="off" spellcheck="false"/>
+      <button class="ai-search-btn" id="aiSearchBtn" aria-label="Kirim pertanyaan ke AI">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        <span class="ai-btn-text">Tanya</span>
+      </button>
+    </div>
+
+    <!-- Quick chips -->
+    <div class="ai-chips">
+      <button class="ai-chip" data-query="Kapan jadwal Yudisium FMIPA Untan?">📅 Kapan Yudisium?</button>
+      <button class="ai-chip" data-query="Apa saja syarat pendaftaran wisuda FMIPA Untan?">🎓 Syarat Wisuda</button>
+      <button class="ai-chip" data-query="Berapa jam layanan akademik FMIPA Untan?">⏰ Jam Layanan</button>
+      <button class="ai-chip" data-query="Bagaimana cara mengecek status surat di portal FMIPA?">📄 Cara Cek Surat</button>
+      <button class="ai-chip" data-query="Informasi jadwal UAS semester genap FMIPA Untan">🏫 Jadwal UAS</button>
+      <button class="ai-chip" data-query="Informasi beasiswa yang tersedia untuk mahasiswa FMIPA Untan">💰 Info Beasiswa</button>
+    </div>
+
+    <!-- Panel respons AI -->
+    <div class="ai-response-panel" id="aiResponsePanel">
+      <div class="ai-response-header">
+        <div class="ai-response-avatar">✦</div>
+        <div class="ai-response-name">Asmanisa AI &nbsp;<span>· FMIPA Untan</span></div>
+        <button class="ai-response-close" id="aiResponseClose" title="Tutup jawaban">✕</button>
+      </div>
+      <div class="ai-response-body" id="aiResponseBody"></div>
+    </div>
+
+  </div>
+</div>
+<!-- ════════════════════════════════════════════════════════════════ -->
 
 
 <!-- ═══ DUAL SLIDER ════════════════════════════════ -->
@@ -431,5 +489,6 @@
 </div>
 
 <!-- JS — urutan load penting! -->
+<script src="/assets/ai-search.js" defer></script>
 </body>
 </html>
