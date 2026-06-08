@@ -5,7 +5,7 @@
  */
 
 const { requireAuth } = require('./_auth-middleware');
-const DATA_PATH = 'data/portal-data.json';
+const DATA_PATH = 'public/data/portal-data.json';
 
 module.exports = async function handler(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
