@@ -33,7 +33,7 @@ module.exports = async function handler(req, res) {
     'X-GitHub-Api-Version': '2022-11-28'
   };
 
-  // ── GET — publik, tidak perlu auth ──────────────────────────
+  // ── GET ──────────────────────────────────────────────────────
   if (req.method === 'GET') {
     try {
       const ghRes = await fetch(apiUrl, { headers: ghHeaders });
@@ -42,17 +42,39 @@ module.exports = async function handler(req, res) {
       }
       if (!ghRes.ok) return res.status(500).json({ error: 'Gagal baca data dari GitHub' });
 
-      const file    = await ghRes.json();
-      const decoded = Buffer.from(file.content, 'base64').toString('utf-8');
-      return res.status(200).json(JSON.parse(decoded));
+      const file = await ghRes.json();
+
+      // Decode base64 → Buffer (handle UTF-16 LE & UTF-8)
+      const buf = Buffer.from(file.content, 'base64');
+
+      let str;
+      // Cek BOM UTF-16 LE: FF FE
+      if (buf[0] === 0xFF && buf[1] === 0xFE) {
+        str = buf.slice(2).toString('utf16le');
+      }
+      // Cek BOM UTF-16 BE: FE FF
+      else if (buf[0] === 0xFE && buf[1] === 0xFF) {
+        str = buf.slice(2).swap16().toString('utf16le');
+      }
+      // Cek BOM UTF-8: EF BB BF
+      else if (buf[0] === 0xEF && buf[1] === 0xBB && buf[2] === 0xBF) {
+        str = buf.slice(3).toString('utf-8');
+      }
+      else {
+        str = buf.toString('utf-8');
+      }
+
+      // Bersihkan CRLF dan whitespace
+      str = str.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+
+      return res.status(200).json(JSON.parse(str));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
   }
 
-  // ── POST — wajib auth ────────────────────────────────────────
+  // ── POST ─────────────────────────────────────────────────────
   if (req.method === 'POST') {
-    // 🔒 Auth guard
     if (!requireAuth(req, res)) return;
 
     try {
@@ -64,7 +86,8 @@ module.exports = async function handler(req, res) {
       if (checkRes.ok) { sha = (await checkRes.json()).sha; }
 
       const data = { slides, news, updatedAt: new Date().toISOString() };
-      const base64Content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
+      // Selalu simpan sebagai UTF-8 murni tanpa BOM
+      const base64Content = Buffer.from(JSON.stringify(data, null, 2), 'utf-8').toString('base64');
 
       const saveRes = await fetch(apiUrl, {
         method: 'PUT',

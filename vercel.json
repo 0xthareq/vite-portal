@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/admin",  "destination": "/admin/login.html", "permanent": false },
     { "source": "/admin/", "destination": "/admin/login.html", "permanent": false }
