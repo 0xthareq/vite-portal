@@ -20,7 +20,7 @@
 const AI_SEARCH_API_KEY = 'REMOVED';
 // ═══════════════════════════════════════════════════════════════════
 
-const AI_MODEL   = 'moonshotai/kimi-k2.6:free';
+const AI_MODEL   = 'llama-3.1-nemotron-ultra-253b-v1:free';
 const AI_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 /* ────────────────────────────────────────────────────────────────
