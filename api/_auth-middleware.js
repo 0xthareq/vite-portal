@@ -1,14 +1,4 @@
-/**
- * _auth-middleware.js — helper internal (tidak di-expose ke web)
- * Diimpor oleh api/save-data.js, api/upload-*.js
- *
- * Cara pakai:
- *   const { requireAuth } = require('./_auth-middleware');
- *   module.exports = async (req, res) => {
- *     if (!requireAuth(req, res)) return;
- *     // ... logic
- *   };
- */
+
 
 const crypto = require('crypto');
 

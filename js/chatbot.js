@@ -1,17 +1,3 @@
-/**
- * chatbot.js  —  Asmanisa (Client-Side Edition)
- * ─────────────────────────────────────────────────────────────────
- * Zero API. Zero server. Bekerja 100% di browser.
- * Semua jawaban dibaca dari js/kb.js
- *
- * Fitur:
- *   - Keyword matching engine (dari kb.js)
- *   - Animasi typing indicator (... bergerak)
- *   - Typewriter effect: teks muncul karakter per karakter
- *   - Jeda tanda baca: lebih lama di titik/seru/tanya
- *   - Avatar menggunakan foto (assets/images/asmanisa.jpg)
- * ─────────────────────────────────────────────────────────────────
- */
 
 /* ── State ── */
 let chatOpen = false;

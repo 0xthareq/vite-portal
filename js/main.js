@@ -1,6 +1,4 @@
-/**
- * Portal Informasi v3 – Frontend JS (Fixed PDF Viewer)
- */
+
 
 const sliderState = { 1:{current:0,total:0}, 2:{current:0,total:0} };
 let autoTimers = [];

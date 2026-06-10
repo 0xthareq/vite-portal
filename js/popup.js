@@ -1,13 +1,4 @@
-/**
- * popup.js — Popup untuk slide (image/pdf)
- *
- * FIXES:
- *  - Image popup sekarang punya tombol ← → untuk navigasi antar slide
- *  - Terima parameter (slide, allSlides, index) dari slider.js
- *  - FIX: renderImagePopup sekarang bisa handle slide PDF saat navigasi arrow
- */
 
-/* ─── State popup image slideshow ─────────────────────────────── */
 let _popupGroup = [];
 let _popupIdx   = 0;
 

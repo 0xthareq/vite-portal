@@ -1,8 +1,3 @@
-/**
- * /api/save-data.js — Vercel Serverless Function
- * GET  → baca data portal-data.json dari GitHub (publik)
- * POST → simpan data (✅ Dilindungi: wajib Bearer token)
- */
 
 const { requireAuth } = require('./_auth-middleware');
 const DATA_PATH = 'public/data/portal-data.json';

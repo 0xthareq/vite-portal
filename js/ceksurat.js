@@ -1,10 +1,7 @@
 const SCRAMBLE_CHARS = "█▓▒░#@$%&*+=?ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const SCRAMBLE_DELAY = 2000;
 
-/**
- * Format tanggal dari berbagai format ke bahasa Indonesia
- * Handles: ISO string, "Sabtu, 9 Mei 2026", dll
- */
+
 function formatTanggal(val) {
   if (!val) return "–";
   // Sudah dalam format Indonesia

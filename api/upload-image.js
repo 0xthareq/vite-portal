@@ -1,9 +1,4 @@
-/**
- * /api/upload-image.js — Vercel Serverless Function
- * Upload gambar ke GitHub, kembalikan URL via proxy /api/get-file
- * ✅ Dilindungi: Wajib Bearer token dari /api/auth
- * ✅ Mendukung repo PRIVATE
- */
+
 
 const { requireAuth } = require('./_auth-middleware');
 

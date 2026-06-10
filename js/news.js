@@ -1,19 +1,4 @@
-/**
- * news.js — Build daftar berita di frontend.
- * Mendukung field pdfLink opsional → popup PDF (bukan new tab).
- *
- * FIX: Google Drive URL kini dikonversi ke /preview (embed native),
- *      sehingga tidak lagi menampilkan HTML mentah di iframe.
- */
 
-/**
- * Konversi berbagai format URL Google Drive ke URL embed /preview.
- * Format yang didukung:
- *   https://drive.google.com/file/d/FILE_ID/view?...
- *   https://drive.google.com/file/d/FILE_ID/edit
- *   https://drive.google.com/open?id=FILE_ID
- *   https://drive.google.com/uc?id=FILE_ID&export=...
- */
 function toGDriveEmbedUrl(url) {
   try {
     // Sudah format preview → kembalikan apa adanya

@@ -1,18 +1,4 @@
-/**
- * /api/auth.js — Vercel Serverless Auth Function
- *
- * POST /api/auth        → login, returns signed token
- * GET  /api/auth        → verify token, returns session info
- *
- * Env variables yang WAJIB diset di Vercel Dashboard:
- *   ADMIN_USERNAME        → username admin
- *   ADMIN_PASSWORD_HASH   → SHA-256 hex dari password (lowercase)
- *   SESSION_SECRET        → string random panjang (min 32 karakter)
- *
- * Cara buat hash: di browser console →
- *   crypto.subtle.digest('SHA-256', new TextEncoder().encode('passwordmu'))
- *     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
- */
+
 
 const crypto = require('crypto');
 

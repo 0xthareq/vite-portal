@@ -1,7 +1,4 @@
-/**
- * Portal Informasi v3 – Admin JS
- * Upload file ke GitHub via Vercel Serverless Functions
- */
+
 
 let slides = [];
 let news   = [];

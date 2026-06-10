@@ -1,12 +1,4 @@
-/**
- * kb.js — Knowledge Base Asmanisa
- * ─────────────────────────────────────────────────────────────────
- * Cara update konten:
- *   1. Tambah/ubah `patterns` → kata kunci yang memicu jawaban ini
- *   2. Ubah `answer`          → isi jawaban (boleh pakai HTML)
- *   3. Tambah item baru       → salin salah satu blok, ubah id/patterns/answer
- * ─────────────────────────────────────────────────────────────────
- */
+
 
 const ASMANISA_KB = [
 

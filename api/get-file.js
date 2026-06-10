@@ -1,10 +1,4 @@
-/**
- * /api/get-file.js — Vercel Serverless Function
- * Proxy file dari private GitHub repo (gambar & PDF).
- * Tidak perlu auth — hanya membaca file yang sudah tersimpan di repo.
- *
- * Penggunaan: GET /api/get-file?path=assets/images/nama-file.jpg
- */
+
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {

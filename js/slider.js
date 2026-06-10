@@ -1,11 +1,4 @@
-/**
- * slider.js — Infinite loop slider dengan pause on hover,
- * restart delay setelah klik manual, dan stagger start.
- *
- * FIXES:
- *  - White flash: tambah loading placeholder + inline bg-cover on slide-bg
- *  - Popup navigasi: kirim (group, index) ke openPopup untuk image slides
- */
+
 
 const sliderState = {
   1: { current: 1, total: 0 },

@@ -1,9 +1,4 @@
-/**
- * layanan-popup.js
- * ─────────────────────────────────────────────
- * Popup daftar Google Form untuk kartu
- * "Jenis Layanan" di halaman utama
- */
+
 
 const LAYANAN_DATA = [
   {

@@ -1,9 +1,4 @@
-/**
- * header.js
- * Glassmorphism header dengan scroll shrink ke floating pill
- */
 
-// ── Scroll: tambah/hapus class .scrolled ──
 (function initScrollHeader() {
   const header = document.querySelector('header');
   if (!header) return;
