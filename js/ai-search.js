@@ -1,6 +1,6 @@
 
 // ═══════════════════════════════════════════════════════════════════
-const AI_SEARCH_API_KEY = 'REMOVED';
+const AI_SEARCH_API_KEY = '';
 // ═══════════════════════════════════════════════════════════════════
 
 const AI_MODEL   = 'nvidia/nemotron-3-ultra-550b-a55b:free';
@@ -294,10 +294,7 @@ async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) 
   }
 }
 
-/* ────────────────────────────────────────────────────────────────
-   FORMAT MARKDOWN SEDERHANA → HTML
-   Mendukung: **bold**, *italic*, [link](url), bullet (•/-/*)
-   ──────────────────────────────────────────────────────────────── */
+
 function formatAIResponse(rawText) {
   let html = rawText
     // Escape < > untuk keamanan (kecuali tag link yang kita buat sendiri)
