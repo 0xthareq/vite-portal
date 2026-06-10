@@ -1,21 +1,4 @@
-/**
- * ai-search.js — AI Question Strip untuk Portal FMIPA UNTAN
- * ─────────────────────────────────────────────────────────────────
- * Model   : moonshotai/kimi-k2.6:free (OpenRouter)
- * Metode  : RAG (Retrieval-Augmented Generation)
- *           Konteks dibangun dari:
- *             1. portal-data.json (berita & slide terkini)
- *             2. ASMANISA_KB dari kb.js
- *             3. Data statis FMIPA Untan (hardcoded)
- *             4. Referensi eksternal: SEKAR, mipa.untan.ac.id,
- *                untan.ac.id, kemendiktisaintek.go.id
- * Ruang   : Kampus & akademik FMIPA Untan + percakapan ringan.
- *           Politik, SARA, kata kasar, konten jorok: DILARANG.
- * ─────────────────────────────────────────────────────────────────
- */
 
-// ═══════════════════════════════════════════════════════════════════
-//  ↓↓↓ MASUKKAN API KEY OPENROUTER KAMU DI SINI ↓↓↓
 // ═══════════════════════════════════════════════════════════════════
 const AI_SEARCH_API_KEY = 'REMOVED';
 // ═══════════════════════════════════════════════════════════════════
