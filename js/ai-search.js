@@ -1,10 +1,10 @@
 
 // ═══════════════════════════════════════════════════════════════════
-const AI_SEARCH_API_KEY = '';
+// API key disimpan aman di Vercel ENV — tidak pernah ada di sini.
+// Semua request AI dikirim ke /api/ai-chat (serverless proxy).
 // ═══════════════════════════════════════════════════════════════════
 
-const AI_MODEL   = 'nvidia/nemotron-3-ultra-550b-a55b:free';
-const AI_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const AI_PROXY_URL = '/api/ai-chat';
 
 /* ────────────────────────────────────────────────────────────────
    KONTEKS STATIS FMIPA UNTAN (RAG — Sumber 1)
@@ -225,31 +225,14 @@ dan arahkan ke sumber yang tepat. Tetap jaga kepribadian ramah dan menyenangkan!
    OPENROUTER API — STREAMING
    ──────────────────────────────────────────────────────────────── */
 async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) {
-  const apiKey = AI_SEARCH_API_KEY;
-
-  if (!apiKey || apiKey.startsWith('MASUKKAN')) {
-    onError('API Key belum dikonfigurasi. Buka file <code>js/ai-search.js</code> dan isi variabel <code>AI_SEARCH_API_KEY</code> dengan API key OpenRouter-mu.');
-    return;
-  }
-
   try {
-    const response = await fetch(AI_API_URL, {
+    // Kirim ke proxy serverless — API key aman di server Vercel
+    const response = await fetch(AI_PROXY_URL, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'Asmanisa AI - FMIPA Untan'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: AI_MODEL,
-        stream: true,
-        max_tokens: 1024,
-        temperature: 0.5,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user',   content: question    }
-        ]
+        systemPrompt,
+        messages: [{ role: 'user', content: question }]
       })
     });
 
@@ -509,19 +492,6 @@ function initAISearch() {
   // (agar respons pertama lebih cepat)
   getPortalContext().catch(() => {});
 
-  // ── Notifikasi jika API key belum diset ──
-  if (!AI_SEARCH_API_KEY || AI_SEARCH_API_KEY.startsWith('MASUKKAN')) {
-    const strip = document.querySelector('.ai-search-inner');
-    if (strip) {
-      const notice = document.createElement('div');
-      notice.className = 'ai-no-key-notice';
-      notice.innerHTML =
-        '⚙️ <div><strong>Setup diperlukan:</strong> ' +
-        'Buka file <code>js/ai-search.js</code>, isi variabel ' +
-        '<code>AI_SEARCH_API_KEY</code> dengan API key OpenRouter-mu, lalu simpan.</div>';
-      strip.appendChild(notice);
-    }
-  }
 }
 
 // Jalankan setelah DOM siap
