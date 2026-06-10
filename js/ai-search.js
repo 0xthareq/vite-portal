@@ -1,10 +1,18 @@
 
 // ═══════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
 const AI_SEARCH_API_KEY = 'REMOVED';
+=======
+//  ↓↓↓ MASUKKAN API KEY OPENROUTER KAMU DI SINI ↓↓↓
+// ═══════════════════════════════════════════════════════════════════
+const AI_SEARCH_API_KEY = 'castai_v1_83535d9c713badfcac91d739ccb11a1d51b8e773229b35c6517b40b2fbf2a5a8_a7e0e558';
+
+// const AI_SEARCH_API_KEY = 'REMOVED';
+>>>>>>> 79cac86a45f18821d8b7b0541803636e07540e18
 // ═══════════════════════════════════════════════════════════════════
 
-const AI_MODEL   = 'nvidia/nemotron-3-ultra-550b-a55b:free';
-const AI_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const AI_MODEL   = 'kimi-k2.6';
+const AI_API_URL = 'https://llm.kimchi.dev/openai/v1/chat/completions';
 
 /* ────────────────────────────────────────────────────────────────
    KONTEKS STATIS FMIPA UNTAN (RAG — Sumber 1)
