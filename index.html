@@ -216,56 +216,61 @@
 <div class="ai-chat-strip" id="aiChatStrip">
   <div class="ai-chat-inner">
 
-    <!-- Header label -->
-    <div class="ai-chat-header">
+    <!-- Header bar — klik untuk collapse/expand -->
+    <div class="ai-chat-headerbar" id="aiChatHeaderBar" title="Klik untuk minimize/buka chat">
       <span class="ai-chat-dot"></span>
       <span class="ai-chat-title">AI FMIPA · Asmanisa — Tanya apa saja</span>
+      <button class="ai-chat-collapse-btn" id="aiChatCollapse" title="Minimize chat" onclick="event.stopPropagation()">−</button>
     </div>
 
-    <!-- Log percakapan -->
-    <div class="ai-chat-log" id="aiChatLog">
-      <!-- Welcome screen (hilang saat chat pertama) -->
-      <div class="ai-chat-welcome" id="aiChatWelcome">
-        <div class="ai-chat-welcome-icon">
-          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
+    <!-- Body (disembunyikan saat collapsed) -->
+    <div class="ai-chat-body" id="aiChatBody">
+
+      <!-- Log percakapan -->
+      <div class="ai-chat-log" id="aiChatLog">
+        <div class="ai-chat-welcome" id="aiChatWelcome">
+          <div class="ai-chat-welcome-icon">
+            <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
+          </div>
+          <h4>Halo! Saya Asmanisa 👋</h4>
+          <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
         </div>
-        <h4>Halo! Saya Asmanisa 👋</h4>
-        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
       </div>
-    </div>
 
-    <div class="ai-chat-divider"></div>
+      <div class="ai-chat-divider"></div>
 
-    <!-- Quick chips -->
-    <div class="ai-chips">
-      <button class="ai-chip" data-query="Kapan jadwal Yudisium FMIPA Untan?">📅 Kapan Yudisium?</button>
-      <button class="ai-chip" data-query="Apa saja syarat pendaftaran wisuda FMIPA Untan?">🎓 Syarat Wisuda</button>
-      <button class="ai-chip" data-query="Berapa jam layanan akademik FMIPA Untan?">⏰ Jam Layanan</button>
-      <button class="ai-chip" data-query="Bagaimana cara mengecek status surat di portal FMIPA?">📄 Cara Cek Surat</button>
-      <button class="ai-chip" data-query="Informasi jadwal UAS semester genap FMIPA Untan">🏫 Jadwal UAS</button>
-      <button class="ai-chip" data-query="Informasi beasiswa yang tersedia untuk mahasiswa FMIPA Untan">💰 Info Beasiswa</button>
-    </div>
+      <!-- Quick chips -->
+      <div class="ai-chips">
+        <button class="ai-chip" data-query="Kapan jadwal Yudisium FMIPA Untan?">📅 Kapan Yudisium?</button>
+        <button class="ai-chip" data-query="Apa saja syarat pendaftaran wisuda FMIPA Untan?">🎓 Syarat Wisuda</button>
+        <button class="ai-chip" data-query="Berapa jam layanan akademik FMIPA Untan?">⏰ Jam Layanan</button>
+        <button class="ai-chip" data-query="Bagaimana cara mengecek status surat di portal FMIPA?">📄 Cara Cek Surat</button>
+        <button class="ai-chip" data-query="Informasi jadwal UAS semester genap FMIPA Untan">🏫 Jadwal UAS</button>
+        <button class="ai-chip" data-query="Informasi beasiswa yang tersedia untuk mahasiswa FMIPA Untan">💰 Info Beasiswa</button>
+      </div>
 
-    <!-- Input row -->
-    <div class="ai-chat-inputrow">
-      <textarea
-        class="ai-chat-textarea"
-        id="aiChatInput"
-        placeholder="Ketik pertanyaanmu... (Enter kirim, Shift+Enter baris baru)"
-        rows="1"
-        autocomplete="off"
-        spellcheck="false"
-      ></textarea>
-      <button class="ai-chat-send" id="aiChatSend" aria-label="Kirim">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-      </button>
-    </div>
+      <!-- Input row -->
+      <div class="ai-chat-inputrow">
+        <textarea
+          class="ai-chat-textarea"
+          id="aiChatInput"
+          placeholder="Ketik pertanyaanmu... (Enter kirim, Shift+Enter baris baru)"
+          rows="1"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+        <button class="ai-chat-send" id="aiChatSend" aria-label="Kirim">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
 
-    <div class="ai-chat-hint">Shift+Enter untuk baris baru · Riwayat chat hilang saat halaman di-refresh</div>
+      <div class="ai-chat-hint">Shift+Enter untuk baris baru · Buka kembali = chat direset</div>
+
+    </div><!-- /ai-chat-body -->
 
   </div>
 </div>

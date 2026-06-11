@@ -1,13 +1,7 @@
-
-// ═══════════════════════════════════════════════════════════════════
-// API key disimpan aman di Vercel ENV — tidak pernah ada di sini.
-// Semua request AI dikirim ke /api/ai-chat (serverless proxy).
-// ═══════════════════════════════════════════════════════════════════
-
 const AI_PROXY_URL = '/api/ai-chat';
 
 /* ────────────────────────────────────────────────────────────────
-   KONTEKS STATIS FMIPA UNTAN (RAG — Sumber 1)
+   KONTEKS STATIS FMIPA UNTAN
    ──────────────────────────────────────────────────────────────── */
 const FMIPA_STATIC_CONTEXT = `
 === PORTAL RESMI: AKADEMIK & KEMAHASISWAAN FMIPA UNTAN ===
@@ -15,16 +9,22 @@ const FMIPA_STATIC_CONTEXT = `
 Nama Lengkap: Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA)
 Universitas: Universitas Tanjungpura (Untan)
 Kota: Pontianak, Kalimantan Barat
-Website Resmi FMIPA: https://mipa.untan.ac.id
-Website Universitas: https://untan.ac.id
-SEKAR (Sistem Ketersediaan Ruang): https://sekarfmipa.vercel.app
-Kemendiktisaintek: https://www.kemdikbud.go.id (info beasiswa, kebijakan pendidikan nasional)
+
+SUMBER DATA UTAMA (SELALU PRIORITASKAN INI):
+- Portal Akademik & Kemahasiswaan FMIPA: https://ac-fmipa-portal.vercel.app
+- Portal MIPA Untan (mirror/backup): https://portalmipa.vercel.app
+- SEKAR (Ketersediaan Ruang): https://sekarfmipa.vercel.app
+- Website Universitas: https://untan.ac.id
+- Kemendiktisaintek: https://www.kemdikbud.go.id
+
+CATATAN PENTING: Website mipa.untan.ac.id adalah domain kampus resmi tetapi
+JARANG DIUPDATE. Arahkan pengguna ke ac-fmipa-portal.vercel.app atau
+portalmipa.vercel.app untuk informasi terkini.
 
 --- PROGRAM STUDI FMIPA UNTAN ---
 S-1: Matematika, Fisika, Kimia, Biologi, Rekayasa Sistem Komputer (Siskom),
      Ilmu Kelautan, Sistem Informasi (Sisfo), Statistika, Geofisika
 S-2: Kimia
-Website prodi masing-masing tersedia di menu Web Prodi pada mipa.untan.ac.id
 
 --- JAM LAYANAN AKADEMIK ---
 • Senin–Kamis : Jam kerja normal (hadir di kantor)
@@ -32,13 +32,17 @@ Website prodi masing-masing tersedia di menu Web Prodi pada mipa.untan.ac.id
 
 --- LAYANAN UTAMA PORTAL ---
 1. Bio Ijazah     → https://xandria.pduntan.id/login
+   Verifikasi & cetak biodata ijazah resmi.
 2. SATU UNTAN     → https://satu.untan.ac.id/gate/login
-3. Cek Surat      → halaman ceksurat.html di portal ini
-4. Jenis Layanan  → via menu Jenis Layanan di portal (Google Form)
+   Portal terpadu: KRS, nilai akademik, transkrip, dll.
+3. Cek Surat      → https://ac-fmipa-portal.vercel.app (menu Cek Surat)
+   Lacak status surat & dokumen resmi menggunakan nama atau NIM.
+4. Jenis Layanan  → https://ac-fmipa-portal.vercel.app (menu Jenis Layanan)
 5. SEKAR          → https://sekarfmipa.vercel.app
+   Cek ketersediaan ruangan FMIPA secara real-time.
 
 --- JENIS SURAT YANG DAPAT DIAJUKAN ---
-Semua pengajuan via Google Form di menu Jenis Layanan.
+Semua pengajuan via Google Form di menu Jenis Layanan portal.
 • Surat Keterangan Aktif Kuliah
 • Surat Keterangan Lulus (SKL)
 • Surat Permohonan Cuti Kuliah
@@ -55,11 +59,11 @@ Proses: 1–3 hari kerja setelah pengajuan diverifikasi oleh staf.
 • Wisuda Periode III   : 29–30 April 2026
 
 --- KEMAHASISWAAN ---
-• Organisasi Mahasiswa: mipa.untan.ac.id/kemahasiswaan/organisasi-mahasiswa
-• Beasiswa (termasuk LPDP, KIP Kuliah, dll): mipa.untan.ac.id/kemahasiswaan/beasiswa
+• Organisasi Mahasiswa: ac-fmipa-portal.vercel.app (menu Kemahasiswaan)
+• Beasiswa (KIP Kuliah, LPDP, dll): ac-fmipa-portal.vercel.app (menu Beasiswa)
 
 --- KONTAK ---
-Via WhatsApp — buka menu Kontak di portal.
+Via WhatsApp — buka menu Kontak di ac-fmipa-portal.vercel.app
 Aktif Senin–Jumat pada jam kerja.
 
 --- VISI FMIPA UNTAN ---
@@ -97,13 +101,14 @@ async function buildPortalDataContext() {
     const data = await res.json();
     const parts = [];
     if (data.news?.length) {
-      parts.push('=== BERITA & PENGUMUMAN TERKINI ===');
+      parts.push('=== BERITA & PENGUMUMAN TERKINI (dari ac-fmipa-portal.vercel.app) ===');
       data.news.forEach(n => parts.push(`• [${n.date}] ${n.text}`));
     }
     if (data.slides?.length) {
       parts.push('\n=== INFO PENGUMUMAN (DARI SLIDER PORTAL) ===');
       const seen = new Set();
-      data.slides.filter(s => { if (seen.has(s.title)) return false; seen.add(s.title); return true; })
+      data.slides
+        .filter(s => { if (seen.has(s.title)) return false; seen.add(s.title); return true; })
         .forEach(s => parts.push(`• [${s.tag}] ${s.title}${s.desc ? ': ' + s.desc : ''}`));
     }
     return parts.join('\n');
@@ -122,6 +127,15 @@ Kamu ramah, hangat, sedikit santai tapi tetap sopan dan profesional — seperti 
 Boleh merespons sapaan, perkenalan, basa-basi, candaan ringan, gombalan lucu, atau pujian dengan natural dan menyenangkan.
 Gunakan emoji sesekali supaya terasa lebih hidup 😊
 
+=== SUMBER DATA PRIORITAS ===
+1. UTAMA: https://ac-fmipa-portal.vercel.app — portal terbaru & terupdate
+2. UTAMA: https://portalmipa.vercel.app — mirror portal FMIPA
+3. SEKAR: https://sekarfmipa.vercel.app — ketersediaan ruangan
+4. HINDARI merekomendasikan mipa.untan.ac.id sebagai sumber utama karena jarang diupdate.
+   Jika terpaksa sebut, tambahkan catatan bahwa info terbaru ada di ac-fmipa-portal.vercel.app
+5. Untuk info terkini yang tidak ada di konteks, kamu BOLEH merujuk ke pencarian Google:
+   "site:ac-fmipa-portal.vercel.app [topik]" atau "FMIPA Untan [topik]"
+
 === TOPIK YANG BOLEH DIJAWAB ===
 1. Semua hal tentang FMIPA Untan & Universitas Tanjungpura
 2. Kebijakan pendidikan tinggi nasional dari Kemendiktisaintek
@@ -136,8 +150,11 @@ Jika ada topik terlarang: "Hehe, itu di luar zona kenyamananku 😅 Yuk tanya se
 • Bahasa Indonesia natural, ramah, mudah dipahami
 • Jawaban singkat & padat — 2–4 paragraf
 • Gunakan bullet point jika ada banyak poin
-• Sertakan link relevan jika tersedia di konteks
+• Selalu arahkan ke ac-fmipa-portal.vercel.app untuk info terkini
 • Jangan mengarang informasi — jika tidak tahu, akui dan arahkan ke kontak resmi
+• Jika info tidak ada di konteks, sarankan:
+  - Cek langsung ac-fmipa-portal.vercel.app
+  - Atau hubungi staf via WhatsApp (menu Kontak di portal)
 
 === DATA RESMI PORTAL & FMIPA UNTAN ===
 
@@ -147,7 +164,9 @@ ${dynamicContext ? dynamicContext + '\n' : ''}
 ${kbCtx ? '=== PENGETAHUAN DETAIL LAYANAN ===\n' + kbCtx : ''}
 
 === INSTRUKSI AKHIR ===
-Jawab dengan akurat, hangat, dan ringkas. Ini adalah percakapan multi-turn — kamu bisa merujuk ke pesan sebelumnya jika relevan. Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
+Jawab dengan akurat, hangat, dan ringkas. Ini adalah percakapan multi-turn — kamu bisa merujuk ke pesan sebelumnya jika relevan.
+SELALU prioritaskan ac-fmipa-portal.vercel.app dan portalmipa.vercel.app sebagai referensi, bukan mipa.untan.ac.id.
+Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -176,9 +195,10 @@ function formatAIResponse(rawText) {
 /* ────────────────────────────────────────────────────────────────
    CONVERSATION STATE
    ──────────────────────────────────────────────────────────────── */
-let _conversationHistory = [];  // array of {role, content}
+let _conversationHistory = [];
 let _portalContext = null;
 let _isTyping = false;
+let _chatCollapsed = false;
 
 async function getPortalContext() {
   if (_portalContext === null) _portalContext = await buildPortalDataContext();
@@ -186,19 +206,15 @@ async function getPortalContext() {
 }
 
 /* ────────────────────────────────────────────────────────────────
-   UI HELPERS — RENDER CHAT MESSAGES
+   UI HELPERS
    ──────────────────────────────────────────────────────────────── */
-
-function getChatLog() {
-  return document.getElementById('aiChatLog');
-}
+function getChatLog() { return document.getElementById('aiChatLog'); }
 
 function scrollToBottom() {
   const log = getChatLog();
   if (log) log.scrollTop = log.scrollHeight;
 }
 
-/** Tambah bubble user */
 function appendUserBubble(text) {
   const log = getChatLog();
   if (!log) return;
@@ -209,7 +225,6 @@ function appendUserBubble(text) {
   scrollToBottom();
 }
 
-/** Tambah bubble bot kosong, return elemen bubble untuk diisi streaming */
 function appendBotBubble() {
   const log = getChatLog();
   if (!log) return null;
@@ -223,7 +238,6 @@ function appendBotBubble() {
   return div.querySelector('.aic-bubble--bot');
 }
 
-/** Tambah bubble typing dots */
 function appendTypingIndicator() {
   const log = getChatLog();
   if (!log) return;
@@ -239,15 +253,66 @@ function appendTypingIndicator() {
   scrollToBottom();
 }
 
-function removeTypingIndicator() {
-  document.getElementById('aic-typing')?.remove();
-}
+function removeTypingIndicator() { document.getElementById('aic-typing')?.remove(); }
 
 function setInputState(disabled) {
   const input = document.getElementById('aiChatInput');
   const btn   = document.getElementById('aiChatSend');
   if (input) input.disabled = disabled;
   if (btn)   btn.disabled   = disabled;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   COLLAPSE / EXPAND CHAT
+   ──────────────────────────────────────────────────────────────── */
+function collapseChat() {
+  const strip    = document.getElementById('aiChatStrip');
+  const body     = document.getElementById('aiChatBody');
+  const colBtn   = document.getElementById('aiChatCollapse');
+  if (!strip) return;
+
+  _chatCollapsed = true;
+  strip.classList.add('ai-chat--collapsed');
+  if (body)   body.style.display = 'none';
+  if (colBtn) colBtn.innerHTML   = '＋';
+  if (colBtn) colBtn.title       = 'Buka chat';
+}
+
+function expandChat() {
+  const strip    = document.getElementById('aiChatStrip');
+  const body     = document.getElementById('aiChatBody');
+  const colBtn   = document.getElementById('aiChatCollapse');
+  if (!strip) return;
+
+  // Reset history kalau dibuka lagi
+  _chatCollapsed = false;
+  _conversationHistory = [];
+
+  // Bersihkan log, tampilkan ulang welcome screen
+  const log = getChatLog();
+  if (log) {
+    log.innerHTML = `
+      <div class="ai-chat-welcome" id="aiChatWelcome">
+        <div class="ai-chat-welcome-icon">
+          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
+        </div>
+        <h4>Halo! Saya Asmanisa 👋</h4>
+        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
+      </div>`;
+  }
+
+  strip.classList.remove('ai-chat--collapsed');
+  if (body)   body.style.display = '';
+  if (colBtn) colBtn.innerHTML   = '−';
+  if (colBtn) colBtn.title       = 'Minimize chat';
+
+  // Focus input
+  setTimeout(() => document.getElementById('aiChatInput')?.focus(), 150);
+}
+
+function toggleChat() {
+  if (_chatCollapsed) expandChat();
+  else collapseChat();
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -278,11 +343,9 @@ async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onErro
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
       buffer = lines.pop() ?? '';
-
       for (const line of lines) {
         if (!line.startsWith('data: ')) continue;
         const payload = line.slice(6).trim();
@@ -299,7 +362,6 @@ async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onErro
       }
     }
     onDone(rawText);
-
   } catch (err) {
     onError(err.message || 'Terjadi kesalahan koneksi ke AI.');
   }
@@ -314,56 +376,40 @@ async function sendChatMessage(text) {
 
   _isTyping = true;
 
-  // Clear input
   const input = document.getElementById('aiChatInput');
   if (input) { input.value = ''; input.style.height = 'auto'; }
 
-  // Sembunyikan welcome screen kalau masih ada
   const welcome = document.getElementById('aiChatWelcome');
   if (welcome) welcome.style.display = 'none';
 
-  // Render user bubble
   appendUserBubble(text);
-
-  // Tambah ke history
   _conversationHistory.push({ role: 'user', content: text });
 
-  // Tampilkan typing indicator
   setInputState(true);
   appendTypingIndicator();
 
-  // Bangun system prompt
   const portalCtx    = await getPortalContext();
   const systemPrompt = buildSystemPrompt(portalCtx);
+  const messages     = [..._conversationHistory];
 
-  // Semua messages history (bukan cuma 1 pesan)
-  const messages = [..._conversationHistory];
-
-  // Hapus typing, munculkan bubble bot kosong
   removeTypingIndicator();
   const botBubble = appendBotBubble();
-
   if (!botBubble) { _isTyping = false; setInputState(false); return; }
 
   await streamAIResponse(
     systemPrompt,
     messages,
     botBubble,
-
-    // onDone
     (rawText) => {
       _isTyping = false;
       setInputState(false);
       if (!rawText.trim()) {
         botBubble.innerHTML = '<em style="color:#6b7280;">Tidak ada respons. Coba ulangi.</em>';
       } else {
-        // Simpan jawaban bot ke history
         _conversationHistory.push({ role: 'assistant', content: rawText });
       }
       input?.focus();
     },
-
-    // onError
     (errMsg) => {
       _isTyping = false;
       setInputState(false);
@@ -384,9 +430,10 @@ async function sendChatMessage(text) {
    INIT
    ──────────────────────────────────────────────────────────────── */
 function initAIChat() {
-  const input    = document.getElementById('aiChatInput');
-  const sendBtn  = document.getElementById('aiChatSend');
-  const chips    = document.querySelectorAll('.ai-chip');
+  const input   = document.getElementById('aiChatInput');
+  const sendBtn = document.getElementById('aiChatSend');
+  const colBtn  = document.getElementById('aiChatCollapse');
+  const chips   = document.querySelectorAll('.ai-chip');
 
   if (!input) return;
 
@@ -396,16 +443,15 @@ function initAIChat() {
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   });
 
-  // Send via button
+  // Send
   sendBtn?.addEventListener('click', () => sendChatMessage(input.value));
-
-  // Send via Enter (Shift+Enter = newline)
   input.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendChatMessage(input.value);
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(input.value); }
   });
+
+  // Collapse/expand — klik header atau tombol minus
+  colBtn?.addEventListener('click', toggleChat);
+  document.getElementById('aiChatHeaderBar')?.addEventListener('click', toggleChat);
 
   // Quick chips
   chips.forEach(chip => {
