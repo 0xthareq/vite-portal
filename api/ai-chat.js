@@ -1,15 +1,15 @@
 /**
  * /api/ai-chat.js — Vercel Serverless Function
- * Proxy ke OpenRouter API dengan streaming SSE.
+ * Proxy ke Kimchi.dev API dengan streaming SSE.
  * API key disimpan aman di Vercel Environment Variables.
  *
  * Env variable yang WAJIB diset di Vercel Dashboard:
- *   OPENROUTER_API_KEY  → API key dari https://openrouter.ai/keys
- *   ALLOWED_ORIGINS     → URL site kamu, contoh: https://portalmipa.vercel.app
+ *   CASTAI_API_KEY   → API key dari https://app.kimchi.dev
+ *   ALLOWED_ORIGINS  → URL site kamu, contoh: https://portalmipa.vercel.app
  */
 
-const AI_MODEL   = 'nvidia/nemotron-3-ultra-550b-a55b:free';
-const AI_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const AI_MODEL   = 'minimax-m2.7';
+const AI_API_URL = 'https://llm.kimchi.dev/openai/v1/chat/completions';
 
 module.exports = async function handler(req, res) {
   // Security headers
@@ -34,7 +34,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
 
   // Ambil API key dari ENV (aman, tidak pernah ke browser)
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.CASTAI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key belum dikonfigurasi di server.' });
   }
@@ -54,9 +54,7 @@ module.exports = async function handler(req, res) {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': process.env.ALLOWED_ORIGINS?.split(',')[0]?.trim() || origin,
-        'X-Title': 'Asmanisa AI - FMIPA Untan'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: AI_MODEL,
