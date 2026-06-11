@@ -212,46 +212,31 @@
   </div>
 </section>
 
-<!-- ═══ AI SEARCH STRIP ══════════════════════════════════════════ -->
-<div class="ai-search-strip" id="aiSearchStrip">
-  <div class="ai-search-inner">
+<!-- ═══ ASMANISA CHAT ════════════════════════════════════════════ -->
+<div class="ai-chat-strip" id="aiChatStrip">
+  <div class="ai-chat-inner">
 
-    <!-- Label kecil -->
-    <div class="ai-search-label">
-      <span class="ai-search-label-dot"></span>
-      AI FMIPA · Tanya apa saja
+    <!-- Header label -->
+    <div class="ai-chat-header">
+      <span class="ai-chat-dot"></span>
+      <span class="ai-chat-title">AI FMIPA · Asmanisa — Tanya apa saja</span>
     </div>
 
-    <!-- Form pencarian -->
-    <div class="ai-search-form">
-      <!-- Ikon bintang/AI -->
-      <svg class="ai-star-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L14.09 8.26L21 9.27L16.5 13.64L17.64 20.54L12 17.5L6.36 20.54L7.5 13.64L3 9.27L9.91 8.26L12 2Z"
-          fill="currentColor" opacity="0.2"/>
-        <path d="M12 2L14.09 8.26L21 9.27L16.5 13.64L17.64 20.54L12 17.5L6.36 20.54L7.5 13.64L3 9.27L9.91 8.26L12 2Z"
-          stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-      </svg>
-
-      <input
-        type="text"
-        class="ai-search-input"
-        id="aiSearchInput"
-        placeholder="Tanyakan apa saja tentang FMIPA Untan... (contoh: Kapan jadwal UAS? Kapan Yudisium?)"
-        autocomplete="off"
-        spellcheck="false"
-      />
-
-      <button class="ai-search-btn" id="aiSearchBtn" aria-label="Kirim pertanyaan ke AI">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        <span class="ai-btn-text">Tanya</span>
-      </button>
+    <!-- Log percakapan -->
+    <div class="ai-chat-log" id="aiChatLog">
+      <!-- Welcome screen (hilang saat chat pertama) -->
+      <div class="ai-chat-welcome" id="aiChatWelcome">
+        <div class="ai-chat-welcome-icon">
+          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
+        </div>
+        <h4>Halo! Saya Asmanisa 👋</h4>
+        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
+      </div>
     </div>
 
-    <!-- Quick chips — contoh pertanyaan populer -->
+    <div class="ai-chat-divider"></div>
+
+    <!-- Quick chips -->
     <div class="ai-chips">
       <button class="ai-chip" data-query="Kapan jadwal Yudisium FMIPA Untan?">📅 Kapan Yudisium?</button>
       <button class="ai-chip" data-query="Apa saja syarat pendaftaran wisuda FMIPA Untan?">🎓 Syarat Wisuda</button>
@@ -261,17 +246,26 @@
       <button class="ai-chip" data-query="Informasi beasiswa yang tersedia untuk mahasiswa FMIPA Untan">💰 Info Beasiswa</button>
     </div>
 
-    <!-- Panel respons AI — muncul setelah pertanyaan dikirim -->
-    <div class="ai-response-panel" id="aiResponsePanel">
-      <div class="ai-response-header">
-        <div class="ai-response-avatar">✦</div>
-        <div class="ai-response-name">
-          Asmanisa AI &nbsp;<span>· FMIPA Untan</span>
-        </div>
-        <button class="ai-response-close" id="aiResponseClose" title="Tutup jawaban">✕</button>
-      </div>
-      <div class="ai-response-body" id="aiResponseBody"></div>
+    <!-- Input row -->
+    <div class="ai-chat-inputrow">
+      <textarea
+        class="ai-chat-textarea"
+        id="aiChatInput"
+        placeholder="Ketik pertanyaanmu... (Enter kirim, Shift+Enter baris baru)"
+        rows="1"
+        autocomplete="off"
+        spellcheck="false"
+      ></textarea>
+      <button class="ai-chat-send" id="aiChatSend" aria-label="Kirim">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
     </div>
+
+    <div class="ai-chat-hint">Shift+Enter untuk baris baru · Riwayat chat hilang saat halaman di-refresh</div>
 
   </div>
 </div>
@@ -399,25 +393,6 @@
 
 <!-- ═══ CHATBOT ══════════════════════════════════════ -->
 
-<!-- Bubble animasi di atas tombol chatbot -->
-<div id="asmanisa-bubble-wrap" aria-live="polite">
-  <div id="asmanisa-bubble">
-    <div id="asmanisa-dots">
-      <span></span><span></span><span></span>
-    </div>
-    <span id="asmanisa-text"></span>
-  </div>
-</div>
-
-<button class="chat-fab" id="chatFab" title="Tanya Portal Bot">
-  <img src="assets/images/asmanisa.jpg" style="width:54px;height:54px;border-radius:50%;object-fit:cover;display:block;">
-  <span class="chat-badge"></span>
-</button>
-<div class="chat-window" id="chatWindow">
-  <div class="chat-header">
-    <div class="chat-avatar" style="padding:0;overflow:hidden;">
-      <img src="assets/images/asmanisa.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">
-    </div>
     <div class="chat-header-info">
       <div class="chat-name">Asmanisa</div>
       <div class="chat-status"><span class="status-dot"></span> Online</div>

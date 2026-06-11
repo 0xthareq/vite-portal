@@ -8,7 +8,6 @@ const AI_PROXY_URL = '/api/ai-chat';
 
 /* ────────────────────────────────────────────────────────────────
    KONTEKS STATIS FMIPA UNTAN (RAG — Sumber 1)
-   Berisi info tetap yang selalu relevan sebagai ground truth.
    ──────────────────────────────────────────────────────────────── */
 const FMIPA_STATIC_CONTEXT = `
 === PORTAL RESMI: AKADEMIK & KEMAHASISWAAN FMIPA UNTAN ===
@@ -33,14 +32,10 @@ Website prodi masing-masing tersedia di menu Web Prodi pada mipa.untan.ac.id
 
 --- LAYANAN UTAMA PORTAL ---
 1. Bio Ijazah     → https://xandria.pduntan.id/login
-   Verifikasi & cetak biodata ijazah resmi. Login dengan akun mahasiswa.
 2. SATU UNTAN     → https://satu.untan.ac.id/gate/login
-   Portal terpadu: KRS, nilai akademik, transkrip, dll.
 3. Cek Surat      → halaman ceksurat.html di portal ini
-   Lacak status surat & dokumen resmi menggunakan nama atau NIM.
 4. Jenis Layanan  → via menu Jenis Layanan di portal (Google Form)
 5. SEKAR          → https://sekarfmipa.vercel.app
-   Cek ketersediaan ruangan FMIPA secara real-time (hari kerja Senin–Jumat)
 
 --- JENIS SURAT YANG DAPAT DIAJUKAN ---
 Semua pengajuan via Google Form di menu Jenis Layanan.
@@ -50,17 +45,6 @@ Semua pengajuan via Google Form di menu Jenis Layanan.
 • Surat Pengunduran Diri
 • Surat Permohonan Pindah Kuliah
 Proses: 1–3 hari kerja setelah pengajuan diverifikasi oleh staf.
-
---- DOKUMEN & INFO PENTING (via menu Info Penting di portal) ---
-• Pedoman Akademik (juga tersedia di mipa.untan.ac.id/akademik)
-• Kalender Akademik Semester Genap T.A 2025/2026
-• Kode Etik Universitas Tanjungpura
-• Edaran PISN
-• Prosedur Perbaikan Data PDDIKTI
-• Prosedur Pengajuan Cuti Kuliah
-• SOP Pendaftaran Ulang: mipa.untan.ac.id/akademik/daftar-ulang
-• Informasi UKT: mipa.untan.ac.id/akademik/info-ukt
-• SOP Pelayanan Akademik: mipa.untan.ac.id/akademik/sop-pelayanan-akademik
 
 --- STATISTIK MAHASISWA 2026 ---
 • Mahasiswa Aktif : 2.370 orang
@@ -72,18 +56,11 @@ Proses: 1–3 hari kerja setelah pengajuan diverifikasi oleh staf.
 
 --- KEMAHASISWAAN ---
 • Organisasi Mahasiswa: mipa.untan.ac.id/kemahasiswaan/organisasi-mahasiswa
-• Prestasi Mahasiswa: mipa.untan.ac.id/kemahasiswaan/prestasi-mahasiswa
 • Beasiswa (termasuk LPDP, KIP Kuliah, dll): mipa.untan.ac.id/kemahasiswaan/beasiswa
-• Pengumuman Kemahasiswaan: mipa.untan.ac.id/kemahasiswaan/pengumuman
 
 --- KONTAK ---
 Via WhatsApp — buka menu Kontak di portal.
 Aktif Senin–Jumat pada jam kerja.
-
---- DOWNLOAD ---
-• Akreditasi UNTAN (tersedia di mipa.untan.ac.id/tentang-kami/akreditasi)
-• Draft Syarat Sidang (Google Docs)
-• Draft Bebas Laboratorium (Google Docs)
 
 --- VISI FMIPA UNTAN ---
 "Menjadi institusi unggul dalam transformasi, pengembangan dan penyebarluasan
@@ -91,36 +68,27 @@ sains dan teknologi berbasis lingkungan tropis dengan luaran berdaya saing globa
 `.trim();
 
 /* ────────────────────────────────────────────────────────────────
-   BUILD CONTEXT DARI ASMANISA_KB (RAG — Sumber 2)
-   Mengambil jawaban dari kb.js yang sudah dimuat.
+   BUILD CONTEXT DARI ASMANISA_KB
    ──────────────────────────────────────────────────────────────── */
 function buildKBContext() {
   if (typeof window.ASMANISA_KB === 'undefined') return '';
-
-  const skipIds = ['kata_kasar', 'pujian_diri'];  // jangan skip greeting & bercanda
-
+  const skipIds = ['kata_kasar', 'pujian_diri'];
   return window.ASMANISA_KB
     .filter(item => !skipIds.includes(item.id))
     .map(item => {
-      // Strip HTML tags dari jawaban
       const clean = item.answer
         .replace(/<br\s*\/?>/gi, '\n')
         .replace(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi, '$2 ($1)')
         .replace(/<[^>]+>/g, '')
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&nbsp;/g, ' ')
-        .replace(/\n{3,}/g, '\n\n')
-        .trim();
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+        .replace(/&nbsp;/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
       return `[${item.id}]\n${clean}`;
     })
     .join('\n\n');
 }
 
 /* ────────────────────────────────────────────────────────────────
-   BUILD CONTEXT DARI PORTAL-DATA.JSON (RAG — Sumber 3)
-   Mengambil berita & slide terkini secara dinamis.
+   BUILD CONTEXT DARI PORTAL-DATA.JSON
    ──────────────────────────────────────────────────────────────── */
 async function buildPortalDataContext() {
   try {
@@ -128,85 +96,48 @@ async function buildPortalDataContext() {
     if (!res.ok) return '';
     const data = await res.json();
     const parts = [];
-
     if (data.news?.length) {
       parts.push('=== BERITA & PENGUMUMAN TERKINI ===');
-      data.news.forEach(n => {
-        parts.push(`• [${n.date}] ${n.text}`);
-      });
+      data.news.forEach(n => parts.push(`• [${n.date}] ${n.text}`));
     }
-
     if (data.slides?.length) {
       parts.push('\n=== INFO PENGUMUMAN (DARI SLIDER PORTAL) ===');
-      // Deduplicate berdasarkan title
       const seen = new Set();
-      data.slides
-        .filter(s => {
-          if (seen.has(s.title)) return false;
-          seen.add(s.title);
-          return true;
-        })
-        .forEach(s => {
-          const desc = s.desc ? `: ${s.desc}` : '';
-          parts.push(`• [${s.tag}] ${s.title}${desc}`);
-        });
+      data.slides.filter(s => { if (seen.has(s.title)) return false; seen.add(s.title); return true; })
+        .forEach(s => parts.push(`• [${s.tag}] ${s.title}${s.desc ? ': ' + s.desc : ''}`));
     }
-
     return parts.join('\n');
-  } catch {
-    return '';
-  }
+  } catch { return ''; }
 }
 
 /* ────────────────────────────────────────────────────────────────
-   BUILD SYSTEM PROMPT (Gabungan semua konteks RAG)
+   BUILD SYSTEM PROMPT
    ──────────────────────────────────────────────────────────────── */
 function buildSystemPrompt(dynamicContext) {
   const kbCtx = buildKBContext();
-
   return `Kamu adalah Asmanisa, asisten virtual AI resmi Portal Akademik & Kemahasiswaan FMIPA (Fakultas Matematika dan Ilmu Pengetahuan Alam) Universitas Tanjungpura (Untan), Pontianak, Kalimantan Barat.
 
 === KEPRIBADIAN ===
 Kamu ramah, hangat, sedikit santai tapi tetap sopan dan profesional — seperti kakak tingkat yang helpful.
-Boleh merespons sapaan, perkenalan, basa-basi, candaan ringan, gombalan lucu, atau pujian ("kamu ganteng", "makasih ya", "selamat pagi") dengan natural dan menyenangkan.
+Boleh merespons sapaan, perkenalan, basa-basi, candaan ringan, gombalan lucu, atau pujian dengan natural dan menyenangkan.
 Gunakan emoji sesekali supaya terasa lebih hidup 😊
 
 === TOPIK YANG BOLEH DIJAWAB ===
-1. Semua hal tentang FMIPA Untan & Universitas Tanjungpura:
-   - Layanan akademik, administrasi, surat-menyurat, KRS, nilai, transkrip
-   - Jadwal, kalender akademik, UAS, yudisium, wisuda
-   - Beasiswa (KIP Kuliah, LPDP, Dikti, dan beasiswa lain)
-   - Program studi, kurikulum, dosen, laboratorium
-   - Ketersediaan ruang (SEKAR: sekarfmipa.vercel.app)
-   - Organisasi mahasiswa, kegiatan kemahasiswaan
-   - Informasi dari website resmi: mipa.untan.ac.id, untan.ac.id
+1. Semua hal tentang FMIPA Untan & Universitas Tanjungpura
 2. Kebijakan pendidikan tinggi nasional dari Kemendiktisaintek
-   (beasiswa nasional, PDDIKTI, MBKM, aturan akademik nasional, dll)
-3. Sapaan, perkenalan, basa-basi, candaan ringan, gombalan lucu, dan percakapan biasa yang sopan
+3. Sapaan, perkenalan, basa-basi, candaan ringan, dan percakapan biasa yang sopan
 4. Pertanyaan umum tentang dunia perkuliahan, tips belajar, kehidupan mahasiswa
 
-=== TOPIK YANG TIDAK BOLEH DIJAWAB (HARD BLOCK) ===
-❌ Politik, partai, pilkada, pemilu, opini tentang pejabat/tokoh politik
-❌ SARA (suku, agama, ras, antar golongan) secara sensitif atau provokatif
-❌ Kata-kata kasar, makian, atau umpatan dalam bahasa apapun
-❌ Konten jorok, vulgar, atau tidak senonoh
-❌ Hal yang sama sekali tidak berkaitan dengan kampus/pendidikan DAN bukan percakapan biasa
-   (contoh: resep masakan detail, gosip artis, prediksi bola, berita viral non-akademik)
-
-Jika ada yang bertanya topik terlarang, tolak dengan santai dan arahkan kembali:
-"Hehe, itu di luar zona kenyamananku 😅 Yuk tanya seputar kampus aja, siap bantu!"
+=== TOPIK YANG TIDAK BOLEH DIJAWAB ===
+❌ Politik, SARA sensitif, kata-kata kasar, konten vulgar
+Jika ada topik terlarang: "Hehe, itu di luar zona kenyamananku 😅 Yuk tanya seputar kampus aja!"
 
 === PEDOMAN MENJAWAB ===
-• Bahasa Indonesia yang natural, ramah, dan mudah dipahami
-• Jawaban singkat & padat — 2–4 paragraf, kecuali detail memang diperlukan
+• Bahasa Indonesia natural, ramah, mudah dipahami
+• Jawaban singkat & padat — 2–4 paragraf
 • Gunakan bullet point jika ada banyak poin
 • Sertakan link relevan jika tersedia di konteks
-• Jangan mengarang informasi — jika tidak tahu, akui dan arahkan ke kontak resmi atau website terkait
-• Jika info tidak ada di konteks, sarankan cek langsung ke:
-  - mipa.untan.ac.id (info resmi FMIPA)
-  - untan.ac.id (info universitas)
-  - sekarfmipa.vercel.app (cek ruangan)
-  - atau hubungi staf via WhatsApp (menu Kontak di portal)
+• Jangan mengarang informasi — jika tidak tahu, akui dan arahkan ke kontak resmi
 
 === DATA RESMI PORTAL & FMIPA UNTAN ===
 
@@ -216,24 +147,118 @@ ${dynamicContext ? dynamicContext + '\n' : ''}
 ${kbCtx ? '=== PENGETAHUAN DETAIL LAYANAN ===\n' + kbCtx : ''}
 
 === INSTRUKSI AKHIR ===
-Jawab dengan akurat, hangat, dan ringkas. Gunakan konteks di atas sebagai referensi utama.
-Untuk info yang tidak ada di konteks tapi masih seputar kampus/pendidikan, berikan panduan umum
-dan arahkan ke sumber yang tepat. Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
+Jawab dengan akurat, hangat, dan ringkas. Ini adalah percakapan multi-turn — kamu bisa merujuk ke pesan sebelumnya jika relevan. Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
 }
 
 /* ────────────────────────────────────────────────────────────────
-   OPENROUTER API — STREAMING
+   FORMAT MARKDOWN → HTML
    ──────────────────────────────────────────────────────────────── */
-async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) {
+function formatAIResponse(rawText) {
+  let html = rawText
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/__([^_\n]+)__/g, '<strong>$1</strong>')
+    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--primary,#2589e9);font-weight:600;">$1</a>')
+    .replace(/`([^`\n]+)`/g,
+      '<code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:12.5px;font-family:monospace;">$1</code>')
+    .replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>')
+    .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
+    .replace(/\n/g, '<br>');
+
+  html = html.replace(/(<li>.*?<\/li>(<br>)?)+/g, match =>
+    '<ul style="margin:6px 0 6px 18px;line-height:1.75;">' +
+    match.replace(/<br>/g, '') + '</ul>');
+  return html;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   CONVERSATION STATE
+   ──────────────────────────────────────────────────────────────── */
+let _conversationHistory = [];  // array of {role, content}
+let _portalContext = null;
+let _isTyping = false;
+
+async function getPortalContext() {
+  if (_portalContext === null) _portalContext = await buildPortalDataContext();
+  return _portalContext;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   UI HELPERS — RENDER CHAT MESSAGES
+   ──────────────────────────────────────────────────────────────── */
+
+function getChatLog() {
+  return document.getElementById('aiChatLog');
+}
+
+function scrollToBottom() {
+  const log = getChatLog();
+  if (log) log.scrollTop = log.scrollHeight;
+}
+
+/** Tambah bubble user */
+function appendUserBubble(text) {
+  const log = getChatLog();
+  if (!log) return;
+  const div = document.createElement('div');
+  div.className = 'aic-msg aic-msg--user';
+  div.innerHTML = `<div class="aic-bubble aic-bubble--user">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  log.appendChild(div);
+  scrollToBottom();
+}
+
+/** Tambah bubble bot kosong, return elemen bubble untuk diisi streaming */
+function appendBotBubble() {
+  const log = getChatLog();
+  if (!log) return null;
+  const div = document.createElement('div');
+  div.className = 'aic-msg aic-msg--bot';
+  div.innerHTML = `
+    <img class="aic-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
+    <div class="aic-bubble aic-bubble--bot"></div>`;
+  log.appendChild(div);
+  scrollToBottom();
+  return div.querySelector('.aic-bubble--bot');
+}
+
+/** Tambah bubble typing dots */
+function appendTypingIndicator() {
+  const log = getChatLog();
+  if (!log) return;
+  const div = document.createElement('div');
+  div.className = 'aic-msg aic-msg--bot';
+  div.id = 'aic-typing';
+  div.innerHTML = `
+    <img class="aic-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
+    <div class="aic-bubble aic-bubble--bot aic-typing-bubble">
+      <span></span><span></span><span></span>
+    </div>`;
+  log.appendChild(div);
+  scrollToBottom();
+}
+
+function removeTypingIndicator() {
+  document.getElementById('aic-typing')?.remove();
+}
+
+function setInputState(disabled) {
+  const input = document.getElementById('aiChatInput');
+  const btn   = document.getElementById('aiChatSend');
+  if (input) input.disabled = disabled;
+  if (btn)   btn.disabled   = disabled;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   STREAMING API CALL
+   ──────────────────────────────────────────────────────────────── */
+async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onError) {
   try {
-    // Kirim ke proxy serverless — API key aman di server Vercel
     const response = await fetch(AI_PROXY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemPrompt,
-        messages: [{ role: 'user', content: question }]
-      })
+      body: JSON.stringify({ systemPrompt, messages })
     });
 
     if (!response.ok) {
@@ -248,6 +273,7 @@ async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) 
     const reader  = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer    = '';
+    let rawText   = '';
 
     while (true) {
       const { done, value } = await reader.read();
@@ -260,239 +286,137 @@ async function callOpenRouter(question, systemPrompt, onChunk, onDone, onError) 
       for (const line of lines) {
         if (!line.startsWith('data: ')) continue;
         const payload = line.slice(6).trim();
-        if (payload === '[DONE]') { onDone(); return; }
+        if (payload === '[DONE]') { onDone(rawText); return; }
         try {
           const parsed = JSON.parse(payload);
           const delta  = parsed.choices?.[0]?.delta?.content ?? '';
-          if (delta) onChunk(delta);
-        } catch {
-          /* skip malformed SSE chunks */
-        }
+          if (delta) {
+            rawText += delta;
+            bubbleEl.innerHTML = formatAIResponse(rawText);
+            scrollToBottom();
+          }
+        } catch { /* skip */ }
       }
     }
-    onDone();
+    onDone(rawText);
 
   } catch (err) {
     onError(err.message || 'Terjadi kesalahan koneksi ke AI.');
   }
 }
 
-
-function formatAIResponse(rawText) {
-  let html = rawText
-    // Escape < > untuk keamanan (kecuali tag link yang kita buat sendiri)
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    // Bold **text** atau __text__
-    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/__([^_\n]+)__/g, '<strong>$1</strong>')
-    // Italic *text* (bukan bold)
-    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
-    // Link [teks](url) — re-escape karena url aman
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--primary,#2589e9);font-weight:600;">$1</a>'
-    )
-    // Inline code `code`
-    .replace(/`([^`\n]+)`/g,
-      '<code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:12.5px;font-family:monospace;">$1</code>'
-    )
-    // Bullet: baris dimulai dengan • atau - atau * (diikuti spasi)
-    .replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>')
-    // Numbered list: 1. item
-    .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
-    // Newlines → <br>
-    .replace(/\n/g, '<br>');
-
-  // Bungkus kelompok <li> berurutan dengan <ul>
-  html = html.replace(/(<li>.*?<\/li>(<br>)?)+/g, match =>
-    '<ul style="margin:6px 0 6px 18px;line-height:1.75;">' +
-    match.replace(/<br>/g, '') +
-    '</ul>'
-  );
-
-  return html;
-}
-
 /* ────────────────────────────────────────────────────────────────
-   STATE & CACHE
+   MAIN: SEND MESSAGE
    ──────────────────────────────────────────────────────────────── */
-let _portalContext = null;   // cache context dari portal-data.json
-let _isSearching   = false;  // lock agar tidak double-submit
+async function sendChatMessage(text) {
+  text = (text || '').trim();
+  if (!text || _isTyping) return;
 
-/** Ambil context portal (sekali saja, cached) */
-async function getPortalContext() {
-  if (_portalContext === null) {
-    _portalContext = await buildPortalDataContext();
-  }
-  return _portalContext;
-}
+  _isTyping = true;
 
-/* ────────────────────────────────────────────────────────────────
-   UI HELPERS
-   ──────────────────────────────────────────────────────────────── */
-function showResponsePanel() {
-  const panel = document.getElementById('aiResponsePanel');
-  if (panel) panel.classList.add('visible');
-}
+  // Clear input
+  const input = document.getElementById('aiChatInput');
+  if (input) { input.value = ''; input.style.height = 'auto'; }
 
-function hideResponsePanel() {
-  const panel = document.getElementById('aiResponsePanel');
-  if (panel) panel.classList.remove('visible');
-}
+  // Sembunyikan welcome screen kalau masih ada
+  const welcome = document.getElementById('aiChatWelcome');
+  if (welcome) welcome.style.display = 'none';
 
-function setResponseBody(html) {
-  const body = document.getElementById('aiResponseBody');
-  if (body) body.innerHTML = html;
-}
+  // Render user bubble
+  appendUserBubble(text);
 
-function setLoadingState(loading) {
-  const btn   = document.getElementById('aiSearchBtn');
-  const input = document.getElementById('aiSearchInput');
-  _isSearching = loading;
+  // Tambah ke history
+  _conversationHistory.push({ role: 'user', content: text });
 
-  if (input) input.disabled = loading;
+  // Tampilkan typing indicator
+  setInputState(true);
+  appendTypingIndicator();
 
-  if (btn) {
-    btn.disabled = loading;
-    if (loading) {
-      btn.innerHTML = `
-        <svg class="ai-spin" width="15" height="15" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-        </svg>`;
-    } else {
-      btn.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        <span class="ai-btn-text">Tanya</span>`;
-    }
-  }
-}
-
-/* ────────────────────────────────────────────────────────────────
-   MAIN: HANDLE SUBMIT PERTANYAAN
-   ──────────────────────────────────────────────────────────────── */
-async function handleAISearch(question) {
-  question = (question || '').trim();
-  if (!question || _isSearching) return;
-
-  // Tampilkan panel dan loading state
-  setLoadingState(true);
-  showResponsePanel();
-  setResponseBody(`
-    <div style="display:flex;align-items:center;gap:10px;color:var(--text-muted,#6b7280);">
-      <div class="ai-loading-dots">
-        <div class="ai-loading-dot"></div>
-        <div class="ai-loading-dot"></div>
-        <div class="ai-loading-dot"></div>
-      </div>
-      <span style="font-size:13px;">Asmanisa sedang mencari jawaban...</span>
-    </div>
-  `);
-
-  // Scroll panel ke viewport
-  const panel = document.getElementById('aiResponsePanel');
-  if (panel) {
-    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-  }
-
-  // Bangun system prompt dengan konteks terkini
+  // Bangun system prompt
   const portalCtx    = await getPortalContext();
   const systemPrompt = buildSystemPrompt(portalCtx);
 
-  let rawText        = '';
-  const responseBody = document.getElementById('aiResponseBody');
+  // Semua messages history (bukan cuma 1 pesan)
+  const messages = [..._conversationHistory];
 
-  await callOpenRouter(
-    question,
+  // Hapus typing, munculkan bubble bot kosong
+  removeTypingIndicator();
+  const botBubble = appendBotBubble();
+
+  if (!botBubble) { _isTyping = false; setInputState(false); return; }
+
+  await streamAIResponse(
     systemPrompt,
+    messages,
+    botBubble,
 
-    // onChunk — dipanggil setiap ada teks baru (streaming)
-    (chunk) => {
-      rawText += chunk;
-      if (responseBody) {
-        responseBody.innerHTML = formatAIResponse(rawText);
-        responseBody.scrollTop = responseBody.scrollHeight;
+    // onDone
+    (rawText) => {
+      _isTyping = false;
+      setInputState(false);
+      if (!rawText.trim()) {
+        botBubble.innerHTML = '<em style="color:#6b7280;">Tidak ada respons. Coba ulangi.</em>';
+      } else {
+        // Simpan jawaban bot ke history
+        _conversationHistory.push({ role: 'assistant', content: rawText });
       }
+      input?.focus();
     },
 
-    // onDone — streaming selesai
-    () => {
-      setLoadingState(false);
-      if (responseBody && !rawText.trim()) {
-        responseBody.innerHTML =
-          '<em style="color:var(--text-muted,#6b7280);">Tidak ada respons. Coba ulangi pertanyaan.</em>';
-      }
-    },
-
-    // onError — ada kesalahan
+    // onError
     (errMsg) => {
-      setLoadingState(false);
-      if (responseBody) {
-        responseBody.innerHTML = `
-          <div style="display:flex;align-items:flex-start;gap:9px;color:#b91c1c;">
-            <span style="font-size:16px;line-height:1.4;">⚠️</span>
-            <div>
-              <strong style="display:block;margin-bottom:4px;">Gagal menghubungi AI</strong>
-              <span style="font-size:12.5px;color:var(--text-muted,#6b7280);">${errMsg}</span>
-            </div>
-          </div>`;
-      }
+      _isTyping = false;
+      setInputState(false);
+      botBubble.innerHTML = `
+        <div style="color:#b91c1c;display:flex;align-items:flex-start;gap:7px;">
+          <span>⚠️</span>
+          <div>
+            <strong style="display:block;margin-bottom:3px;">Gagal menghubungi AI</strong>
+            <span style="font-size:12px;color:#6b7280;">${errMsg}</span>
+          </div>
+        </div>`;
+      input?.focus();
     }
   );
 }
 
 /* ────────────────────────────────────────────────────────────────
-   INIT — Pasang semua event listener
+   INIT
    ──────────────────────────────────────────────────────────────── */
-function initAISearch() {
-  const input    = document.getElementById('aiSearchInput');
-  const btn      = document.getElementById('aiSearchBtn');
-  const closeBtn = document.getElementById('aiResponseClose');
+function initAIChat() {
+  const input    = document.getElementById('aiChatInput');
+  const sendBtn  = document.getElementById('aiChatSend');
   const chips    = document.querySelectorAll('.ai-chip');
 
-  if (!input) return; // Komponen tidak ada di halaman ini
+  if (!input) return;
 
-  // ── Submit via tombol ──
-  btn?.addEventListener('click', () => handleAISearch(input.value));
+  // Auto-resize textarea
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
 
-  // ── Submit via Enter ──
+  // Send via button
+  sendBtn?.addEventListener('click', () => sendChatMessage(input.value));
+
+  // Send via Enter (Shift+Enter = newline)
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleAISearch(input.value);
+      sendChatMessage(input.value);
     }
   });
 
-  // ── Tutup panel respons ──
-  closeBtn?.addEventListener('click', hideResponsePanel);
-
-  // ── Klik di luar panel untuk menutup (opsional) ──
-  document.addEventListener('click', e => {
-    const strip = document.getElementById('aiSearchStrip');
-    if (strip && !strip.contains(e.target)) {
-      hideResponsePanel();
-    }
-  });
-
-  // ── Quick chips ──
+  // Quick chips
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
       const q = chip.dataset.query || chip.textContent.replace(/^[\p{Emoji}\s]+/u, '').trim();
-      input.value = q;
-      handleAISearch(q);
-      input.focus();
+      sendChatMessage(q);
     });
   });
 
-  // ── Prefetch konteks portal di background ──
-  // (agar respons pertama lebih cepat)
+  // Prefetch context
   getPortalContext().catch(() => {});
-
 }
 
-// Jalankan setelah DOM siap
-document.addEventListener('DOMContentLoaded', initAISearch);
+document.addEventListener('DOMContentLoaded', initAIChat);
