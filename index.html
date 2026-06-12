@@ -400,57 +400,53 @@
      ═══════════════════════════════════════════════════════════════ -->
 
 <!-- TRIGGER BAR — sticky di paling bawah -->
-<div class="asma-trigger-bar" id="asmaTriggerBar">
-  <div class="asma-trigger-inner">
-    <div class="asma-trigger-left">
-      <img src="assets/images/asmanisa.jpg" alt="Asmanisa" class="asma-trigger-avatar">
-      <div class="asma-trigger-info">
-        <span class="asma-trigger-name">Asmanisa AI</span>
-        <span class="asma-trigger-sub">Tanya apa saja tentang FMIPA Untan</span>
-      </div>
-      <span class="asma-trigger-dot"></span>
+<!-- INPUT BAR — sticky bottom, langsung ketik & kirim -->
+<div class="asma-bar" id="asmaBar">
+  <div class="asma-bar-inner">
+    <img src="assets/images/asmanisa.jpg" alt="Asmanisa" class="asma-bar-avatar">
+    <div class="asma-bar-inputwrap" id="asmaBarInputWrap">
+      <textarea
+        class="asma-bar-textarea"
+        id="asmaInput"
+        placeholder="Tanya Asmanisa tentang FMIPA Untan..."
+        rows="1"
+        autocomplete="off"
+        spellcheck="false"
+      ></textarea>
+      <button class="asma-bar-send" id="asmaSendBtn" aria-label="Kirim">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
     </div>
-    <button class="asma-trigger-btn" id="asmaTriggerBtn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-      Mulai Chat
-    </button>
   </div>
 </div>
 
-<!-- FLOATING CHAT WINDOW -->
+<!-- OVERLAY PERCAKAPAN — muncul setelah pesan pertama -->
 <div class="asma-overlay" id="asmaOverlay">
-  <div class="asma-window" id="asmaWindow">
+  <div class="asma-panel" id="asmaPanel">
 
-    <!-- Header -->
-    <div class="asma-header">
-      <div class="asma-header-left">
-        <img src="assets/images/asmanisa.jpg" alt="Asmanisa" class="asma-header-avatar">
+    <!-- Header panel -->
+    <div class="asma-panel-header">
+      <div class="asma-panel-title">
+        <img src="assets/images/asmanisa.jpg" alt="Asmanisa" class="asma-panel-avatar">
         <div>
-          <div class="asma-header-name">Asmanisa <span class="asma-online-dot"></span></div>
-          <div class="asma-header-sub">Asisten Virtual FMIPA Untan</div>
+          <span class="asma-panel-name">Asmanisa <span class="asma-online-dot"></span></span>
+          <span class="asma-panel-sub">Asisten Virtual FMIPA Untan</span>
         </div>
       </div>
-      <button class="asma-close-btn" id="asmaCloseBtn" title="Tutup chat">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <button class="asma-close-btn" id="asmaCloseBtn" title="Tutup & reset chat">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
     </div>
 
-    <!-- Messages log -->
-    <div class="asma-log" id="asmaLog">
-      <div class="asma-welcome" id="asmaWelcome">
-        <div class="asma-welcome-avatar">
-          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
-        </div>
-        <h4>Halo! Saya Asmanisa 👋</h4>
-        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
-      </div>
-    </div>
+    <!-- Log percakapan -->
+    <div class="asma-log" id="asmaLog"></div>
 
-    <!-- Quick chips -->
+    <!-- Quick chips (tersembunyi setelah pesan pertama) -->
     <div class="asma-chips" id="asmaChips">
       <button class="asma-chip" data-query="Kapan jadwal Yudisium FMIPA Untan?">📅 Yudisium</button>
       <button class="asma-chip" data-query="Apa saja syarat pendaftaran wisuda FMIPA Untan?">🎓 Wisuda</button>
@@ -458,25 +454,6 @@
       <button class="asma-chip" data-query="Bagaimana cara mengecek status surat di portal FMIPA?">📄 Cek Surat</button>
       <button class="asma-chip" data-query="Informasi beasiswa yang tersedia untuk mahasiswa FMIPA Untan">💰 Beasiswa</button>
     </div>
-
-    <!-- Input -->
-    <div class="asma-inputrow">
-      <textarea
-        class="asma-textarea"
-        id="asmaInput"
-        placeholder="Ketik pertanyaanmu..."
-        rows="1"
-        autocomplete="off"
-        spellcheck="false"
-      ></textarea>
-      <button class="asma-send-btn" id="asmaSendBtn" aria-label="Kirim">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-      </button>
-    </div>
-    <div class="asma-hint">Enter kirim · Shift+Enter baris baru · Chat direset saat ditutup</div>
 
   </div>
 </div>
