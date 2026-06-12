@@ -1,3 +1,11 @@
+/* ================================================================
+   ai-search.js — Asmanisa Floating Chat
+   - Floating window dengan glassmorphism
+   - Multi-turn conversation history
+   - Strip <think>...</think> dari response
+   - Web search via api/ai-chat untuk data real-time
+   ================================================================ */
+
 const AI_PROXY_URL = '/api/ai-chat';
 
 /* ────────────────────────────────────────────────────────────────
@@ -6,69 +14,46 @@ const AI_PROXY_URL = '/api/ai-chat';
 const FMIPA_STATIC_CONTEXT = `
 === PORTAL RESMI: AKADEMIK & KEMAHASISWAAN FMIPA UNTAN ===
 
-Nama Lengkap: Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA)
-Universitas: Universitas Tanjungpura (Untan)
-Kota: Pontianak, Kalimantan Barat
+Nama Lengkap  : Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA)
+Universitas   : Universitas Tanjungpura (Untan)
+Kota          : Pontianak, Kalimantan Barat
 
-SUMBER DATA UTAMA (SELALU PRIORITASKAN INI):
-- Portal Akademik & Kemahasiswaan FMIPA: https://ac-fmipa-portal.vercel.app
-- Portal MIPA Untan (mirror/backup): https://portalmipa.vercel.app
-- SEKAR (Ketersediaan Ruang): https://sekarfmipa.vercel.app
-- Website Universitas: https://untan.ac.id
-- Kemendiktisaintek: https://www.kemdikbud.go.id
+SUMBER DATA UTAMA — SELALU PRIORITASKAN INI:
+1. Portal Akademik FMIPA (terbaru): https://ac-fmipa-portal.vercel.app
+2. Portal MIPA Untan (mirror):      https://portalmipa.vercel.app
+3. SEKAR (ketersediaan ruangan):    https://sekarfmipa.vercel.app
+4. Website Untan:                   https://untan.ac.id
 
-CATATAN PENTING: Website mipa.untan.ac.id adalah domain kampus resmi tetapi
-JARANG DIUPDATE. Arahkan pengguna ke ac-fmipa-portal.vercel.app atau
-portalmipa.vercel.app untuk informasi terkini.
+⚠️ mipa.untan.ac.id adalah domain kampus resmi tetapi JARANG DIUPDATE.
+   Selalu arahkan ke ac-fmipa-portal.vercel.app untuk info terkini.
 
---- PROGRAM STUDI FMIPA UNTAN ---
-S-1: Matematika, Fisika, Kimia, Biologi, Rekayasa Sistem Komputer (Siskom),
-     Ilmu Kelautan, Sistem Informasi (Sisfo), Statistika, Geofisika
+--- PROGRAM STUDI S-1 ---
+Matematika, Fisika, Kimia, Biologi, Rekayasa Sistem Komputer (Siskom),
+Ilmu Kelautan, Sistem Informasi (Sisfo), Statistika, Geofisika
 S-2: Kimia
 
 --- JAM LAYANAN AKADEMIK ---
-• Senin–Kamis : Jam kerja normal (hadir di kantor)
-• Jumat       : WFH (Work From Home) — layanan via online/WhatsApp
+Senin–Kamis : Jam kerja normal (hadir)
+Jumat       : WFH — layanan via online/WhatsApp
 
---- LAYANAN UTAMA PORTAL ---
-1. Bio Ijazah     → https://xandria.pduntan.id/login
-   Verifikasi & cetak biodata ijazah resmi.
-2. SATU UNTAN     → https://satu.untan.ac.id/gate/login
-   Portal terpadu: KRS, nilai akademik, transkrip, dll.
-3. Cek Surat      → https://ac-fmipa-portal.vercel.app (menu Cek Surat)
-   Lacak status surat & dokumen resmi menggunakan nama atau NIM.
-4. Jenis Layanan  → https://ac-fmipa-portal.vercel.app (menu Jenis Layanan)
-5. SEKAR          → https://sekarfmipa.vercel.app
-   Cek ketersediaan ruangan FMIPA secara real-time.
+--- LAYANAN PORTAL ---
+• Bio Ijazah  → https://xandria.pduntan.id/login
+• SATU UNTAN  → https://satu.untan.ac.id/gate/login
+• Cek Surat   → ac-fmipa-portal.vercel.app (menu Cek Surat)
+• Jenis Layanan → ac-fmipa-portal.vercel.app (via Google Form)
+• SEKAR       → https://sekarfmipa.vercel.app
 
---- JENIS SURAT YANG DAPAT DIAJUKAN ---
-Semua pengajuan via Google Form di menu Jenis Layanan portal.
-• Surat Keterangan Aktif Kuliah
-• Surat Keterangan Lulus (SKL)
-• Surat Permohonan Cuti Kuliah
-• Surat Pengunduran Diri
-• Surat Permohonan Pindah Kuliah
-Proses: 1–3 hari kerja setelah pengajuan diverifikasi oleh staf.
+--- JENIS SURAT ---
+Surat Keterangan Aktif Kuliah, SKL, Cuti, Pindah Kuliah, Pengunduran Diri
+Proses: 1–3 hari kerja.
 
---- STATISTIK MAHASISWA 2026 ---
-• Mahasiswa Aktif : 2.370 orang
-• Mahasiswa Lulus : 100 orang (data terkini)
-
---- WISUDA & YUDISIUM T.A 2025/2026 ---
-• Yudisium Periode III : 27 April 2026
-• Wisuda Periode III   : 29–30 April 2026
-
---- KEMAHASISWAAN ---
-• Organisasi Mahasiswa: ac-fmipa-portal.vercel.app (menu Kemahasiswaan)
-• Beasiswa (KIP Kuliah, LPDP, dll): ac-fmipa-portal.vercel.app (menu Beasiswa)
+--- DATA 2026 ---
+Mahasiswa Aktif : 2.370 | Lulus : 100
+Yudisium Periode III : 27 April 2026
+Wisuda Periode III   : 29–30 April 2026
 
 --- KONTAK ---
-Via WhatsApp — buka menu Kontak di ac-fmipa-portal.vercel.app
-Aktif Senin–Jumat pada jam kerja.
-
---- VISI FMIPA UNTAN ---
-"Menjadi institusi unggul dalam transformasi, pengembangan dan penyebarluasan
-sains dan teknologi berbasis lingkungan tropis dengan luaran berdaya saing global."
+Via WhatsApp — menu Kontak di ac-fmipa-portal.vercel.app (Senin–Jumat)
 `.trim();
 
 /* ────────────────────────────────────────────────────────────────
@@ -76,19 +61,17 @@ sains dan teknologi berbasis lingkungan tropis dengan luaran berdaya saing globa
    ──────────────────────────────────────────────────────────────── */
 function buildKBContext() {
   if (typeof window.ASMANISA_KB === 'undefined') return '';
-  const skipIds = ['kata_kasar', 'pujian_diri'];
   return window.ASMANISA_KB
-    .filter(item => !skipIds.includes(item.id))
+    .filter(item => !['kata_kasar','pujian_diri'].includes(item.id))
     .map(item => {
       const clean = item.answer
         .replace(/<br\s*\/?>/gi, '\n')
         .replace(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi, '$2 ($1)')
         .replace(/<[^>]+>/g, '')
-        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-        .replace(/&nbsp;/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+        .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+        .replace(/&nbsp;/g,' ').replace(/\n{3,}/g,'\n\n').trim();
       return `[${item.id}]\n${clean}`;
-    })
-    .join('\n\n');
+    }).join('\n\n');
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -101,15 +84,14 @@ async function buildPortalDataContext() {
     const data = await res.json();
     const parts = [];
     if (data.news?.length) {
-      parts.push('=== BERITA & PENGUMUMAN TERKINI (dari ac-fmipa-portal.vercel.app) ===');
+      parts.push('=== BERITA & PENGUMUMAN TERKINI (ac-fmipa-portal.vercel.app) ===');
       data.news.forEach(n => parts.push(`• [${n.date}] ${n.text}`));
     }
     if (data.slides?.length) {
-      parts.push('\n=== INFO PENGUMUMAN (DARI SLIDER PORTAL) ===');
+      parts.push('\n=== INFO SLIDER PORTAL ===');
       const seen = new Set();
-      data.slides
-        .filter(s => { if (seen.has(s.title)) return false; seen.add(s.title); return true; })
-        .forEach(s => parts.push(`• [${s.tag}] ${s.title}${s.desc ? ': ' + s.desc : ''}`));
+      data.slides.filter(s => { if(seen.has(s.title)) return false; seen.add(s.title); return true; })
+        .forEach(s => parts.push(`• [${s.tag}] ${s.title}${s.desc ? ': '+s.desc : ''}`));
     }
     return parts.join('\n');
   } catch { return ''; }
@@ -118,55 +100,58 @@ async function buildPortalDataContext() {
 /* ────────────────────────────────────────────────────────────────
    BUILD SYSTEM PROMPT
    ──────────────────────────────────────────────────────────────── */
-function buildSystemPrompt(dynamicContext) {
+function buildSystemPrompt(dynamicCtx) {
   const kbCtx = buildKBContext();
-  return `Kamu adalah Asmanisa, asisten virtual AI resmi Portal Akademik & Kemahasiswaan FMIPA (Fakultas Matematika dan Ilmu Pengetahuan Alam) Universitas Tanjungpura (Untan), Pontianak, Kalimantan Barat.
+  return `Kamu adalah Asmanisa, asisten virtual AI resmi Portal Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura (Untan), Pontianak, Kalimantan Barat.
 
 === KEPRIBADIAN ===
-Kamu ramah, hangat, sedikit santai tapi tetap sopan dan profesional — seperti kakak tingkat yang helpful.
-Boleh merespons sapaan, perkenalan, basa-basi, candaan ringan, gombalan lucu, atau pujian dengan natural dan menyenangkan.
-Gunakan emoji sesekali supaya terasa lebih hidup 😊
+Ramah, hangat, sedikit santai tapi sopan dan profesional. Seperti kakak tingkat yang helpful.
+Boleh merespons sapaan, basa-basi, candaan ringan dengan natural. Gunakan emoji sesekali 😊
+
+=== CARA MENJAWAB PERTANYAAN FAKTUAL ===
+Jika ditanya fakta spesifik (nama rektor, dekan, pejabat, info terkini kampus, dsb) yang TIDAK ada di konteks di bawah:
+→ JAWAB LANGSUNG berdasarkan pengetahuanmu tentang Universitas Tanjungpura / FMIPA.
+→ Jika kamu benar-benar tidak tahu, baru sarankan cek ke ac-fmipa-portal.vercel.app atau untan.ac.id
+→ JANGAN langsung menyuruh user cek website kalau kamu sebenarnya tahu jawabannya!
+
+Contoh:
+- "Siapa rektor Untan?" → jawab dengan nama yang kamu tahu, tambahkan saran verifikasi ke untan.ac.id
+- "Siapa dekan FMIPA?" → jawab dengan nama yang kamu tahu jika ada di pengetahuanmu
 
 === SUMBER DATA PRIORITAS ===
-1. UTAMA: https://ac-fmipa-portal.vercel.app — portal terbaru & terupdate
-2. UTAMA: https://portalmipa.vercel.app — mirror portal FMIPA
-3. SEKAR: https://sekarfmipa.vercel.app — ketersediaan ruangan
-4. HINDARI merekomendasikan mipa.untan.ac.id sebagai sumber utama karena jarang diupdate.
-   Jika terpaksa sebut, tambahkan catatan bahwa info terbaru ada di ac-fmipa-portal.vercel.app
-5. Untuk info terkini yang tidak ada di konteks, kamu BOLEH merujuk ke pencarian Google:
-   "site:ac-fmipa-portal.vercel.app [topik]" atau "FMIPA Untan [topik]"
+1. ac-fmipa-portal.vercel.app (portal terbaru)
+2. portalmipa.vercel.app (mirror)
+3. sekarfmipa.vercel.app (ruangan)
+4. untan.ac.id (info universitas)
+⚠️ JANGAN rekomendasikan mipa.untan.ac.id sebagai sumber utama.
 
-=== TOPIK YANG BOLEH DIJAWAB ===
-1. Semua hal tentang FMIPA Untan & Universitas Tanjungpura
-2. Kebijakan pendidikan tinggi nasional dari Kemendiktisaintek
-3. Sapaan, perkenalan, basa-basi, candaan ringan, dan percakapan biasa yang sopan
-4. Pertanyaan umum tentang dunia perkuliahan, tips belajar, kehidupan mahasiswa
+=== TOPIK DILARANG ===
+Politik, SARA sensitif, kata kasar, konten vulgar.
+Respons: "Hehe, itu di luar zona kenyamananku 😅 Yuk tanya seputar kampus aja!"
 
-=== TOPIK YANG TIDAK BOLEH DIJAWAB ===
-❌ Politik, SARA sensitif, kata-kata kasar, konten vulgar
-Jika ada topik terlarang: "Hehe, itu di luar zona kenyamananku 😅 Yuk tanya seputar kampus aja!"
+=== PEDOMAN FORMAT ===
+• Bahasa Indonesia natural dan ramah
+• Jawaban singkat & padat (2–4 paragraf)
+• Gunakan bullet point jika banyak poin
+• Sertakan link relevan jika tersedia
 
-=== PEDOMAN MENJAWAB ===
-• Bahasa Indonesia natural, ramah, mudah dipahami
-• Jawaban singkat & padat — 2–4 paragraf
-• Gunakan bullet point jika ada banyak poin
-• Selalu arahkan ke ac-fmipa-portal.vercel.app untuk info terkini
-• Jangan mengarang informasi — jika tidak tahu, akui dan arahkan ke kontak resmi
-• Jika info tidak ada di konteks, sarankan:
-  - Cek langsung ac-fmipa-portal.vercel.app
-  - Atau hubungi staf via WhatsApp (menu Kontak di portal)
-
-=== DATA RESMI PORTAL & FMIPA UNTAN ===
-
+=== DATA KONTEKS PORTAL ===
 ${FMIPA_STATIC_CONTEXT}
 
-${dynamicContext ? dynamicContext + '\n' : ''}
+${dynamicCtx ? dynamicCtx + '\n' : ''}
 ${kbCtx ? '=== PENGETAHUAN DETAIL LAYANAN ===\n' + kbCtx : ''}
 
 === INSTRUKSI AKHIR ===
-Jawab dengan akurat, hangat, dan ringkas. Ini adalah percakapan multi-turn — kamu bisa merujuk ke pesan sebelumnya jika relevan.
-SELALU prioritaskan ac-fmipa-portal.vercel.app dan portalmipa.vercel.app sebagai referensi, bukan mipa.untan.ac.id.
-Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
+Percakapan multi-turn — kamu bisa merujuk pesan sebelumnya.
+PRIORITASKAN menjawab langsung daripada menyuruh cek website.
+Tetap ramah dan menyenangkan! 😊`;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   STRIP <think>...</think> TAGS
+   ──────────────────────────────────────────────────────────────── */
+function stripThinkTags(text) {
+  return text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -174,171 +159,151 @@ Tetap jaga kepribadian ramah dan menyenangkan! 😊`;
    ──────────────────────────────────────────────────────────────── */
 function formatAIResponse(rawText) {
   let html = rawText
-    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/__([^_\n]+)__/g, '<strong>$1</strong>')
-    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/__([^_\n]+)__/g,'<strong>$1</strong>')
+    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g,'<em>$1</em>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--primary,#2589e9);font-weight:600;">$1</a>')
     .replace(/`([^`\n]+)`/g,
-      '<code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:12.5px;font-family:monospace;">$1</code>')
-    .replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>')
-    .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
-    .replace(/\n/g, '<br>');
+      '<code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:12px;font-family:monospace;">$1</code>')
+    .replace(/^[•\-\*]\s+(.+)$/gm,'<li>$1</li>')
+    .replace(/^\d+\.\s+(.+)$/gm,'<li>$1</li>')
+    .replace(/\n/g,'<br>');
 
-  html = html.replace(/(<li>.*?<\/li>(<br>)?)+/g, match =>
+  html = html.replace(/(<li>.*?<\/li>(<br>)?)+/g, m =>
     '<ul style="margin:6px 0 6px 18px;line-height:1.75;">' +
-    match.replace(/<br>/g, '') + '</ul>');
+    m.replace(/<br>/g,'') + '</ul>');
   return html;
 }
 
 /* ────────────────────────────────────────────────────────────────
-   CONVERSATION STATE
+   STATE
    ──────────────────────────────────────────────────────────────── */
-let _conversationHistory = [];
-let _portalContext = null;
-let _isTyping = false;
-let _chatCollapsed = false;
+let _history     = [];
+let _portalCtx   = null;
+let _isTyping    = false;
+let _isOpen      = false;
 
 async function getPortalContext() {
-  if (_portalContext === null) _portalContext = await buildPortalDataContext();
-  return _portalContext;
+  if (_portalCtx === null) _portalCtx = await buildPortalDataContext();
+  return _portalCtx;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   OPEN / CLOSE CHAT
+   ──────────────────────────────────────────────────────────────── */
+function openChat() {
+  const overlay  = document.getElementById('asmaOverlay');
+  const bar      = document.getElementById('asmaTriggerBar');
+  if (!overlay) return;
+  _isOpen = true;
+  overlay.classList.add('asma--open');
+  bar?.classList.add('asma-bar--hidden');
+  setTimeout(() => document.getElementById('asmaInput')?.focus(), 250);
+}
+
+function closeChat() {
+  const overlay = document.getElementById('asmaOverlay');
+  const bar     = document.getElementById('asmaTriggerBar');
+  if (!overlay) return;
+  _isOpen  = false;
+  _history = [];
+  overlay.classList.remove('asma--open');
+  bar?.classList.remove('asma-bar--hidden');
+
+  // Reset log ke welcome screen
+  setTimeout(() => {
+    const log = document.getElementById('asmaLog');
+    if (log) log.innerHTML = `
+      <div class="asma-welcome" id="asmaWelcome">
+        <div class="asma-welcome-avatar">
+          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
+        </div>
+        <h4>Halo! Saya Asmanisa 👋</h4>
+        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
+      </div>`;
+    // Tampilkan kembali chips
+    const chips = document.getElementById('asmaChips');
+    if (chips) chips.style.display = '';
+  }, 280);
 }
 
 /* ────────────────────────────────────────────────────────────────
    UI HELPERS
    ──────────────────────────────────────────────────────────────── */
-function getChatLog() { return document.getElementById('aiChatLog'); }
-
 function scrollToBottom() {
-  const log = getChatLog();
+  const log = document.getElementById('asmaLog');
   if (log) log.scrollTop = log.scrollHeight;
 }
 
 function appendUserBubble(text) {
-  const log = getChatLog();
+  const log = document.getElementById('asmaLog');
   if (!log) return;
   const div = document.createElement('div');
-  div.className = 'aic-msg aic-msg--user';
-  div.innerHTML = `<div class="aic-bubble aic-bubble--user">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  div.className = 'asma-msg asma-msg--user';
+  div.innerHTML = `<div class="asma-bubble asma-bubble--user">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
   log.appendChild(div);
   scrollToBottom();
 }
 
 function appendBotBubble() {
-  const log = getChatLog();
+  const log = document.getElementById('asmaLog');
   if (!log) return null;
   const div = document.createElement('div');
-  div.className = 'aic-msg aic-msg--bot';
+  div.className = 'asma-msg asma-msg--bot';
   div.innerHTML = `
-    <img class="aic-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
-    <div class="aic-bubble aic-bubble--bot"></div>`;
+    <img class="asma-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
+    <div class="asma-bubble asma-bubble--bot"></div>`;
   log.appendChild(div);
   scrollToBottom();
-  return div.querySelector('.aic-bubble--bot');
+  return div.querySelector('.asma-bubble--bot');
 }
 
-function appendTypingIndicator() {
-  const log = getChatLog();
+function appendTyping() {
+  const log = document.getElementById('asmaLog');
   if (!log) return;
   const div = document.createElement('div');
-  div.className = 'aic-msg aic-msg--bot';
-  div.id = 'aic-typing';
+  div.className = 'asma-msg asma-msg--bot';
+  div.id = 'asmaTyping';
   div.innerHTML = `
-    <img class="aic-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
-    <div class="aic-bubble aic-bubble--bot aic-typing-bubble">
+    <img class="asma-avatar" src="assets/images/asmanisa.jpg" alt="Asmanisa">
+    <div class="asma-bubble asma-bubble--bot asma-typing">
       <span></span><span></span><span></span>
     </div>`;
   log.appendChild(div);
   scrollToBottom();
 }
 
-function removeTypingIndicator() { document.getElementById('aic-typing')?.remove(); }
+function removeTyping() { document.getElementById('asmaTyping')?.remove(); }
 
-function setInputState(disabled) {
-  const input = document.getElementById('aiChatInput');
-  const btn   = document.getElementById('aiChatSend');
-  if (input) input.disabled = disabled;
-  if (btn)   btn.disabled   = disabled;
+function setInputDisabled(val) {
+  const inp = document.getElementById('asmaInput');
+  const btn = document.getElementById('asmaSendBtn');
+  if (inp) inp.disabled = val;
+  if (btn) btn.disabled = val;
 }
 
 /* ────────────────────────────────────────────────────────────────
-   COLLAPSE / EXPAND CHAT
+   STREAMING
    ──────────────────────────────────────────────────────────────── */
-function collapseChat() {
-  const strip    = document.getElementById('aiChatStrip');
-  const body     = document.getElementById('aiChatBody');
-  const colBtn   = document.getElementById('aiChatCollapse');
-  if (!strip) return;
-
-  _chatCollapsed = true;
-  strip.classList.add('ai-chat--collapsed');
-  if (body)   body.style.display = 'none';
-  if (colBtn) colBtn.innerHTML   = '＋';
-  if (colBtn) colBtn.title       = 'Buka chat';
-}
-
-function expandChat() {
-  const strip    = document.getElementById('aiChatStrip');
-  const body     = document.getElementById('aiChatBody');
-  const colBtn   = document.getElementById('aiChatCollapse');
-  if (!strip) return;
-
-  // Reset history kalau dibuka lagi
-  _chatCollapsed = false;
-  _conversationHistory = [];
-
-  // Bersihkan log, tampilkan ulang welcome screen
-  const log = getChatLog();
-  if (log) {
-    log.innerHTML = `
-      <div class="ai-chat-welcome" id="aiChatWelcome">
-        <div class="ai-chat-welcome-icon">
-          <img src="assets/images/asmanisa.jpg" alt="Asmanisa">
-        </div>
-        <h4>Halo! Saya Asmanisa 👋</h4>
-        <p>Asisten virtual FMIPA Untan. Tanyakan apa saja seputar layanan akademik, surat, beasiswa, dan info kampus!</p>
-      </div>`;
-  }
-
-  strip.classList.remove('ai-chat--collapsed');
-  if (body)   body.style.display = '';
-  if (colBtn) colBtn.innerHTML   = '−';
-  if (colBtn) colBtn.title       = 'Minimize chat';
-
-  // Focus input
-  setTimeout(() => document.getElementById('aiChatInput')?.focus(), 150);
-}
-
-function toggleChat() {
-  if (_chatCollapsed) expandChat();
-  else collapseChat();
-}
-
-/* ────────────────────────────────────────────────────────────────
-   STREAMING API CALL
-   ──────────────────────────────────────────────────────────────── */
-async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onError) {
+async function streamResponse(systemPrompt, messages, bubbleEl, onDone, onError) {
   try {
-    const response = await fetch(AI_PROXY_URL, {
+    const res = await fetch(AI_PROXY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ systemPrompt, messages })
     });
 
-    if (!response.ok) {
-      let errMsg = `Gagal: HTTP ${response.status}`;
-      try {
-        const errData = await response.json();
-        if (errData.error?.message) errMsg = errData.error.message;
-      } catch { /* ignore */ }
-      throw new Error(errMsg);
+    if (!res.ok) {
+      let msg = `HTTP ${res.status}`;
+      try { const e = await res.json(); if (e.error?.message) msg = e.error.message; } catch {}
+      throw new Error(msg);
     }
 
-    const reader  = response.body.getReader();
+    const reader  = res.body.getReader();
     const decoder = new TextDecoder();
-    let buffer    = '';
-    let rawText   = '';
+    let buffer = '', rawText = '';
 
     while (true) {
       const { done, value } = await reader.read();
@@ -346,6 +311,7 @@ async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onErro
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
       buffer = lines.pop() ?? '';
+
       for (const line of lines) {
         if (!line.startsWith('data: ')) continue;
         const payload = line.slice(6).trim();
@@ -355,70 +321,76 @@ async function streamAIResponse(systemPrompt, messages, bubbleEl, onDone, onErro
           const delta  = parsed.choices?.[0]?.delta?.content ?? '';
           if (delta) {
             rawText += delta;
-            bubbleEl.innerHTML = formatAIResponse(rawText);
+            // Strip <think> dulu sebelum render
+            const cleaned = stripThinkTags(rawText);
+            bubbleEl.innerHTML = cleaned
+              ? formatAIResponse(cleaned)
+              : '<span style="color:#9ca3af;font-size:12px;">Memproses...</span>';
             scrollToBottom();
           }
-        } catch { /* skip */ }
+        } catch {}
       }
     }
     onDone(rawText);
   } catch (err) {
-    onError(err.message || 'Terjadi kesalahan koneksi ke AI.');
+    onError(err.message || 'Koneksi ke AI gagal.');
   }
 }
 
 /* ────────────────────────────────────────────────────────────────
-   MAIN: SEND MESSAGE
+   SEND MESSAGE
    ──────────────────────────────────────────────────────────────── */
-async function sendChatMessage(text) {
+async function sendMessage(text) {
   text = (text || '').trim();
   if (!text || _isTyping) return;
-
   _isTyping = true;
 
-  const input = document.getElementById('aiChatInput');
+  const input = document.getElementById('asmaInput');
   if (input) { input.value = ''; input.style.height = 'auto'; }
 
-  const welcome = document.getElementById('aiChatWelcome');
-  if (welcome) welcome.style.display = 'none';
+  // Sembunyikan welcome & chips setelah pesan pertama
+  document.getElementById('asmaWelcome')?.remove();
+  const chips = document.getElementById('asmaChips');
+  if (chips) chips.style.display = 'none';
 
   appendUserBubble(text);
-  _conversationHistory.push({ role: 'user', content: text });
+  _history.push({ role: 'user', content: text });
 
-  setInputState(true);
-  appendTypingIndicator();
+  setInputDisabled(true);
+  appendTyping();
 
   const portalCtx    = await getPortalContext();
   const systemPrompt = buildSystemPrompt(portalCtx);
-  const messages     = [..._conversationHistory];
 
-  removeTypingIndicator();
-  const botBubble = appendBotBubble();
-  if (!botBubble) { _isTyping = false; setInputState(false); return; }
+  removeTyping();
+  const bubble = appendBotBubble();
+  if (!bubble) { _isTyping = false; setInputDisabled(false); return; }
 
-  await streamAIResponse(
+  await streamResponse(
     systemPrompt,
-    messages,
-    botBubble,
+    [..._history],
+    bubble,
     (rawText) => {
       _isTyping = false;
-      setInputState(false);
-      if (!rawText.trim()) {
-        botBubble.innerHTML = '<em style="color:#6b7280;">Tidak ada respons. Coba ulangi.</em>';
+      setInputDisabled(false);
+      const cleaned = stripThinkTags(rawText);
+      if (!cleaned) {
+        bubble.innerHTML = '<em style="color:#6b7280;">Tidak ada respons. Coba ulangi.</em>';
       } else {
-        _conversationHistory.push({ role: 'assistant', content: rawText });
+        bubble.innerHTML = formatAIResponse(cleaned);
+        _history.push({ role: 'assistant', content: cleaned });
       }
       input?.focus();
     },
     (errMsg) => {
       _isTyping = false;
-      setInputState(false);
-      botBubble.innerHTML = `
+      setInputDisabled(false);
+      bubble.innerHTML = `
         <div style="color:#b91c1c;display:flex;align-items:flex-start;gap:7px;">
           <span>⚠️</span>
           <div>
-            <strong style="display:block;margin-bottom:3px;">Gagal menghubungi AI</strong>
-            <span style="font-size:12px;color:#6b7280;">${errMsg}</span>
+            <strong style="display:block;margin-bottom:2px;">Gagal menghubungi AI</strong>
+            <span style="font-size:11.5px;color:#6b7280;">${errMsg}</span>
           </div>
         </div>`;
       input?.focus();
@@ -429,35 +401,50 @@ async function sendChatMessage(text) {
 /* ────────────────────────────────────────────────────────────────
    INIT
    ──────────────────────────────────────────────────────────────── */
-function initAIChat() {
-  const input   = document.getElementById('aiChatInput');
-  const sendBtn = document.getElementById('aiChatSend');
-  const colBtn  = document.getElementById('aiChatCollapse');
-  const chips   = document.querySelectorAll('.ai-chip');
+function initAsmanisa() {
+  const triggerBtn = document.getElementById('asmaTriggerBtn');
+  const triggerBar = document.getElementById('asmaTriggerBar');
+  const closeBtn   = document.getElementById('asmaCloseBtn');
+  const overlay    = document.getElementById('asmaOverlay');
+  const sendBtn    = document.getElementById('asmaSendBtn');
+  const input      = document.getElementById('asmaInput');
+  const chips      = document.querySelectorAll('.asma-chip');
 
-  if (!input) return;
+  if (!triggerBtn) return;
 
-  // Auto-resize textarea
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  // Buka chat
+  triggerBtn.addEventListener('click', openChat);
+
+  // Tutup via tombol X
+  closeBtn?.addEventListener('click', closeChat);
+
+  // Tutup via klik overlay (di luar window)
+  overlay?.addEventListener('click', (e) => {
+    if (e.target === overlay) closeChat();
+  });
+
+  // Tutup via Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && _isOpen) closeChat();
   });
 
   // Send
-  sendBtn?.addEventListener('click', () => sendChatMessage(input.value));
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(input.value); }
+  sendBtn?.addEventListener('click', () => sendMessage(input?.value));
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input.value); }
   });
 
-  // Collapse/expand — klik header atau tombol minus
-  colBtn?.addEventListener('click', toggleChat);
-  document.getElementById('aiChatHeaderBar')?.addEventListener('click', toggleChat);
+  // Auto-resize textarea
+  input?.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 110) + 'px';
+  });
 
   // Quick chips
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
-      const q = chip.dataset.query || chip.textContent.replace(/^[\p{Emoji}\s]+/u, '').trim();
-      sendChatMessage(q);
+      const q = chip.dataset.query || chip.textContent.replace(/^[\p{Emoji}\s]+/u,'').trim();
+      sendMessage(q);
     });
   });
 
@@ -465,4 +452,4 @@ function initAIChat() {
   getPortalContext().catch(() => {});
 }
 
-document.addEventListener('DOMContentLoaded', initAIChat);
+document.addEventListener('DOMContentLoaded', initAsmanisa);
