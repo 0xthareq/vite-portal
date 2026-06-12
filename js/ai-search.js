@@ -96,7 +96,14 @@ Percakapan multi-turn — ingat konteks sebelumnya. Tetap ramah! 😊`;
 }
 
 /* ──────────────────────────────────────────────────────────────── */
-function stripThink(t) { return t.replace(/<think>[\s\S]*?<\/think>/gi,'').trim(); }
+function stripThink(t) {
+  // Hapus blok <think>...</think> yang sudah selesai
+  let result = t.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+  // Kalau masih ada <think> yang belum ditutup (streaming blm selesai), potong dari sana
+  const openIdx = result.search(/<think>/i);
+  if (openIdx !== -1) result = result.slice(0, openIdx).trim();
+  return result;
+}
 
 function fmt(raw) {
   let h = raw
@@ -234,7 +241,15 @@ async function streamResp(sysPrompt, msgs, bubble, onDone, onErr) {
           if (d) {
             raw += d;
             const clean = stripThink(raw);
-            bubble.innerHTML = clean ? fmt(clean) : '<span style="color:#9ca3af;font-size:12px">Memproses…</span>';
+            if (clean) {
+              // Ada konten visible — hapus thinking dots, tampilkan teks
+              bubble.classList.remove('asma-bubble--thinking');
+              bubble.innerHTML = fmt(clean);
+            } else {
+              // Masih di dalam <think> — tampilkan animasi dots
+              bubble.classList.add('asma-bubble--thinking');
+              bubble.innerHTML = '<span class="asma-think-dots"><span></span><span></span><span></span></span>';
+            }
             scrollLog();
           }
         } catch {}
