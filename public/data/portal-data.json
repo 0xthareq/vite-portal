@@ -100,17 +100,6 @@
       "popupLabel": "Jam Layanan Akademik"
     },
     {
-      "id": "s1-1",
-      "slider": 1,
-      "tag": "Akademik",
-      "title": "Kalender Akademik",
-      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
-      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
-      "popupType": "pdf",
-      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
-      "popupLabel": "Kalender Akademik"
-    },
-    {
       "id": "s1-2",
       "slider": 1,
       "tag": "Informasi",
@@ -120,6 +109,17 @@
       "popupType": "pdf",
       "popupUrl": "/api/get-file?path=assets/pdf/1776139139139-syaratwisuda2526peri3.pdf",
       "popupLabel": "Info Syarat Pendaftaran Wisuda"
+    },
+    {
+      "id": "s1-1",
+      "slider": 1,
+      "tag": "Akademik",
+      "title": "Kalender Akademik",
+      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
+      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
+      "popupType": "pdf",
+      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
+      "popupLabel": "Kalender Akademik"
     },
     {
       "id": "sl-1776062471065-5fyk",
@@ -188,5 +188,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-12T15:50:14.885Z"
+  "updatedAt": "2026-06-15T04:49:59.837Z"
 }
