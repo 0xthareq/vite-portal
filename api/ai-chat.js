@@ -1,12 +1,3 @@
-/**
- * /api/ai-chat.js — Vercel Serverless Function
- * Proxy ke Kimchi.dev API dengan streaming SSE.
- * API key disimpan aman di Vercel Environment Variables.
- *
- * Env variable yang WAJIB diset di Vercel Dashboard:
- *   CASTAI_API_KEY   → API key dari https://app.kimchi.dev
- *   ALLOWED_ORIGINS  → URL site kamu, contoh: https://portalmipa.vercel.app
- */
 
 const AI_MODEL   = 'deepseek/deepseek-v4-flash';  // ← nama model
 const AI_API_URL = 'https://api.orcarouter.ai/v1/chat/completions';  // ← base URL + /chat/completions
