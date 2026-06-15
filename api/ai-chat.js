@@ -67,11 +67,15 @@ module.exports = async function handler(req, res) {
 
     if (!upstream.ok) {
       let errMsg = `HTTP ${upstream.status}`;
+      let errRaw = '';
       try {
-        const errData = await upstream.json();
+        errRaw = await upstream.text();
+        const errData = JSON.parse(errRaw);
         if (errData.error?.message) errMsg = errData.error.message;
-      } catch { /* ignore */ }
-      return res.status(upstream.status).json({ error: errMsg });
+        else if (errData.message) errMsg = errData.message;
+      } catch { errMsg = errRaw || errMsg; }
+      console.error('[ai-chat] upstream error', upstream.status, errRaw);
+      return res.status(upstream.status).json({ error: errMsg, raw: errRaw });
     }
 
     // Stream SSE response langsung ke browser
