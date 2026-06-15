@@ -8,8 +8,8 @@
  *   ALLOWED_ORIGINS  → URL site kamu, contoh: https://portalmipa.vercel.app
  */
 
-const AI_MODEL   = 'minimax-m2.7';
-const AI_API_URL = 'https://llm.kimchi.dev/openai/v1/chat/completions';
+const AI_MODEL   = 'deepseek/deepseek-v4-flash';  // ← nama model
+const AI_API_URL = 'https://api.orcarouter.ai/v1/chat/completions';  // ← base URL + /chat/completions
 
 module.exports = async function handler(req, res) {
   // Security headers
@@ -34,7 +34,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
 
   // Ambil API key dari ENV (aman, tidak pernah ke browser)
-  const apiKey = process.env.CASTAI_API_KEY;
+  const apiKey = process.env.ORCAROUTER_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key belum dikonfigurasi di server.' });
   }
