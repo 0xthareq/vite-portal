@@ -170,6 +170,13 @@
   ],
   "news": [
     {
+      "id": "n_mqetjpgv5325",
+      "date": "10 Juni",
+      "text": "Informasi UKT",
+      "link": "",
+      "pdfLink": "https://drive.google.com/file/d/1SwH2Zpkv5MPVX73fvQ5uOmthCDKM4xBN/view?usp=drive_link"
+    },
+    {
       "id": "n-1779068734620-yu1m",
       "date": "18 Mei",
       "text": "Pendaftaran Beasiswa Djarum Foundation",
@@ -201,5 +208,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-15T06:14:38.137Z"
+  "updatedAt": "2026-06-15T06:15:06.648Z"
 }
