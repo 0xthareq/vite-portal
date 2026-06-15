@@ -154,6 +154,18 @@
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets%2Fimages%2F1778131196586-UKT.jpg",
       "popupLabel": "Informasi Terkait UKT"
+    },
+    {
+      "id": "sl_mqetj3ntap8r",
+      "slider": 1,
+      "tag": "Pengumuman",
+      "title": "Pemotongan UKT",
+      "desc": "Informasi Pemotongan UKT 50%",
+      "imageUrl": "/api/get-file?path=assets%2Fimages%2F1781504073577-info_ukt.jpg",
+      "popupType": "image",
+      "popupUrl": "/api/get-file?path=assets%2Fimages%2F1781504073577-info_ukt.jpg",
+      "popupLabel": "Pemotongan UKT",
+      "hidden": false
     }
   ],
   "news": [
@@ -189,5 +201,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-15T06:13:37.357Z"
+  "updatedAt": "2026-06-15T06:14:38.137Z"
 }
