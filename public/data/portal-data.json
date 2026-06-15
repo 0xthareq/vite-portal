@@ -130,7 +130,8 @@
       "imageUrl": "/api/get-file?path=assets/images/1776062445396-slide6.png",
       "popupType": "pdf",
       "popupUrl": "/api/get-file?path=assets/pdf/1776139159844-daftarulang2526.pdf",
-      "popupLabel": "Informasi Daftar Ulang"
+      "popupLabel": "Informasi Daftar Ulang",
+      "hidden": true
     },
     {
       "id": "sl-1779239090252-kzwh",
@@ -208,5 +209,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-15T06:15:28.598Z"
+  "updatedAt": "2026-06-15T06:20:02.963Z"
 }
