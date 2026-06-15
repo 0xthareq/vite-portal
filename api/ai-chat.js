@@ -8,7 +8,7 @@
  *   ALLOWED_ORIGINS  → URL site kamu, contoh: https://portalmipa.vercel.app
  */
 
-const AI_MODEL   = 'minimax-m2.7';
+const AI_MODEL   = 'nemotron-3-ultra-fp4';
 const AI_API_URL = 'https://llm.kimchi.dev/openai/v1/chat/completions';
 
 module.exports = async function handler(req, res) {
