@@ -1,31 +1,22 @@
 /**
  * /api/ai-chat.js — Vercel Serverless Function
- * Proxy ke Kimchi.dev API dengan streaming SSE.
+ * Proxy ke Xiaomi MiMo API dengan streaming SSE.
  * API key disimpan aman di Vercel Environment Variables.
  *
  * Env variable yang WAJIB diset di Vercel Dashboard:
- *   CASTAI_API_KEY   → API key dari https://app.kimchi.dev
- *   ALLOWED_ORIGINS  → URL site kamu, contoh: https://portalmipa.vercel.app
+ *   MIMO_API_KEY → API key dari https://platform.xiaomimimo.com (format: sk-xxxxx)
  */
 
-const AI_MODEL   = 'nemotron-3-ultra-fp4';
-const AI_API_URL = 'https://llm.kimchi.dev/openai/v1/chat/completions';
+const AI_MODEL   = 'mimo-v2.5-pro-ultraspeed';
+const AI_API_URL = 'https://api.xiaomimimo.com/v1/chat/completions';
 
 module.exports = async function handler(req, res) {
   // Security headers
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
 
-  // CORS — hanya izinkan origin sendiri
-  const origin = req.headers.origin || '';
-  const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
-    .split(',').map(s => s.trim()).filter(Boolean);
-
-  if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
-  } else {
-    return res.status(403).json({ error: 'Origin tidak diizinkan.' });
-  }
+  // CORS — izinkan semua origin (API key aman di server)
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -34,7 +25,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
 
   // Ambil API key dari ENV (aman, tidak pernah ke browser)
-  const apiKey = process.env.CASTAI_API_KEY;
+  const apiKey = process.env.MIMO_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key belum dikonfigurasi di server.' });
   }
@@ -67,15 +58,11 @@ module.exports = async function handler(req, res) {
 
     if (!upstream.ok) {
       let errMsg = `HTTP ${upstream.status}`;
-      let errRaw = '';
       try {
-        errRaw = await upstream.text();
-        const errData = JSON.parse(errRaw);
+        const errData = await upstream.json();
         if (errData.error?.message) errMsg = errData.error.message;
-        else if (errData.message) errMsg = errData.message;
-      } catch { errMsg = errRaw || errMsg; }
-      console.error('[ai-chat] upstream error', upstream.status, errRaw);
-      return res.status(upstream.status).json({ error: errMsg, raw: errRaw });
+      } catch { /* ignore */ }
+      return res.status(upstream.status).json({ error: errMsg });
     }
 
     // Stream SSE response langsung ke browser
