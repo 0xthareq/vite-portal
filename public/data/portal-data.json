@@ -152,7 +152,8 @@
       "imageUrl": "/api/get-file?path=assets%2Fimages%2F1779239083583-Pengumuman_Peralihan_Pelayanan_Jurusan_.png",
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets%2Fimages%2F1779239083583-Pengumuman_Peralihan_Pelayanan_Jurusan_.png",
-      "popupLabel": "Administrasi Jurusan"
+      "popupLabel": "Administrasi Jurusan",
+      "hidden": true
     }
   ],
   "news": [
@@ -188,5 +189,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-05-20T01:05:55.560Z"
+  "updatedAt": "2026-06-15T15:11:48.320Z"
 }
