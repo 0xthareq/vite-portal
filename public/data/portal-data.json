@@ -100,6 +100,17 @@
       "popupLabel": "Jam Layanan Akademik"
     },
     {
+      "id": "s1-1",
+      "slider": 1,
+      "tag": "Akademik",
+      "title": "Kalender Akademik",
+      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
+      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
+      "popupType": "pdf",
+      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
+      "popupLabel": "Kalender Akademik"
+    },
+    {
       "id": "s1-2",
       "slider": 1,
       "tag": "Informasi",
@@ -119,18 +130,8 @@
       "imageUrl": "/api/get-file?path=assets/images/1776062445396-slide6.png",
       "popupType": "pdf",
       "popupUrl": "/api/get-file?path=assets/pdf/1776139159844-daftarulang2526.pdf",
-      "popupLabel": "Informasi Daftar Ulang"
-    },
-    {
-      "id": "s1-1",
-      "slider": 1,
-      "tag": "Akademik",
-      "title": "Kalender Akademik",
-      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
-      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
-      "popupType": "pdf",
-      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
-      "popupLabel": "Kalender Akademik"
+      "popupLabel": "Informasi Daftar Ulang",
+      "hidden": true
     },
     {
       "id": "sl-1779239090252-kzwh",
@@ -141,7 +142,8 @@
       "imageUrl": "/api/get-file?path=assets%2Fimages%2F1779239083583-Pengumuman_Peralihan_Pelayanan_Jurusan_.png",
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets%2Fimages%2F1779239083583-Pengumuman_Peralihan_Pelayanan_Jurusan_.png",
-      "popupLabel": "Administrasi Jurusan"
+      "popupLabel": "Administrasi Jurusan",
+      "hidden": true
     },
     {
       "id": "sl-1778075609570-3i8b",
@@ -153,9 +155,28 @@
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets%2Fimages%2F1778131196586-UKT.jpg",
       "popupLabel": "Informasi Terkait UKT"
+    },
+    {
+      "id": "sl_mqetj3ntap8r",
+      "slider": 1,
+      "tag": "Pengumuman",
+      "title": "Pemotongan UKT",
+      "desc": "Informasi Pemotongan UKT 50%",
+      "imageUrl": "/api/get-file?path=assets%2Fimages%2F1781504073577-info_ukt.jpg",
+      "popupType": "image",
+      "popupUrl": "/api/get-file?path=assets%2Fimages%2F1781504073577-info_ukt.jpg",
+      "popupLabel": "Pemotongan UKT",
+      "hidden": false
     }
   ],
   "news": [
+    {
+      "id": "n_mqetjpgv5325",
+      "date": "9 Juni",
+      "text": "Informasi Petunjuk Keringanan UKT",
+      "link": "",
+      "pdfLink": "https://drive.google.com/file/d/1SwH2Zpkv5MPVX73fvQ5uOmthCDKM4xBN/view?usp=drive_link"
+    },
     {
       "id": "n-1779068734620-yu1m",
       "date": "18 Mei",
@@ -188,5 +209,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-15T04:50:44.658Z"
+  "updatedAt": "2026-06-15T06:20:02.963Z"
 }
