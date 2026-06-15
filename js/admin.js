@@ -152,40 +152,44 @@ function slideItemHTML(s) {
 function initDragSort(container, sliderNum) {
   let dragEl      = null;
   let placeholder = null;
+  let isSavingOrder = false; // guard: cegah double-save / double-toast
 
   function getItems() {
     return [...container.querySelectorAll('.slider-item[data-id]')];
   }
 
   container.querySelectorAll('.slider-item').forEach(item => {
-    // Hanya trigger drag dari handle
+    // Drag hanya aktif saat mousedown di handle
     const handle = item.querySelector('.s-drag-handle');
     if (handle) {
       handle.addEventListener('mousedown', () => { item.draggable = true; });
-      handle.addEventListener('mouseup',   () => { item.draggable = false; });
+      document.addEventListener('mouseup', () => { item.draggable = false; }, { once: true });
+    } else {
+      item.draggable = false;
     }
 
     item.addEventListener('dragstart', e => {
+      if (isSavingOrder) { e.preventDefault(); return; }
       dragEl = item;
-      placeholder = document.createElement('div');
-      placeholder.className = 'drag-placeholder';
-      placeholder.style.height = item.offsetHeight + 'px';
       item.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
-      // Tutup opacity setelah frame berikut agar drag image tidak kosong
       requestAnimationFrame(() => { item.style.opacity = '0.35'; });
     });
 
     item.addEventListener('dragend', async () => {
-      if (!dragEl) return;
+      if (!dragEl || isSavingOrder) return;
+
+      // Cleanup visual
       dragEl.style.opacity = '';
       dragEl.classList.remove('dragging');
       if (placeholder && placeholder.parentNode) placeholder.remove();
-      dragEl = null;
       placeholder = null;
 
+      const currentDragEl = dragEl;
+      dragEl = null;
+
       // Baca urutan baru dari DOM
-      const newOrder = getItems().map(el => el.dataset.id);
+      const newOrder = getItems().map(i => i.dataset.id);
 
       const otherSlides = slides.filter(s => s.slider !== sliderNum);
       const thisSlides  = slides.filter(s => s.slider === sliderNum);
@@ -193,13 +197,16 @@ function initDragSort(container, sliderNum) {
       const missing     = thisSlides.filter(s => !newOrder.includes(s.id));
       slides = [...otherSlides, ...reordered, ...missing];
 
+      isSavingOrder = true;
       try {
         await savePortalData(slides, news);
-        toastMsg('✅ Urutan slide disimpan');
+        toastMsg('Urutan slide disimpan');
         updateStats();
       } catch (err) {
         toastMsg('Gagal menyimpan urutan: ' + err.message, 'err');
         renderSliders(); // rollback visual
+      } finally {
+        isSavingOrder = false;
       }
     });
   });
@@ -583,3 +590,18 @@ function formatSize(bytes) {
 function genId(prefix = 'id') {
   return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
+
+// ── EXPOSE KE WINDOW (onclick di HTML string butuh ini) ──
+window.toggleHideSlide = toggleHideSlide;
+window.openEditSlide   = openEditSlide;
+window.openAddSlide    = openAddSlide;
+window.deleteSlide     = deleteSlide;
+window.openEditNews    = openEditNews;
+window.openAddNews     = openAddNews;
+window.saveNews_       = saveNews_;
+window.deleteNews      = deleteNews;
+window.saveSlide       = saveSlide;
+window.closeSlideModal = closeSlideModal;
+window.closeNewsModal  = closeNewsModal;
+window.previewImg      = previewImg;
+window.logout          = logout;
