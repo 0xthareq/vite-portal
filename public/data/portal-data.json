@@ -1,39 +1,6 @@
 {
   "slides": [
     {
-      "id": "s1-0",
-      "slider": 1,
-      "tag": "Pengumuman",
-      "title": "Jam Layanan Akademik",
-      "desc": "Jam Layanan Operasional Akademik dan Kemahasiswaan Senin s.d Kamis, Jumat (WFH)",
-      "imageUrl": "/api/get-file?path=assets/images/1776060763449-0slide1.jpg",
-      "popupType": "image",
-      "popupUrl": "/api/get-file?path=assets/images/1776060763449-0slide1.jpg",
-      "popupLabel": "Jam Layanan Akademik"
-    },
-    {
-      "id": "s1-1",
-      "slider": 1,
-      "tag": "Akademik",
-      "title": "Kalender Akademik",
-      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
-      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
-      "popupType": "pdf",
-      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
-      "popupLabel": "Kalender Akademik"
-    },
-    {
-      "id": "s1-2",
-      "slider": 1,
-      "tag": "Informasi",
-      "title": "Info Syarat Pendaftaran Wisuda",
-      "desc": "Berkas Kelengkapan Pendaftaran Wisuda Periode III T.A 2025/2026",
-      "imageUrl": "/api/get-file?path=assets/images/1776062272760-slide5.png",
-      "popupType": "pdf",
-      "popupUrl": "/api/get-file?path=assets/pdf/1776139139139-syaratwisuda2526peri3.pdf",
-      "popupLabel": "Info Syarat Pendaftaran Wisuda"
-    },
-    {
       "id": "s2-0",
       "slider": 2,
       "tag": "Akademik",
@@ -65,18 +32,6 @@
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets/images/1776064298360-inslide2.png",
       "popupLabel": "Permohonan Cuti Kuliah"
-    },
-    {
-      "id": "sl-1776062471065-5fyk",
-      "slider": 1,
-      "tag": "Akademik",
-      "title": "Informasi Daftar Ulang",
-      "desc": "Informasi Daftar Ulang Semester Genap TA 2025/2026",
-      "imageUrl": "/api/get-file?path=assets/images/1776062445396-slide6.png",
-      "popupType": "pdf",
-      "popupUrl": "/api/get-file?path=assets/pdf/1776139159844-daftarulang2526.pdf",
-      "popupLabel": "Informasi Daftar Ulang",
-      "hidden": true
     },
     {
       "id": "sl-1776065217881-dbpe",
@@ -134,6 +89,39 @@
       "popupLabel": "Bagi Yang Akan/Sudah Sidang"
     },
     {
+      "id": "s1-0",
+      "slider": 1,
+      "tag": "Pengumuman",
+      "title": "Jam Layanan Akademik",
+      "desc": "Jam Layanan Operasional Akademik dan Kemahasiswaan Senin s.d Kamis, Jumat (WFH)",
+      "imageUrl": "/api/get-file?path=assets/images/1776060763449-0slide1.jpg",
+      "popupType": "image",
+      "popupUrl": "/api/get-file?path=assets/images/1776060763449-0slide1.jpg",
+      "popupLabel": "Jam Layanan Akademik"
+    },
+    {
+      "id": "s1-1",
+      "slider": 1,
+      "tag": "Akademik",
+      "title": "Kalender Akademik",
+      "desc": "Kalender Akademik Semester Genap T.A 2025 / 2026",
+      "imageUrl": "/api/get-file?path=assets/images/1776060820895-inslide01.png",
+      "popupType": "pdf",
+      "popupUrl": "/api/get-file?path=assets/pdf/1776139125490-kalenderakademik.pdf",
+      "popupLabel": "Kalender Akademik"
+    },
+    {
+      "id": "s1-2",
+      "slider": 1,
+      "tag": "Informasi",
+      "title": "Info Syarat Pendaftaran Wisuda",
+      "desc": "Berkas Kelengkapan Pendaftaran Wisuda Periode III T.A 2025/2026",
+      "imageUrl": "/api/get-file?path=assets/images/1776062272760-slide5.png",
+      "popupType": "pdf",
+      "popupUrl": "/api/get-file?path=assets/pdf/1776139139139-syaratwisuda2526peri3.pdf",
+      "popupLabel": "Info Syarat Pendaftaran Wisuda"
+    },
+    {
       "id": "sl-1778075609570-3i8b",
       "slider": 1,
       "tag": "Pengumuman",
@@ -143,6 +131,18 @@
       "popupType": "image",
       "popupUrl": "/api/get-file?path=assets%2Fimages%2F1778131196586-UKT.jpg",
       "popupLabel": "Informasi Terkait UKT"
+    },
+    {
+      "id": "sl-1776062471065-5fyk",
+      "slider": 1,
+      "tag": "Akademik",
+      "title": "Informasi Daftar Ulang",
+      "desc": "Informasi Daftar Ulang Semester Genap TA 2025/2026",
+      "imageUrl": "/api/get-file?path=assets/images/1776062445396-slide6.png",
+      "popupType": "pdf",
+      "popupUrl": "/api/get-file?path=assets/pdf/1776139159844-daftarulang2526.pdf",
+      "popupLabel": "Informasi Daftar Ulang",
+      "hidden": true
     },
     {
       "id": "sl-1779239090252-kzwh",
@@ -190,5 +190,5 @@
       "text": "Wisuda Periode III (Tiga) T.A 2025/2026 Universitas Tanjungpura akan dilaksanakan pada tanggal 29 -30 April 2026"
     }
   ],
-  "updatedAt": "2026-06-15T15:12:30.289Z"
+  "updatedAt": "2026-06-15T15:12:47.619Z"
 }
