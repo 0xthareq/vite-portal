@@ -85,7 +85,7 @@ function initSliderPlaceholder(num) {
 
 function buildSliders(slides) {
   [1, 2].forEach(num => {
-    const group = slides.filter(s => s.slider === num);
+    const group = slides.filter(s => s.slider === num && !s.hidden);
     sliderState[num].total = group.length;
 
     const track = document.getElementById('track' + num);
