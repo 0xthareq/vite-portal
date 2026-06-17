@@ -1,15 +1,3 @@
-/*
- * popup.css
- * ─────────────────────────────────────────────
- * Berisi: Overlay popup (background gelap)
- *         Popup gambar (image viewer)
- *         Popup PDF (Google Docs Viewer via iframe)
- *         Tombol tutup (X)
- *         Animasi buka/tutup
- * ─────────────────────────────────────────────
- * Kalau mau ganti ukuran popup PDF →
- *   ubah width/height di .popup-pdf-wrap
- */
 
 /* ── Overlay latar ── */
 .popup-overlay {

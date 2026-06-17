@@ -1,6 +1,6 @@
 /* ================================================================
-   kb.js — Asmanisa Knowledge Base
-   Data statis FMIPA UNTAN untuk konteks AI Asmanisa
+   kb.js — Aska Knowledge Base
+   Data statis FMIPA UNTAN untuk konteks AI Aska
    Update: Juni 2026
    ================================================================ */
 
@@ -11,7 +11,7 @@
    keputusan menjawab diserahkan ke model AI.
    ─────────────────────────────────────────────────────────── */
 
-const ASMANISA_KB = [
+const ASKA_KB = [
 
   /* ── Layanan Portal ── */
   {
@@ -168,4 +168,4 @@ const ASMANISA_KB = [
 ];
 
 // Expose ke window untuk diakses ai-search.js
-if (typeof window !== 'undefined') window.ASMANISA_KB = ASMANISA_KB;
+if (typeof window !== 'undefined') window.ASKA_KB = ASKA_KB;

@@ -1,13 +1,4 @@
-/*
- * layanan-popup.css
- * ─────────────────────────────────────────────
- * CSS khusus popup Jenis Layanan
- * Semua class pakai prefix "lp-" agar tidak
- * bentrok dengan CSS portal lainnya
- * ─────────────────────────────────────────────
- * Kalau mau ganti lebar popup → ubah max-width
- *   di .lp-modal
- */
+
 
 /* ── Overlay backdrop ── */
 .lp-overlay {
