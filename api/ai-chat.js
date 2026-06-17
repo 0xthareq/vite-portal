@@ -1,14 +1,7 @@
-/**
- * /api/ai-chat.js — Vercel Serverless Function
- * Proxy ke Xiaomi MiMo API dengan streaming SSE.
- * API key disimpan aman di Vercel Environment Variables.
- *
- * Env variable yang WAJIB diset di Vercel Dashboard:
- *   MIMO_API_KEY → API key dari https://platform.xiaomimimo.com (format: sk-xxxxx)
- */
 
-const AI_MODEL   = 'mimo-v2.5-pro-ultraspeed';
-const AI_API_URL = 'https://api.xiaomimimo.com/v1/chat/completions';
+const AI_MODEL   = 'deepseek/deepseek-v4-flash';  // ← nama model
+const AI_API_URL = 'https://api.orcarouter.ai/v1/chat/completions';  // ← base URL + /chat/completions
+
 
 module.exports = async function handler(req, res) {
   // Security headers
@@ -25,7 +18,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
 
   // Ambil API key dari ENV (aman, tidak pernah ke browser)
-  const apiKey = process.env.MIMO_API_KEY;
+  const apiKey = process.env.ORCAROUTER_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key belum dikonfigurasi di server.' });
   }

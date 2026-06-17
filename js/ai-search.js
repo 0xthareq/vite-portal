@@ -241,12 +241,16 @@ async function streamResp(sysPrompt, msgs, bubble, onDone, onErr) {
           if (d) {
             raw += d;
             const clean = stripThink(raw);
+            // Token pertama datang — hapus typing indicator, tampilkan bubble
+            if (bubble.parentElement.style.display === 'none') {
+              rmTyping();
+              bubble.parentElement.style.display = '';
+            }
             if (clean) {
-              // Ada konten visible — hapus thinking dots, tampilkan teks
               bubble.classList.remove('asma-bubble--thinking');
               bubble.innerHTML = fmt(clean);
             } else {
-              // Masih di dalam <think> — tampilkan animasi dots
+              // Masih di dalam <think> — tetap tampilkan typing dots
               bubble.classList.add('asma-bubble--thinking');
               bubble.innerHTML = '<span class="asma-think-dots"><span></span><span></span><span></span></span>';
             }
@@ -283,14 +287,16 @@ async function send(text) {
   const ctx    = await getCtx();
   const sysPr  = buildSystemPrompt(ctx);
 
-  rmTyping();
   const bubble = addBotBubble();
   if (!bubble) { _isTyping = false; setDisabled(false); return; }
+  bubble.parentElement.style.display = 'none'; // sembunyikan dulu
 
   await streamResp(sysPr, [..._history], bubble,
     (raw) => {
       _isTyping = false;
       setDisabled(false);
+      rmTyping();
+      bubble.parentElement.style.display = '';
       const c = stripThink(raw);
       bubble.innerHTML = c ? fmt(c) : '<em style="color:#6b7280">Tidak ada respons.</em>';
       if (c) _history.push({ role:'assistant', content:c });
@@ -299,6 +305,8 @@ async function send(text) {
     (err) => {
       _isTyping = false;
       setDisabled(false);
+      rmTyping();
+      bubble.parentElement.style.display = '';
       bubble.innerHTML = `<div style="color:#b91c1c;display:flex;gap:7px;align-items:flex-start">
         <span>⚠️</span>
         <div><strong style="display:block;margin-bottom:2px">Gagal</strong>
