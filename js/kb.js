@@ -1,6 +1,6 @@
 /* ================================================================
-   kb.js — Aska Knowledge Base
-   Data statis FMIPA UNTAN untuk konteks AI Aska
+   kb.js — Kirana Knowledge Base
+   Data statis FMIPA UNTAN untuk konteks AI Kirana
    Update: Juni 2026
    ================================================================ */
 
@@ -11,7 +11,7 @@
    keputusan menjawab diserahkan ke model AI.
    ─────────────────────────────────────────────────────────── */
 
-const ASKA_KB = [
+const KIRANA_KB = [
 
   /* ── Layanan Portal ── */
   {
@@ -165,4 +165,4 @@ const ASKA_KB = [
 ];
 
 // Expose ke window untuk diakses ai-search.js
-if (typeof window !== 'undefined') window.ASKA_KB = ASKA_KB;
+if (typeof window !== 'undefined') window.KIRANA_KB = KIRANA_KB;

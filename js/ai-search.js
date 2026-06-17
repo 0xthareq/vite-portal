@@ -1,5 +1,5 @@
 /* ================================================================
-   ai-search.js — Aska Chat
+   ai-search.js — Kirana Chat
    Input bar sticky bawah → overlay panel percakapan muncul di atas
    ================================================================ */
 
@@ -35,8 +35,8 @@ KONTAK: WhatsApp via menu Kontak di ac-fmipa-portal.vercel.app (Senin–Jumat)
 
 /* ──────────────────────────────────────────────────────────────── */
 function buildKBContext() {
-  if (typeof window.ASKA_KB === 'undefined') return '';
-  return window.ASKA_KB
+  if (typeof window.KIRANA_KB === 'undefined') return '';
+  return window.KIRANA_KB
     .filter(i => !['kata_kasar','pujian_diri'].includes(i.id))
     .map(i => {
       const c = i.answer
@@ -71,7 +71,7 @@ async function buildPortalDataContext() {
 
 function buildSystemPrompt(dynCtx) {
   const kbCtx = buildKBContext();
-  return `Kamu adalah Aska, asisten virtual AI Portal Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura (Untan), Pontianak.
+  return `Kamu adalah Kirana, asisten virtual AI Portal Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura (Untan), Pontianak.
 
 KEPRIBADIAN: Ramah, hangat, natural. Seperti kakak tingkat yang helpful. Pakai emoji sesekali 😊. Jangan kaku atau robotic.
 
@@ -137,7 +137,7 @@ async function getCtx() {
 function openOverlay() {
   if (_isOpen) return;
   _isOpen = true;
-  document.getElementById('askaOverlay')?.classList.add('aska--open');
+  document.getElementById('kiranaOverlay')?.classList.add('kirana--open');
   // Sembunyikan chips setelah ada percakapan
   scrollLog();
 }
@@ -145,65 +145,65 @@ function openOverlay() {
 function closeOverlay() {
   _isOpen  = false;
   _history = [];
-  document.getElementById('askaOverlay')?.classList.remove('aska--open');
+  document.getElementById('kiranaOverlay')?.classList.remove('kirana--open');
 
   // Reset log
-  const log = document.getElementById('askaLog');
+  const log = document.getElementById('kiranaLog');
   if (log) log.innerHTML = '';
 
   // Tampilkan kembali chips
-  const chips = document.getElementById('askaChips');
+  const chips = document.getElementById('kiranaChips');
   if (chips) chips.style.display = '';
 
   // Focus input bar
-  setTimeout(() => document.getElementById('askaInput')?.focus(), 200);
+  setTimeout(() => document.getElementById('kiranaInput')?.focus(), 200);
 }
 
 /* ── UI HELPERS ──────────────────────────────────────────────── */
 function scrollLog() {
-  const l = document.getElementById('askaLog');
+  const l = document.getElementById('kiranaLog');
   if (l) l.scrollTop = l.scrollHeight;
 }
 
 function addUserBubble(text) {
-  const log = document.getElementById('askaLog');
+  const log = document.getElementById('kiranaLog');
   if (!log) return;
   const d = document.createElement('div');
-  d.className = 'aska-msg aska-msg--user';
-  d.innerHTML = `<div class="aska-bubble aska-bubble--user">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  d.className = 'kirana-msg kirana-msg--user';
+  d.innerHTML = `<div class="kirana-bubble kirana-bubble--user">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
   log.appendChild(d);
   scrollLog();
 }
 
 function addBotBubble() {
-  const log = document.getElementById('askaLog');
+  const log = document.getElementById('kiranaLog');
   if (!log) return null;
   const d = document.createElement('div');
-  d.className = 'aska-msg aska-msg--bot';
-  d.innerHTML = `<img class="aska-avatar" src="assets/images/aska.png" alt="Aska">
-    <div class="aska-bubble aska-bubble--bot"></div>`;
+  d.className = 'kirana-msg kirana-msg--bot';
+  d.innerHTML = `<img class="kirana-avatar" src="assets/images/kiranabot.png" alt="Kirana">
+    <div class="kirana-bubble kirana-bubble--bot"></div>`;
   log.appendChild(d);
   scrollLog();
-  return d.querySelector('.aska-bubble--bot');
+  return d.querySelector('.kirana-bubble--bot');
 }
 
 function addTyping() {
-  const log = document.getElementById('askaLog');
+  const log = document.getElementById('kiranaLog');
   if (!log) return;
   const d = document.createElement('div');
-  d.className = 'aska-msg aska-msg--bot';
-  d.id = 'askaTyping';
-  d.innerHTML = `<img class="aska-avatar" src="assets/images/aska.png" alt="Aska">
-    <div class="aska-bubble aska-bubble--bot aska-typing"><span></span><span></span><span></span></div>`;
+  d.className = 'kirana-msg kirana-msg--bot';
+  d.id = 'kiranaTyping';
+  d.innerHTML = `<img class="kirana-avatar" src="assets/images/kiranabot.png" alt="Kirana">
+    <div class="kirana-bubble kirana-bubble--bot kirana-typing"><span></span><span></span><span></span></div>`;
   log.appendChild(d);
   scrollLog();
 }
 
-function rmTyping() { document.getElementById('askaTyping')?.remove(); }
+function rmTyping() { document.getElementById('kiranaTyping')?.remove(); }
 
 function setDisabled(v) {
-  const i = document.getElementById('askaInput');
-  const b = document.getElementById('askaSendBtn');
+  const i = document.getElementById('kiranaInput');
+  const b = document.getElementById('kiranaSendBtn');
   if (i) i.disabled = v;
   if (b) b.disabled = v;
 }
@@ -246,12 +246,12 @@ async function streamResp(sysPrompt, msgs, bubble, onDone, onErr) {
               bubble.parentElement.style.display = '';
             }
             if (clean) {
-              bubble.classList.remove('aska-bubble--thinking');
+              bubble.classList.remove('kirana-bubble--thinking');
               bubble.innerHTML = fmt(clean);
             } else {
               // Masih di dalam <think> — tetap tampilkan typing dots
-              bubble.classList.add('aska-bubble--thinking');
-              bubble.innerHTML = '<span class="aska-think-dots"><span></span><span></span><span></span></span>';
+              bubble.classList.add('kirana-bubble--thinking');
+              bubble.innerHTML = '<span class="kirana-think-dots"><span></span><span></span><span></span></span>';
             }
             scrollLog();
           }
@@ -268,14 +268,14 @@ async function send(text) {
   if (!text || _isTyping) return;
   _isTyping = true;
 
-  const input = document.getElementById('askaInput');
+  const input = document.getElementById('kiranaInput');
   if (input) { input.value = ''; input.style.height = 'auto'; }
 
   // Buka overlay kalau belum
   openOverlay();
 
   // Sembunyikan chips
-  const chips = document.getElementById('askaChips');
+  const chips = document.getElementById('kiranaChips');
   if (chips) chips.style.display = 'none';
 
   addUserBubble(text);
@@ -317,11 +317,11 @@ async function send(text) {
 
 /* ── INIT ────────────────────────────────────────────────────── */
 function init() {
-  const input   = document.getElementById('askaInput');
-  const sendBtn = document.getElementById('askaSendBtn');
-  const closeBtn = document.getElementById('askaCloseBtn');
-  const overlay  = document.getElementById('askaOverlay');
-  const chips    = document.querySelectorAll('.aska-chip');
+  const input   = document.getElementById('kiranaInput');
+  const sendBtn = document.getElementById('kiranaSendBtn');
+  const closeBtn = document.getElementById('kiranaCloseBtn');
+  const overlay  = document.getElementById('kiranaOverlay');
+  const chips    = document.querySelectorAll('.kirana-chip');
 
   if (!input) return;
 
@@ -355,3 +355,4 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+

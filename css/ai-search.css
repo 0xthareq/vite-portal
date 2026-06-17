@@ -1,10 +1,10 @@
 /* ================================================================
-   ai-search.css — Aska Chat
+   ai-search.css — Kirana Chat
    Input bar sticky bawah → overlay percakapan muncul di atas
    ================================================================ */
 
 /* ══ INPUT BAR — sticky bottom ══════════════════════════════════ */
-.aska-bar {
+.kirana-bar {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -17,7 +17,7 @@
   transition: opacity .2s;
 }
 
-.aska-bar-inner {
+.kirana-bar-inner {
   max-width: 760px;
   margin: 0 auto;
   display: flex;
@@ -25,7 +25,7 @@
   gap: 10px;
 }
 
-.aska-bar-avatar {
+.kirana-bar-avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -35,10 +35,10 @@
   transition: transform .2s;
 }
 
-.aska-bar-avatar:hover { transform: scale(1.07); }
+.kirana-bar-avatar:hover { transform: scale(1.07); }
 
 /* Wrapper input + tombol kirim */
-.aska-bar-inputwrap {
+.kirana-bar-inputwrap {
   position: relative;
   flex: 1;
   display: flex;
@@ -52,7 +52,7 @@
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 
-.aska-bar-inputwrap::before {
+.kirana-bar-inputwrap::before {
   content: '';
   position: absolute;
   inset: -2.5px;
@@ -66,25 +66,25 @@
   mask-composite: exclude;
   opacity: 0;
   transition: opacity .25s;
-  animation: askaGradientShift 6s linear infinite;
+  animation: kiranaGradientShift 6s linear infinite;
   pointer-events: none;
 }
 
-.aska-bar-inputwrap:focus-within::before {
+.kirana-bar-inputwrap:focus-within::before {
   opacity: 1;
 }
 
-.aska-bar-inputwrap:focus-within {
+.kirana-bar-inputwrap:focus-within {
   border-color: transparent;
   box-shadow: 0 2px 10px rgba(37,137,233,0.15);
 }
 
-@keyframes askaGradientShift {
+@keyframes kiranaGradientShift {
   0%   { background-position: 0% 50%; }
   100% { background-position: 300% 50%; }
 }
 
-.aska-bar-textarea {
+.kirana-bar-textarea {
   flex: 1;
   border: none;
   background: transparent;
@@ -99,12 +99,12 @@
   padding: 2px 0;
 }
 
-.aska-bar-textarea::placeholder {
+.kirana-bar-textarea::placeholder {
   color: #9ca3af;
   font-size: 13px;
 }
 
-.aska-bar-send {
+.kirana-bar-send {
   flex-shrink: 0;
   width: 34px;
   height: 34px;
@@ -120,15 +120,15 @@
   box-shadow: 0 2px 8px rgba(37,137,233,0.35);
 }
 
-.aska-bar-send:hover:not(:disabled) {
+.kirana-bar-send:hover:not(:disabled) {
   background: #1a6cc9;
   transform: scale(1.08);
 }
 
-.aska-bar-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.kirana-bar-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
 /* ══ OVERLAY — muncul di atas bar saat chat aktif ═══════════════ */
-.aska-overlay {
+.kirana-overlay {
   position: fixed;
   left: 0;
   right: 0;
@@ -144,13 +144,13 @@
   transition: opacity .22s ease;
 }
 
-.aska-overlay.aska--open {
+.kirana-overlay.kirana--open {
   opacity: 1;
   pointer-events: all;
 }
 
 /* Backdrop gelap di belakang panel */
-.aska-overlay::before {
+.kirana-overlay::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -162,10 +162,10 @@
   z-index: -1;
 }
 
-.aska-overlay.aska--open::before { opacity: 1; }
+.kirana-overlay.kirana--open::before { opacity: 1; }
 
 /* ══ PANEL percakapan ═══════════════════════════════════════════ */
-.aska-panel {
+.kirana-panel {
   width: 100%;
   max-width: 760px;
   max-height: calc(100vh - 130px);
@@ -186,12 +186,12 @@
   margin: 0 8px;
 }
 
-.aska-overlay.aska--open .aska-panel {
+.kirana-overlay.kirana--open .kirana-panel {
   transform: translateY(0);
 }
 
 /* ══ HEADER PANEL ═══════════════════════════════════════════════ */
-.aska-panel-header {
+.kirana-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -201,13 +201,13 @@
   flex-shrink: 0;
 }
 
-.aska-panel-title {
+.kirana-panel-title {
   display: flex;
   align-items: center;
   gap: 9px;
 }
 
-.aska-panel-avatar {
+.kirana-panel-avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -215,7 +215,7 @@
   border: 2px solid rgba(37,137,233,0.25);
 }
 
-.aska-panel-name {
+.kirana-panel-name {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -224,7 +224,7 @@
   color: var(--text, #111827);
 }
 
-.aska-online-dot {
+.kirana-online-dot {
   display: inline-block;
   width: 7px;
   height: 7px;
@@ -233,14 +233,14 @@
   box-shadow: 0 0 0 2px rgba(34,197,94,.2);
 }
 
-.aska-panel-sub {
+.kirana-panel-sub {
   display: block;
   font-size: 10.5px;
   color: #6b7280;
   margin-top: 1px;
 }
 
-.aska-close-btn {
+.kirana-close-btn {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -254,14 +254,14 @@
   transition: all .15s;
 }
 
-.aska-close-btn:hover {
+.kirana-close-btn:hover {
   background: #fee2e2;
   border-color: #fca5a5;
   color: #dc2626;
 }
 
 /* ══ LOG ════════════════════════════════════════════════════════ */
-.aska-log {
+.kirana-log {
   flex: 1;
   overflow-y: auto;
   display: flex;
@@ -272,25 +272,25 @@
   min-height: 80px;
 }
 
-.aska-log::-webkit-scrollbar       { width: 3px; }
-.aska-log::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+.kirana-log::-webkit-scrollbar       { width: 3px; }
+.kirana-log::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
 
 /* ══ BUBBLES ════════════════════════════════════════════════════ */
-.aska-msg {
+.kirana-msg {
   display: flex;
   align-items: flex-end;
   gap: 7px;
-  animation: askaMsgIn .18s ease;
+  animation: kiranaMsgIn .18s ease;
 }
 
-@keyframes askaMsgIn {
+@keyframes kiranaMsgIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.aska-msg--user  { flex-direction: row-reverse; }
+.kirana-msg--user  { flex-direction: row-reverse; }
 
-.aska-avatar {
+.kirana-avatar {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -299,7 +299,7 @@
   border: 1.5px solid rgba(0,0,0,0.07);
 }
 
-.aska-bubble {
+.kirana-bubble {
   max-width: 80%;
   padding: 8px 13px;
   border-radius: 16px;
@@ -308,72 +308,72 @@
   word-break: break-word;
 }
 
-.aska-bubble--user {
+.kirana-bubble--user {
   background: var(--primary, #2589e9);
   color: #fff;
   border-bottom-right-radius: 4px;
 }
 
-.aska-bubble--bot {
+.kirana-bubble--bot {
   background: rgba(243,244,246,0.95);
   color: var(--text, #111827);
   border-bottom-left-radius: 4px;
 }
 
-.aska-bubble--bot a          { color: var(--primary,#2589e9); font-weight:600; text-decoration:none; }
-.aska-bubble--bot a:hover    { text-decoration: underline; }
-.aska-bubble--bot strong     { font-weight: 700; }
-.aska-bubble--bot ul         { margin: 5px 0 5px 17px; line-height: 1.7; }
+.kirana-bubble--bot a          { color: var(--primary,#2589e9); font-weight:600; text-decoration:none; }
+.kirana-bubble--bot a:hover    { text-decoration: underline; }
+.kirana-bubble--bot strong     { font-weight: 700; }
+.kirana-bubble--bot ul         { margin: 5px 0 5px 17px; line-height: 1.7; }
 
 /* ══ THINKING DOTS (saat AI masih di dalam <think>) ════════════ */
-.aska-bubble--thinking {
+.kirana-bubble--thinking {
   background: rgba(243,244,246,0.95) !important;
   padding: 10px 14px !important;
 }
 
-.aska-think-dots {
+.kirana-think-dots {
   display: flex;
   gap: 4px;
   align-items: center;
 }
 
-.aska-think-dots span {
+.kirana-think-dots span {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #9ca3af;
-  animation: askaDot 1.3s ease-in-out infinite;
+  animation: kiranaDot 1.3s ease-in-out infinite;
 }
 
-.aska-think-dots span:nth-child(2) { animation-delay: .18s; }
-.aska-think-dots span:nth-child(3) { animation-delay: .36s; }
+.kirana-think-dots span:nth-child(2) { animation-delay: .18s; }
+.kirana-think-dots span:nth-child(3) { animation-delay: .36s; }
 
 /* ══ TYPING ═════════════════════════════════════════════════════ */
-.aska-typing {
+.kirana-typing {
   display: flex;
   gap: 4px;
   align-items: center;
   padding: 10px 13px;
 }
 
-.aska-typing span {
+.kirana-typing span {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #9ca3af;
-  animation: askaDot 1.3s ease-in-out infinite;
+  animation: kiranaDot 1.3s ease-in-out infinite;
 }
 
-.aska-typing span:nth-child(2) { animation-delay: .18s; }
-.aska-typing span:nth-child(3) { animation-delay: .36s; }
+.kirana-typing span:nth-child(2) { animation-delay: .18s; }
+.kirana-typing span:nth-child(3) { animation-delay: .36s; }
 
-@keyframes askaDot {
+@keyframes kiranaDot {
   0%,60%,100% { transform: translateY(0);   opacity: .4; }
   30%          { transform: translateY(-4px); opacity: 1; }
 }
 
 /* ══ CHIPS ══════════════════════════════════════════════════════ */
-.aska-chips {
+.kirana-chips {
   display: flex;
   gap: 6px;
   padding: 7px 14px;
@@ -384,9 +384,9 @@
   -ms-overflow-style: none;
 }
 
-.aska-chips::-webkit-scrollbar { display: none; }
+.kirana-chips::-webkit-scrollbar { display: none; }
 
-.aska-chip {
+.kirana-chip {
   flex-shrink: 0;
   padding: 4px 12px;
   border-radius: 50px;
@@ -400,7 +400,7 @@
   transition: all .15s;
 }
 
-.aska-chip:hover {
+.kirana-chip:hover {
   border-color: var(--primary, #2589e9);
   color: var(--primary, #2589e9);
   background: rgba(37,137,233,0.06);
@@ -409,10 +409,10 @@
 
 /* ══ RESPONSIVE ═════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .aska-bar         { padding: 8px 12px 12px; }
-  .aska-panel       { border-radius: 16px 16px 12px 12px; margin: 0 4px; }
-  .aska-bubble      { max-width: 88%; font-size: 13px; }
-  .aska-bar-avatar  { width: 30px; height: 30px; }
+  .kirana-bar         { padding: 8px 12px 12px; }
+  .kirana-panel       { border-radius: 16px 16px 12px 12px; margin: 0 4px; }
+  .kirana-bubble      { max-width: 88%; font-size: 13px; }
+  .kirana-bar-avatar  { width: 30px; height: 30px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -422,7 +422,7 @@
 
 /* Overlay panel — batasi tinggi di mobile agar close button tetap terlihat */
 @media (max-width: 768px) {
-  #askaOverlay.aska--open {
+  #kiranaOverlay.kirana--open {
     /* Mulai dari bawah header navbar (asumsi header ~60px) */
     top: 60px !important;
     height: calc(100dvh - 60px) !important;
@@ -430,15 +430,15 @@
   }
 
   /* Panel chat di dalam overlay */
-  .aska-panel {
+  .kirana-panel {
     max-height: calc(100dvh - 60px) !important;
     height: calc(100dvh - 60px) !important;
     border-radius: 0 !important;
   }
 
   /* Log percakapan — sisakan ruang untuk header panel + input bar */
-  .aska-log,
-  #askaLog {
+  .kirana-log,
+  #kiranaLog {
     max-height: calc(100dvh - 60px - 60px - 70px) !important;
     /* 60px navbar, 60px panel header, 70px input bar */
   }
