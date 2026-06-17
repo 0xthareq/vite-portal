@@ -1,560 +1,171 @@
+/* ================================================================
+   kb.js — Asmanisa Knowledge Base
+   Data statis FMIPA UNTAN untuk konteks AI Asmanisa
+   Update: Juni 2026
+   ================================================================ */
 
+/* ── CATATAN PENGGUNAAN ───────────────────────────────────────
+   KB ini hanya sebagai DATA REFERENSI untuk AI, bukan template jawaban.
+   AI bebas menjawab dengan natural berdasarkan konteks percakapan.
+   Tidak ada pola (patterns) yang dipakai sebagai trigger — semua
+   keputusan menjawab diserahkan ke model AI.
+   ─────────────────────────────────────────────────────────── */
 
 const ASMANISA_KB = [
 
-  /* ── Sapa / Pembuka ── */
-  {
-    id: 'greeting',
-    patterns: [
-      'halo', 'hai', 'hi', 'hey', 'hei', 'selamat pagi', 'selamat siang',
-      'selamat sore', 'selamat malam', 'permisi', 'assalamualaikum',
-      'waalaikumsalam', 'tes', 'test', 'hola', 'p', 'hallo'
-    ],
-    answer:
-      'Halo! Ada yang bisa saya bantu? 😊<br>' +
-      'Tanya aja seputar layanan akademik, ijazah, surat, atau info FMIPA UNTAN ya!',
-  },
-
-  /* ── Bio Ijazah ── */
+  /* ── Layanan Portal ── */
   {
     id: 'bio_ijazah',
-    patterns: [
-      'ijazah', 'bio ijazah', 'biodata ijazah', 'cetak ijazah',
-      'verifikasi ijazah', 'legalisir ijazah', 'foto ijazah',
-      'xandria', 'bioijazah', 'ambil ijazah'
-    ],
     answer:
-      '🎓 <strong>Bio Ijazah</strong> — Verifikasi &amp; cetak biodata ijazah resmi<br><br>' +
-      '🔗 <a href="https://xandria.pduntan.id/login" target="_blank">xandria.pduntan.id/login</a><br><br>' +
-      'Login menggunakan akun mahasiswa kamu ya.',
+      'Bio Ijazah adalah layanan verifikasi dan cetak biodata ijazah resmi Untan. ' +
+      'Akses melalui xandria.pduntan.id/login menggunakan akun mahasiswa.',
   },
 
-  /* ── SATU UNTAN ── */
   {
     id: 'satu_untan',
-    patterns: [
-      'satu untan', 'portal untan', 'sistem informasi', 'siakad',
-      'krs', 'kartu rencana studi', 'isi krs', 'lihat nilai',
-      'transkrip', 'login portal', 'satu.untan', 'portal akademik'
-    ],
     answer:
-      '🏛️ <strong>SATU UNTAN</strong> — Portal terpadu sistem informasi universitas<br><br>' +
-      '🔗 <a href="https://satu.untan.ac.id/gate/login" target="_blank">satu.untan.ac.id/gate/login</a><br><br>' +
-      'Tersedia untuk KRS, nilai, transkrip, dan layanan akademik lainnya.',
+      'SATU UNTAN adalah portal terpadu sistem informasi Universitas Tanjungpura. ' +
+      'Tersedia di satu.untan.ac.id untuk KRS, nilai, transkrip, dan layanan akademik lainnya.',
   },
 
-  /* ── Cek Surat ── */
   {
     id: 'cek_surat',
-    patterns: [
-      'cek surat', 'lacak surat', 'status surat', 'tracking surat',
-      'cek dokumen', 'surat sudah jadi', 'surat selesai',
-      'surat keterangan aktif', 'surat aktif kuliah', 'keterangan lulus',
-      'surat keterangan lulus', 'surat keterangan cuti',
-      'surat pindah', 'surat cuti', 'pindah kuliah'
-    ],
     answer:
-      '✉️ <strong>Cek Status Surat</strong> — Lacak dokumen resmi kamu<br><br>' +
-      '🔗 <a href="ceksurat.html">Buka Halaman Cek Surat</a><br><br>' +
-      'Masukkan <strong>Nama</strong> atau <strong>NIM</strong> kamu untuk melihat status surat.',
+      'Cek status surat bisa dilakukan di halaman Cek Surat portal. ' +
+      'Masukkan Nama atau NIM untuk melihat status dokumen.',
   },
 
-  /* ── Pengajuan Surat ── */
   {
     id: 'pengajuan_surat',
-    patterns: [
-      'cara mengajukan surat', 'ajukan surat', 'minta surat',
-      'buat surat', 'pengajuan surat', 'bikin surat',
-      'surat pengunduran diri', 'surat pindah kuliah', 'skl'
-    ],
     answer:
-      '📝 <strong>Cara Mengajukan Surat</strong><br><br>' +
-      'Pengajuan dilakukan melalui <strong>Google Form</strong> di menu <strong>Jenis Layanan</strong> portal.<br><br>' +
-      'Surat yang tersedia:<br>' +
-      '• Surat Aktif Kuliah<br>' +
-      '• Surat Keterangan Lulus (SKL)<br>' +
-      '• Surat Cuti Kuliah<br>' +
-      '• Surat Pengunduran Diri<br>' +
-      '• Surat Pindah Kuliah<br><br>' +
-      '⏱️ Proses pembuatan biasanya <strong>1–3 hari kerja</strong> setelah pengajuan diverifikasi.<br><br>' +
-      'Pantau status via <a href="ceksurat.html" style="color:var(--primary);font-weight:600;">Cek Surat</a>.',
+      'Pengajuan surat dilakukan melalui Google Form di menu Jenis Layanan portal. ' +
+      'Surat yang tersedia: Aktif Kuliah, SKL, Cuti Kuliah, Pengunduran Diri, Pindah Kuliah. ' +
+      'Proses pembuatan 1-3 hari kerja setelah diverifikasi.',
   },
 
-  /* ── Surat Tidak Ditemukan ── */
   {
-    id: 'surat_tidak_ditemukan',
-    patterns: [
-      'surat tidak ditemukan', 'surat tidak ada', 'surat belum muncul',
-      'surat ga muncul', 'status surat tidak ada', 'kenapa surat tidak ada',
-      'surat hilang', 'surat belum ada'
-    ],
+    id: 'sekar',
     answer:
-      '🔍 <strong>Status Surat Tidak Ditemukan?</strong><br><br>' +
-      'Coba langkah berikut:<br>' +
-      '1. Pastikan <strong>Nama / NIM</strong> yang dimasukkan sudah benar<br>' +
-      '2. Pastikan jenis surat yang dipilih sesuai<br>' +
-      '3. Kemungkinan pengajuan masih dalam antrian atau belum diinput ke sistem<br><br>' +
-      'Kalau masih tidak ditemukan, hubungi staf akademik via:<br>' +
-      '<a href="#" onclick="openKontakPopup(); return false;" ' +
-      'style="color:var(--primary);font-weight:600;">📲 WhatsApp Akademik</a>',
+      'SEKAR (Sistem Informasi Ruangan) adalah aplikasi peminjaman ruangan FMIPA Untan. ' +
+      'Akses di sekarfmipa.vercel.app.',
   },
 
-  /* ── Jenis Layanan ── */
   {
-    id: 'jenis_layanan',
-    patterns: [
-      'jenis layanan', 'layanan akademik', 'layanan administrasi',
-      'permohonan', 'pengajuan', 'google form', 'form layanan',
-      'daftar layanan', 'ada layanan apa', 'mau mengajukan',
-      'cara mengajukan', 'formulir', 'form pengajuan'
-    ],
+    id: 'kontak_layanan',
     answer:
-      '📋 <strong>Jenis Layanan Akademik &amp; Administrasi</strong><br><br>' +
-      'Berbagai layanan tersedia via Google Form (7 layanan tersedia). ' +
-      'Klik tombol di bawah untuk melihat daftar lengkapnya:<br><br>' +
-      '<a href="#" onclick="openLayananPopup(); return false;" ' +
-      'style="color:var(--primary);font-weight:600;">📂 Lihat Semua Layanan</a>',
+      'Layanan akademik FMIPA Untan:\n' +
+      '- Loket Akademik: Senin-Kamis 08.00-15.00 WIB (Jumat WFH via online/WhatsApp)\n' +
+      '- Konsultasi & pembayaran UKT: Ruang Loket Akademik, Senin-Kamis 08.00-15.00 WIB\n' +
+      '- Kontak via WhatsApp tersedia di menu Kontak portal (Senin-Jumat)',
   },
 
-  /* ── Syarat Sidang ── */
+  /* ── UKT & Keuangan ── */
   {
-    id: 'syarat_sidang',
-    patterns: [
-      'syarat sidang', 'sidang skripsi', 'sidang tugas akhir',
-      'persiapan sidang', 'draft sidang', 'berkas sidang',
-      'persyaratan sidang', 'daftar sidang', 'mau sidang',
-      'ujian skripsi'
-    ],
+    id: 'ukt_info',
     answer:
-      '📄 <strong>Draft Syarat Sidang</strong><br><br>' +
-      'Dokumen memuat persyaratan administratif &amp; akademik yang harus dipenuhi sebelum mendaftar sidang.<br><br>' +
-      '🔗 <a href="https://docs.google.com/document/d/1QQFK0vpB2VYwZN9XRjxiJWRfck6HUCTu/edit" target="_blank">' +
-      'Download Draft Syarat Sidang</a><br><br>' +
-      'Pastikan semua persyaratan sudah terpenuhi sebelum mendaftar sidang ya! 📝',
+      'Informasi UKT FMIPA Untan:\n\n' +
+      'KONSULTASI & PEMBAYARAN UKT\n' +
+      'Dilaksanakan di Ruang Loket Akademik.\n' +
+      'Hari: Senin - Kamis | Waktu: 08.00 - 15.00 WIB\n\n' +
+      'PENGURANGAN UKT 50% (Mahasiswa Tahap Kuliah Akhir)\n' +
+      'Syarat:\n' +
+      '- Mahasiswa S1 minimal semester 9 ATAU D3 minimal semester 7\n' +
+      '- Sisa mata kuliah yang belum ditempuh maksimal 6 SKS\n' +
+      '- Tidak berlaku jika sisa SKS lebih dari 6\n' +
+      '- SKS perbaikan nilai tetap dihitung dalam akumulasi total SKS\n' +
+      '- Jika sudah membayar 50%, wajib melunasi sisa 50% sebelum Ujian Akhir Semester\n\n' +
+      'DOKUMEN YANG DIPERLUKAN:\n' +
+      '1. Surat Permohonan Pengurangan Pembayaran UKT (format sesuai lampiran)\n' +
+      '2. Transkrip nilai terakhir\n' +
+      '3. Lembar Isian Rencana Studi (LIRS)\n' +
+      '4. Surat Pernyataan Tidak Sedang Menerima Beasiswa\n' +
+      '5. Surat Pernyataan Tanggung Jawab Mutlak (SPTJM)\n\n' +
+      'TATA CARA PENGAJUAN:\n' +
+      '1. Isi formulir permohonan sesuai format\n' +
+      '2. Lengkapi bukti pendukung\n' +
+      '3. Ajukan maksimal 2 minggu sebelum daftar ulang\n' +
+      '4. Disampaikan ke fakultas melalui Wakil Dekan Bidang Keuangan dan Umum\n' +
+      '5. WD Keuangan akan verifikasi dan terbitkan Surat Rekomendasi\n\n' +
+      'PEMBEBASAN DARI KEWAJIBAN UKT\n' +
+      'Diberikan kepada mahasiswa yang telah menyelesaikan seluruh beban studi yang diwajibkan.\n\n' +
+      'PENINJAUAN KEMBALI TARIF UKT\n' +
+      'Bisa diajukan jika terjadi:\n' +
+      '- Perubahan kemampuan ekonomi mahasiswa/orang tua\n' +
+      '- Ketidaksesuaian data ekonomi\n' +
+      'Tidak berlaku bagi penerima beasiswa.',
   },
 
-  /* ── Bebas Laboratorium ── */
   {
-    id: 'bebas_lab',
-    patterns: [
-      'bebas laboratorium', 'bebas lab', 'surat bebas lab',
-      'clearance lab', 'draft bebas lab', 'pernyataan lab',
-      'form bebas laboratorium'
-    ],
+    id: 'ukt_penanggung_jawab',
     answer:
-      '🔬 <strong>Draft Bebas Laboratorium</strong><br><br>' +
-      'Prosedur ini biasanya menjadi salah satu syarat pengajuan sidang dan wisuda.<br><br>' +
-      '🔗 <a href="https://docs.google.com/document/d/10O5ifI5A3WheOjYs9ZWEKtOAe9NsoB7r/edit" target="_blank">' +
-      'Download Draft Bebas Laboratorium</a>',
+      'Urusan UKT di FMIPA Untan ditangani oleh:\n' +
+      '- Wakil Dekan Bidang Keuangan dan Umum: Dr. Evi Noviani, S.Si., M.Si.\n' +
+      '- Bagian Keuangan: Rinny Yusnita Absari, S.E., M.M. (Pengelola Data)\n' +
+      '- Bendahara: Rachmat Jamaluddin, A.Md. (BPP)\n' +
+      '- Loket Akademik: Senin-Kamis 08.00-15.00 WIB',
   },
 
-  /* ── Cuti Akademik ── */
+  /* ── Data Pegawai & Dosen ── */
   {
-    id: 'cuti',
-    patterns: [
-      'cuti', 'pengajuan cuti', 'prosedur cuti', 'izin tidak kuliah',
-      'non aktif', 'stop out', 'cuti akademik', 'mau cuti'
-    ],
+    id: 'pejabat_struktural',
     answer:
-      '🗓️ <strong>Prosedur Pengajuan Cuti</strong><br><br>' +
-      'Langkah umum:<br>' +
-      '1. Siapkan berkas persyaratan<br>' +
-      '2. Ajukan via menu <strong>Jenis Layanan</strong> di portal<br>' +
-      '3. Tunggu konfirmasi dari akademik<br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1fV2sJh5zzpKd65WZ5_2XY2woL0shd-GH\',' +
-      'title:\'Prosedur Pengajuan Cuti\'}); return false;">Lihat Prosedur Cuti (PDF)</a>',
+      'PEJABAT STRUKTURAL FMIPA UNTAN (per Juni 2026):\n\n' +
+      'DEKANAT:\n' +
+      '- Dekan: Prof. Dr. Gusrizal, S.Si., M.Si. (Gol. IV/c)\n' +
+      '- Wakil Dekan Bid. Akademik: Yudha Arman, S.Si, M.Si., D.Sc. (Gol. III/d)\n' +
+      '- Wakil Dekan Bid. Keuangan & Umum: Dr. Evi Noviani, S.Si., M.Si. (Gol. IV/a)\n' +
+      '- Wakil Dekan Bid. Kemahasiswaan & Alumni: Tedy Rismawan, S.Kom., M.Cs. (Gol. III/d)\n\n' +
+      'KETUA JURUSAN:\n' +
+      '- Ketua Jurusan Matematika: Dr. Yundari, S.Si., M.Sc.\n' +
+      '- Sekretaris Jurusan Matematika: Dr. Nilamsari Kusumastuti, S.Si., M.Sc.\n' +
+      '- Ketua Jurusan Biologi: Dr. Kustiati, S.Si., M.Si.\n' +
+      '- Sekretaris Jurusan Biologi: Siti Ifadatin, S.Si., M.Si.\n' +
+      '- Ketua Jurusan Fisika: Dr. Bintoro Siswo Nugroho, S.Si., M.Si.\n' +
+      '- Sekretaris Jurusan Fisika: Hasanuddin, S.Si., M.Si., Ph.D.\n' +
+      '- Ketua Jurusan Kimia: Dr. Rini Muharini, S.Si., M.Si.\n' +
+      '- Sekretaris Jurusan Kimia: Winda Rahmalia, S.Si., M.Si.\n' +
+      '- Ketua Jurusan Ilmu Kelautan: Dr. Ari Hepi Yanti, S.Si., M.Sc.\n' +
+      '- Ketua Jurusan RSK & Sisfo: Arif Bijaksana Putra Negara, S.Kom., M.Kom.\n' +
+      '- Sekretaris Jurusan RSK & Sisfo: Dara Islamie, M.Kom.\n\n' +
+      'KOORDINATOR PRODI:\n' +
+      '- Prodi Matematika: Dr. Bayu Prihandono, S.Si., M.Sc.\n' +
+      '- Prodi Statistika: Dr. Evy Sulistianingsih, S.Si., M.Sc.\n' +
+      '- Prodi Fisika: Dr. Azrul Azwar, S.Si., M.Si.\n' +
+      '- Prodi Kimia: Winda Rahmalia, S.Si., M.Si.\n' +
+      '- Prodi Biologi: Dr. Zulfa Zakiah, S.Si., M.Si.\n' +
+      '- Prodi Ilmu Kelautan: Dr. Ari Hepi Yanti, S.Si., M.Sc.\n' +
+      '- Prodi Siskom: Arif Bijaksana Putra Negara, S.Kom., M.Kom.\n' +
+      '- Prodi Sisfo: Dara Islamie, M.Kom.\n\n' +
+      'KEPALA BAGIAN ADMINISTRASI:\n' +
+      '- Kepala Bagian Umum: Eva Novianti Hestivera, S.T., S.E., M.M. (Gol. IV/a)\n' +
+      '- Pengadministrasi Akademik: Sakdiana (Gol. III/a)',
   },
 
-  /* ── Perbaikan Data PDDIKTI ── */
   {
-    id: 'pddikti',
-    patterns: [
-      'pddikti', 'perbaikan data', 'data pddikti',
-      'update data pddikti', 'feeder dikti', 'kesalahan data'
-    ],
-    answer:
-      '📊 <strong>Perbaikan Data PDDIKTI</strong><br><br>' +
-      'Panduan berdasarkan ketentuan Kemendikbudristek / Kementerian Diktisaintek.<br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=10G0cmbmU1_Fjn3m1SRmLUIzJ3VEdRjK4\',' +
-      'title:\'Perbaikan Data PDDIKTI\'}); return false;">Lihat Panduan PDDIKTI (PDF)</a><br><br>' +
-      'Siapkan dokumen pendukung (KTP, ijazah, dll.) dan hubungi staf via WhatsApp 📞',
+    id: 'dosen_fmipa',
+    answer: "=== DATA DOSEN FMIPA UNTAN (per Juni 2026) ===\n\n[Biologi]\n  • Dr. Kustiati, S.Si., M.Si. | NIP: 197212102000032001 | Lektor Kepala | Gol. IV / c | Jabatan Tambahan: Ketua Jurusan Biologi\n  • Siti Ifadatin, S.Si., M.Si. | NIP: 197103272000032001 | Lektor | Gol. III / d | Jabatan Tambahan: Sekretaris Jurusan Biologi\n  • Mukarlina, S.Si., M.Si. | NIP: 196804062000032001 | Lektor | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Biologi\n  • Dr. Junardi, S.Si., M.Si. | NIP: 197206132000031001 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Kepala Laboratorium Zoologi\n  • Prof. Dr. Dra. Siti Khotimah, M.Si. | NIP: 196702021997022001 | Guru Besar | Gol. IV / d\n  • Prof. Dr. Rafdinal, S.Si., M.Si. | NIP: 197108311999031002 | Guru Besar | Gol. IV / c\n  • Dr. Elvi Rusmiyanto Pancaning Wardoyo, S.Si., M.Si. | NIP: 197109012000031003 | Lektor Kepala | Gol. IV / b\n  • Masnur Turnip, S.Si., M.Sc. | NIP: 197208181998022001 | Lektor | Gol. III / d\n  • Dr. Zulfa Zakiah, S.Si., M.Si. | NIP: 197306242000032001 | Lektor | Gol. III / d\n  • Irwan Lovadi, S.Si., M.App.Sc., Ph.D. | NIP: 197803192001121002 | Lektor | Gol. III / d\n  • Riza Linda, S.Si., M.Si. | NIP: 197005071999032001 | Lektor Kepala | Gol. IV / a\n  • Ari Hepi Yanti, S.Si., M.Sc. | NIP: 198404152008012008 | Lektor Kepala | Gol. III / d\n  • Dr. Dwi Gusmalawati, S.Si., M.Si. | NIP: 198408072014042002 | Lektor | Gol. III / c\n  • Rahmawati, S.Si., M.Sc. | NIP: 198404092008122002 | Lektor | Gol. III / c\n  • Diah Wulandari Rousdy, S.Si., M.Sc. | NIP: 198510212008122003 | Lektor | Gol. III / c\n  • Riyandi, S.Si., M.Si. | NIP: 198606182015041001 | Asisten Ahli | Gol. III / b\n  • Firman Saputra, S.Si., M.Sc. | NIP: 198302112008121003 | Asisten Ahli | Gol. III / b\n  • Kartika Prabasari, M.Si. | NIP: 199612272024062004 | - | Gol. III / b\n  • Rikhsan Kurniatuhadi, S.Si, M.Si | NIP: 198903042023211018 | Asisten Ahli | Gol. X\n\n[Fisika]\n  • Yudha Arman, S.Si, M.Si., D.Sc. | NIP: 197805132003121002 | Lektor Kepala | Gol. III / d | Jabatan Tambahan: Wakil Dekan Bidang Akademik\n  • Dr. Bintoro Siswo Nugroho, S.Si., M.Si. | NIP: 198102062006041003 | Lektor Kepala | Gol. IV / b | Jabatan Tambahan: Ketua Jurusan Fisika\n  • Hasanuddin, S.Si., M.Si., Ph.D. | NIP: 198412162008121003 | Lektor | Gol. III / d | Jabatan Tambahan: Sekretaris Jurusan Fisika\n  • Dr. Azrul Azwar, S.Si., M.Si. | NIP: 198107302005011002 | Lektor | Gol. III / d | Jabatan Tambahan: Koordinator Program Studi Fisika\n  • Dr. Dwiria Wahyuni, S.Si., M.Sc. | NIP: 198206082008122001 | Lektor | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Fisika Lanjut Dan Komputasi\n  • Boni Pahlanop Lapanporo, S.Si., M.Sc. | NIP: 198011102005011002 | Lektor | Gol. III / d\n  • Mariana Bara'allo Malino, S.Si., M.Sc. | NIP: 197603082002122001 | Lektor | Gol. III / c\n  • Dr. Nurhasanah, S.Si., M.Si. | NIP: 198011252006042002 | Lektor | Gol. III / d\n  • Dr. Abdul Muid, S.Si., M.Si. | NIP: 198012172008121001 | Asisten Ahli | Gol. III / b\n  • Asifa Asri, S.Si., M.Si. | NIP: 199006052022032010 | Asisten Ahli | Gol. III / b\n  • Yuris Sutanto, M.Sc. | NIP: 199008272022031008 | Asisten Ahli | Gol. III / b\n  • Retna Arilasita, S.Si., M.Si. | NIP: 199603232024062002 | Asisten Ahli | Gol. III / b\n  • Mega Nurhanisa, S.Si, M.Si. | NIP: 198801192024212001 | Asisten Ahli | Gol. X\n\n[Geofisika]\n  • Dr.Yoga Satria Putra, S.Si., M.Si. | NIP: 197910252005011002 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Koordinator Program Studi Geofisika\n  • Muliadi, S.Si., M.Si. | NIP: 197005101999031003 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Kepala Laboratorium Fisika Dasar\n  • Dr. Joko Sampurno, S.Si., M.Si. | NIP: 198408252008011004 | Lektor Kepala | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Geofisika dan Sistem Informasi Geografis\n  • Dr. Andi Ihwan, S.Si., M.Si. | NIP: 197310082002121001 | Lektor Kepala | Gol. IV / c\n  • Dr. Muhammad Ishak Jumarang, S.Si., M.Si. | NIP: 197409212003121004 | Lektor Kepala | Gol. IV / c\n  • Irfana Diah Faryuni, S.Si., M.Si. | NIP: 198510132008122004 | Asisten Ahli | Gol. III / b\n  • Zulfian, S.Si., M.Si. | NIP: 198812142020121005 | Lektor | Gol. III / c\n  • Radhitya Perdhana, S.Si., M.Sc. | NIP: 198911142019031011 | Asisten Ahli | Gol. III / b\n\n[Ilmu Kelautan]\n  • Dr. Apriansyah, S.Si., M.Si. | NIP: 198609072015041001 | Lektor | Gol. III / c | Jabatan Tambahan: Ketua Jurusan Ilmu Kelautan\n  • Yusuf Arief Nurrahman, S.Kel., M.Si. | NIP: 198903172018031001 | Asisten Ahli | Gol. III / b | Jabatan Tambahan: Sekretaris Jurusan Ilmu Kelautan\n  • Warsidah, S.Si., M.Si., Apt. | NIP: 197304122000032001 | Lektor | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Ilmu Kelautan\n  • Arie Antasari Kushadiwijayanto, S.Si., M.Si. | NIP: 198604292014041001 | Lektor | Gol. III / c\n  • Mega Sari Juane Sofiana, S.Si., M.Sc. | NIP: 198606242019032017 | Lektor | Gol. III / c\n  • Sukal Minsas, S.Si., M.Si. | NIP: 198507192019032007 | Lektor | Gol. III / b\n  • Shifa Helena, S.Kel., M.Si | NIP: 199101312024062002 | Asisten Ahli | Gol. III / b\n  • Tia Nuraya, M.Si. | NIP: 199308192024062001 | Asisten Ahli | Gol. III / b\n  • Syarif Irwan Nurdiansyah, S.Si., M.Si | NIP: 198606272023211014 | Asisten Ahli | Gol. X\n  • Ikha Safitri, S.Pi., M.Si. | NIP: 198905072024212035 | Asisten Ahli | Gol. X\n  • Dr. Dwi Imam Prayitno. S.Kel., M.Si. | NIP: 198210072025211050 | Lektor | Gol. XII\n\n[Kimia]\n  • Dr. Endah Sayekti, S.Si., M.Si. | NIP: 197206222000122001 | Lektor Kepala | Gol. IV / c | Jabatan Tambahan: Sekretaris Jurusan Kimia\n  • Dr. Winda Rahmalia, S.Si., M.Si. | NIP: 198402272008122004 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Koordinator Program Studi S1 Kimia\n  • Dr. Lia Destiarti, S.Si., M.Si. | NIP: 198312022008122002 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Koordinator Program Studi Magister Kimia\n  • Adhitiyawarman, S.Si., M.Si., Ph.D. | NIP: 198409192008121001 | Lektor | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Kimia\n  • Dr. Nelly Wahyuni, S.Si., M.Si. | NIP: 197506022000032001 | Lektor Kepala | Gol. IV / c\n  • H. Afghani Jayuska, S.Si., M.Si. | NIP: 197107072000121001 | Lektor Kepala | Gol. IV / c\n  • Titin Anita Zaharah, S.Si., M.Sc. | NIP: 196904191996012002 | Lektor Kepala | Gol. IV / c\n  • Puji Ardiningsih, S.Si., M.Si. | NIP: 197201271998022001 | Lektor Kepala | Gol. IV / c\n  • Berlian Sitorus , S.Si., M.Si., M.Sc., Ph.D. | NIP: 197410102000122006 | Guru Besar | Gol. IV / b\n  • Dr. Anthoni Batahan Aritonang, S.Si., M.Si. | NIP: 196803082000031001 | Lektor Kepala | Gol. IV / a\n  • Dr. Nurlina, S.Si., M.Sc. | NIP: 198510232012122002 | Lektor | Gol. III / d\n  • Ferdinand Hidayat, S.Si., M.Si. | NIP: 199002022024061001 | - | Gol. III / b\n  • Elliska Murni Harfinda, S.Si., M.Si. | NIP: 198901052024062001 | - | Gol. III / b\n  • Firman Shantya Budi, M.Sc. | NIP: 198905292023211027 | Asisten Ahli | Gol. X\n  • Risya Sasri, S.Si., M.Sc. | NIP: 199003102023212041 | Asisten Ahli | Gol. X\n\n[Magister Kimia (S2)]\n  • Prof. Dr. Gusrizal, S.Si., M.Si. | NIP: 197108022000031001 | Guru Besar | Gol. IV / c | Jabatan Tambahan: Dekan\n  • Dr. Andi Hairil Alimuddin, S.Si., M.Si. | NIP: 197109202000121001 | Lektor Kepala | Gol. IV / c | Jabatan Tambahan: Ketua Jurusan Kimia\n  • Prof. Rudiyansyah, S.Si., M.Si., Ph.D. | NIP: 197201242000121001 | Guru Besar | Gol. IV / c | Jabatan Tambahan: Kepala Laboratorium Bioteknologi dan Riset\n  • Prof. Dr. H. Thamrin Usman, DEA. | NIP: 196211101988111001 | Guru Besar | Gol. IV / e\n  • Prof. Risa Nofiani, S.Si., M.Si., Ph.D. | NIP: 197411152000122001 | Guru Besar | Gol. IV / d\n  • Dr. Muhamad Agus Wibowo, S.Si., M.Si. | NIP: 197301092000031002 | Lektor Kepala | Gol. IV / c\n  • Dr. Ari Widiyantoro, S.Si., M.Si. | NIP: 197304012000121001 | Lektor Kepala | Gol. IV / a\n  • Dr. Anis Shofiyani, S.Si., M.Si. | NIP: 197311152000122001 | Lektor | Gol. III / d\n\n[Matematika]\n  • Dr. Evi Noviani, S.Si., M.Si. | NIP: 198402292006042001 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Wakil Dekan Bidang Keuangan dan Umum\n  • Dr. Yundari, S.Si., M.Sc. | NIP: 198310202008012012 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Ketua Jurusan Matematika\n  • Dr. Nilamsari Kusumastuti, S.Si., M.Sc. | NIP: 198105102005012003 | Lektor | Gol. III / d | Jabatan Tambahan: Sekretaris Jurusan Matematika\n  • Dr. Bayu Prihandono, S.Si., M.Sc. | NIP: 197911152005011003 | Lektor | Gol. III / d | Jabatan Tambahan: Koordinator Program Studi Matematika\n  • Yudhi, S.Si., M.Si. | NIP: 198504072019031004 | Asisten Ahli | Gol. III / b | Jabatan Tambahan: Kepala Laboratorium Matematika\n  • Drs. Helmi, M.Si. | NIP: 196410171998021001 | Lektor | Gol. III / d\n  • Fransiskus Fran, S.Si., M.Si. | NIP: 198804152019031014 | Lektor | Gol. III / c\n  • Nur’ainul Miftahul Huda, S.Si., M.Si. | NIP: 199411142020122014 | Lektor | Gol. III / c\n  • Meliana Pasaribu, S.Pd., M.Sc. | NIP: 198710192019032006 | Asisten Ahli | Gol. III / b\n  • Asri Rahmawati, M.Mat. | NIP: 199509062024062001 | Asisten Ahli | Gol. III / b\n  • Onelia Rochmah, S.Si., M.Sc. | NIP: 199502112024062003 | - | Gol. III / b\n\n[Rekayasa Sistem Komputer]\n  • Tedy Rismawan, S.Kom., M.Cs. | NIP: 198609222014041002 | Lektor | Gol. III / d | Jabatan Tambahan: Wakil Dekan Bidang Kemahasiswaan dan Alumni\n  • Syamsul Bahri, S.Kom., M.Cs. | NIP: 198802272015041001 | Lektor | Gol. III / c | Jabatan Tambahan: Ketua Jurusan Rekayasa Sistem Komputer\n  • Dwi Marisa Midyanti, ST., M.Cs. | NIP: 198003192015042001 | Lektor Kepala | Gol. IV / a | Jabatan Tambahan: Sekretaris Jurusan Rekayasa Sistem Komputer\n  • Suhardi, ST., M.Eng. | NIP: 198606182020121006 | Asisten Ahli | Gol. III / b | Jabatan Tambahan: Kepala Laboratorium Pemrograman dan Komputasi\n  • Drs. Cucu Suhery, MA. | NIP: 196108291989031002 | Lektor | Gol. III / d\n  • Dedi Triyanto, ST., MT. | NIP: 198112242009121003 | Lektor | Gol. III / d\n  • Rahmi Hidayati, S.Kom., M.Cs. | NIP: 198607202015042001 | Lektor | Gol. III / d\n  • Ikhwan Ruslianto, S.Kom., M.Cs. | NIP: 198607012014041001 | Lektor | Gol. III / d\n  • Irma Nirmala, ST., MT. | NIP: 198404052019032015 | Lektor | Gol. III / c\n  • Uray Ristian, S.Kom., M.Kom. | NIP: 199012012019031017 | Lektor | Gol. III / c\n  • Hirzen Hasfani, M.Cs. | NIP: 199305032022031003 | Asisten Ahli | Gol. III / b\n  • Kartika Sari, M.Cs. | NIP: 199206162022032014 | Asisten Ahli | Gol. III / b\n  • Kasliono, S.Mat., M.Cs. | NIP: 199306202022031005 | Asisten Ahli | Gol. III / b\n  • Hafiz Muhardi, S.T., M.Kom. | NIP: 199007232023211017 | Asisten Ahli | Gol. X\n\n[Sistem Informasi]\n  • Renny Puspita Sari, ST., MT. | NIP: 198704182015042001 | Lektor | Gol. III / d | Jabatan Tambahan: Ketua Jurusan Sistem Informasi\n  • Ibnur Rusi, S.Kom., MM. | NIP: 198907282019031008 | Lektor | Gol. III / c | Jabatan Tambahan: Sekretaris Jurusan Sistem Informasi\n  • Ferdy Febriyanto, S.Kom., M.Kom. | NIP: 198902012019031008 | Asisten Ahli | Gol. III / b | Jabatan Tambahan: Kepala Laboratorium Sistem Informasi\n  • Ilhamsyah, S.Si., M.Cs. | NIP: 198405102012121001 | Lektor | Gol. III / d\n  • Nurul Mutiah, ST., MT. | NIP: 198711182015042002 | Lektor | Gol. III / d\n  • Dian Prawira, ST., M.Eng. | NIP: 198411132015041001 | Lektor | Gol. III / c\n  • Syahru Rahmayuda, S.Kom., M.Kom. | NIP: 198306172025211055 | Asisten Ahli | Gol. X\n\n[Statistika]\n  • Dr. Evy Sulistianingsih, S.Si., M.Sc. | NIP: 198502172008122006 | Lektor | Gol. III / d | Jabatan Tambahan: Koordinator Program Studi Statistika\n  • Shantika Martha, S.Si., M.Si. | NIP: 198403082008122003 | Lektor | Gol. III / d | Jabatan Tambahan: Kepala Laboratorium Statistika\n  • Neva Satyahadewi, S.Si., M.Sc. | NIP: 198212042005012001 | Lektor Kepala | Gol. IV / a\n  • Nurfitri Imro'ah, S.Si., M.Si. | NIP: 198907182019032021 | Lektor | Gol. III / c\n  • Hendra Perdana, S.Si., M.Sc. | NIP: 198810102019031020 | Asisten Ahli | Gol. III / b\n  • Wirda Andani, M.Si. | NIP: 199411152022032016 | Asisten Ahli | Gol. III / b\n  • Yuyun Eka Pratiwi, S.Si., M.Aktr. | NIP: 199403072024062003 | Asisten Ahli | Gol. III / b\n  • Ray Tamtama, M.Si. | NIP: 199103152024061002 | - | Gol. III / b\n\n=== PEJABAT STRUKTURAL FMIPA UNTAN ===\n  • Dekan: Prof. Dr. Gusrizal, S.Si., M.Si. (Magister Kimia (S2))\n  • Wakil Dekan Bidang Akademik: Yudha Arman, S.Si, M.Si., D.Sc. (Fisika)\n  • Wakil Dekan Bidang Keuangan dan Umum: Dr. Evi Noviani, S.Si., M.Si. (Matematika)\n  • Wakil Dekan Bidang Kemahasiswaan dan Alumni: Tedy Rismawan, S.Kom., M.Cs. (Rekayasa Sistem Komputer)\n  • Ketua Jurusan Matematika: Dr. Yundari, S.Si., M.Sc. (Matematika)\n  • Sekretaris Jurusan Matematika: Dr. Nilamsari Kusumastuti, S.Si., M.Sc. (Matematika)\n  • Koordinator Program Studi Matematika: Dr. Bayu Prihandono, S.Si., M.Sc. (Matematika)\n  • Koordinator Program Studi Statistika: Dr. Evy Sulistianingsih, S.Si., M.Sc. (Statistika)\n  • Kepala Laboratorium Matematika: Yudhi, S.Si., M.Si. (Matematika)\n  • Kepala Laboratorium Statistika: Shantika Martha, S.Si., M.Si. (Statistika)\n  • Ketua Jurusan Fisika: Dr. Bintoro Siswo Nugroho, S.Si., M.Si. (Fisika)\n  • Sekretaris Jurusan Fisika: Hasanuddin, S.Si., M.Si., Ph.D. (Fisika)\n  • Koordinator Program Studi Fisika: Dr. Azrul Azwar, S.Si., M.Si. (Fisika)\n  • Koordinator Program Studi Geofisika: Dr.Yoga Satria Putra, S.Si., M.Si. (Geofisika)\n  • Kepala Laboratorium Fisika Dasar: Muliadi, S.Si., M.Si. (Geofisika)\n  • Kepala Laboratorium Fisika Lanjut Dan Komputasi: Dr. Dwiria Wahyuni, S.Si., M.Sc. (Fisika)\n  • Kepala Laboratorium Geofisika dan Sistem Informasi Geografis: Dr. Joko Sampurno, S.Si., M.Si. (Geofisika)\n  • Ketua Jurusan Kimia: Dr. Andi Hairil Alimuddin, S.Si., M.Si. (Magister Kimia (S2))\n  • Sekretaris Jurusan Kimia: Dr. Endah Sayekti, S.Si., M.Si. (Kimia)\n  • Koordinator Program Studi S1 Kimia: Dr. Winda Rahmalia, S.Si., M.Si. (Kimia)\n  • Koordinator Program Studi Magister Kimia: Dr. Lia Destiarti, S.Si., M.Si. (Kimia)\n  • Kepala Laboratorium Kimia: Adhitiyawarman, S.Si., M.Si., Ph.D. (Kimia)\n  • Kepala Laboratorium Bioteknologi dan Riset: Prof. Rudiyansyah, S.Si., M.Si., Ph.D. (Magister Kimia (S2))\n  • Ketua Jurusan Biologi: Dr. Kustiati, S.Si., M.Si. (Biologi)\n  • Sekretaris Jurusan Biologi: Siti Ifadatin, S.Si., M.Si. (Biologi)\n  • Kepala Laboratorium Biologi: Mukarlina, S.Si., M.Si. (Biologi)\n  • Kepala Laboratorium Zoologi: Dr. Junardi, S.Si., M.Si. (Biologi)\n  • Ketua Jurusan Rekayasa Sistem Komputer: Syamsul Bahri, S.Kom., M.Cs. (Rekayasa Sistem Komputer)\n  • Sekretaris Jurusan Rekayasa Sistem Komputer: Dwi Marisa Midyanti, ST., M.Cs. (Rekayasa Sistem Komputer)\n  • Kepala Laboratorium Pemrograman dan Komputasi: Suhardi, ST., M.Eng. (Rekayasa Sistem Komputer)\n  • Ketua Jurusan Ilmu Kelautan: Dr. Apriansyah, S.Si., M.Si. (Ilmu Kelautan)\n  • Sekretaris Jurusan Ilmu Kelautan: Yusuf Arief Nurrahman, S.Kel., M.Si. (Ilmu Kelautan)\n  • Kepala Laboratorium Ilmu Kelautan: Warsidah, S.Si., M.Si., Apt. (Ilmu Kelautan)\n  • Ketua Jurusan Sistem Informasi: Renny Puspita Sari, ST., MT. (Sistem Informasi)\n  • Sekretaris Jurusan Sistem Informasi: Ibnur Rusi, S.Kom., MM. (Sistem Informasi)\n  • Kepala Laboratorium Sistem Informasi: Ferdy Febriyanto, S.Kom., M.Kom. (Sistem Informasi)\n\n=== TENAGA KEPENDIDIKAN PNS & PPPK ===\n  • Eva Novianti Hestivera, S.T., S.E., M.M. | NIP: 197907142006042001 | Gol. IV/a | Kepala Bagian Umum FMIPA UNTAN | Kepala Bagian Tata Usaha\n  • Rinny Yusnita Absari, S.E., M.M. | NIP: 197706192005012003 | Gol. IV/a | Pengelola Data | Bag. Keuangan\n  • Rachmat Jamaluddin, A.Md. | NIP: 197810202000121002 | Gol. III/c | Pengelola Keuangan / Bendahara Pengeluaran Pembantu (BPP) | Bag. Keuangan\n  • Eko Sri Haryati, A.Md. | NIP: 196912172007012001 | Gol. III/b | Pengelola Data | Bag. Keuangan\n  • Sakdiana | NIP: 198307072009102001 | Gol. III/a | Pengadministrasi Akademik | Bag. Akademik\n  • Megawati June, S.Mat. | NIP: 199506222025062004 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Statistika\n  • Muhammad Hariski, S.Mat. | NIP: 200006172025061004 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Sistem Informasi\n  • Tiara Nusa Putri, S.Si. | NIP: 200008242025062012 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Geofisika dan Sistem Informasi Geografis\n  • Apriliandi, S.Mat. | NIP: 199504082025061005 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Matematika\n  • Asterina, S.Si. | NIP: 199910092025062015 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Fisika Dasar\n  • Filza Buana Putra, S.Mat. | NIP: 199611192025061007 | Gol. III/a | Pranata Laboratorium Pendidikan Ahli Pertama | Lab. Pemrograman dan Komputasi\n  • Yoga Pratama, S.Si. | NIP: 199408032023211018 | Gol. IX | Ahli Pertama - Pranata Laboratorium Pendidikan | Lab. Bioteknologi dan Riset\n  • Toni | NIP: 197901112025211030 | Gol. V | Pengadministrasi Perkantoran | Bag. Kepegawaian\n  • Wiwid Widyana, S.Si. | NIP: 199002132025212046 | Gol. IX | Penata Layanan Operasional | Bag. Kepegawaian\n  • Riyo Riadi, S.Mat. | NIP: 199612122025211053 | Gol. IX | Penata Layanan Operasional | Bag. Kepegawaian\n  • Budi Suryadarma | NIP: 198410012025211057 | Gol. V | Pengadministrasi Perkantoran | Bag. Keuangan\n  • Suandi, S.Si. | NIP: 199112122025211081 | Gol. IX | Penata Layanan Operasional | Bag. Keuangan\n  • Nayla Afifah, S.Hut. | NIP: 198307052025212044 | Gol. IX | Penata Layanan Operasional | Bag. Umum\n  • Supriani,S.Hut. | NIP: 197508242025212010 | Gol. IX | Penata Layanan Operasional | Bag. Umum\n  • Peri Suhendra | NIP: 198202202025211034 | Gol. V | Operator Layanan Operasional | Bag. Umum\n  • Sahroni | NIP: 198109202025211041 | Gol. V | Operator Layanan Operasional | Bag. Umum\n  • Susanti, S.Pd. | NIP: 199201022025212066 | Gol. IX | Penata Layanan Operasional | Bag. Umum/ Staf Dekan\n  • Hajjar | NIP: 198707212025211061 | Gol. V | Operator Layanan Operasional | Bag. Umum\n  • Onny Suryana | NIP: 197610132025211022 | Gol. V | Pengadministrasi Perkantoran | Bag. Akademik\n  • Primanita Putri Darmanto, S.Pd., M.Pd. | NIP: 199308132025212055 | Gol. IX | Penata Layanan Operasional | Bag. Akademik\n  • Agung Setyowahyu, A.Md.Kesling. | NIP: 198806212025211049 | Gol. VII | Pengelola Layanan Operasional | Bag. Akademik\n  • Thareq Abdul Aziz. A.Md. | NIP: 199612232025211037 | Gol. VII | Pengelola Layanan Operasional | Bag. Akademik\n  • Prima, S.S.T. | NIP: 199307262025211042 | Gol. IX | Penata Layanan Operasional | Administrasi Jurusan Matematika\n  • Surya Darma, A.Md. | NIP: 199505132025211043 | Gol. VII | Pengelola Layanan Operasional | Administrasi Jurusan Ilmu Kelautan dan Fisika\n  • Warsi Kurnia Rahayu, S.Si | NIP: 198804062025212049 | Gol. IX | Penata Layanan Operasional | Administrasi Jurusan Kimia\n  • M. Khairuddin, A.Md. | NIP: 198404192025211055 | Gol. VII | Pengelola Layanan Operasional | Administrasi Jurusan Biologi\n  • Agus Setiawan, S.Si. | NIP: 199108182025211052 | Gol. IX | Penata Layanan Operasional | Lab. Fisika Dasar\n  • Emma Khairiah, S.Si | NIP: 198806112025212048 | Gol. IX | Penata Layanan Operasional | Lab. Biologi\n  • Harianto, S.Si. | NIP: 199503132025211050 | Gol. IX | Penata Layanan Operasional | Lab. Ilmu Kelautan\n\n=== TENAGA KONTRAK & PHL ===\n  • Sri Rahayu, S.Si | Tenaga Laboran | Lab. Zoologi\n  • Margie Surahman, S.Si. | Tenaga Laboran | Lab. Biologi\n  • Titik Lestari, S.Si. | Laboran Kimia | Lab. Kimia\n  • Muhammad Raymount Abdahu, S.Kom. | Tenaga Administrasi | Jurusan Rekayasa Sistem Komputer dan Sistem Informasi\n  • Hamdi, S.Kom. | TIK | Bag. Akademik",
   },
 
-  /* ── Edaran PISN ── */
+  /* ── Info Akademik ── */
   {
-    id: 'pisn',
-    patterns: ['pisn', 'edaran pisn', 'surat edaran pisn', 'info pisn'],
+    id: 'program_studi',
     answer:
-      '📌 <strong>Edaran PISN</strong><br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1iE5rlnfnTdvad4svmKDW1QyZXXh7JRkD\',' +
-      'title:\'Edaran PISN\'}); return false;">Lihat Edaran PISN (PDF)</a>',
+      'Program Studi di FMIPA Untan:\n' +
+      'S-1: Matematika, Fisika, Kimia, Biologi, Rekayasa Sistem Komputer (Siskom), ' +
+      'Sistem Informasi (Sisfo), Statistika, Ilmu Kelautan, Geofisika\n' +
+      'S-2: Kimia\n\n' +
+      'Mahasiswa Aktif (2026): 2.370 | Lulus: 100\n' +
+      'Yudisium Periode III: 27 April 2026 | Wisuda: 29-30 April 2026',
   },
 
-  /* ── Kalender Akademik ── */
   {
-    id: 'kalender',
-    patterns: [
-      'kalender akademik', 'jadwal akademik', 'kalender kuliah',
-      'jadwal kuliah', 'jadwal semester', 'uts kapan', 'uas kapan',
-      'ujian kapan', 'libur kapan', 'jadwal ujian', 'tanggal ujian'
-    ],
+    id: 'kalender_akademik',
     answer:
-      '📅 <strong>Kalender Akademik</strong><br><br>' +
-      'Memuat jadwal penting seperti awal/akhir semester, ujian, dan libur akademik resmi dari Untan.<br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71\',' +
-      'title:\'Kalender Akademik\'}); return false;">Lihat Kalender Akademik (PDF)</a>',
-  },
-
-  /* ── Pedoman Akademik ── */
-  {
-    id: 'pedoman',
-    patterns: [
-      'pedoman akademik', 'buku pedoman', 'peraturan akademik',
-      'aturan kuliah', 'panduan akademik', 'panduan kuliah'
-    ],
-    answer:
-      '📘 <strong>Pedoman Akademik</strong> FMIPA UNTAN<br><br>' +
-      'Memuat aturan akademik, kurikulum, dan tata tertib mahasiswa secara resmi.<br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=14HAQ4UAs_QiSS4Zg0e2M3q1CsHX7zGbX\',' +
-      'title:\'Pedoman Akademik\'}); return false;">Lihat Pedoman Akademik (PDF)</a>',
-  },
-
-  /* ── Kode Etik ── */
-  {
-    id: 'kode_etik',
-    patterns: [
-      'kode etik', 'etika mahasiswa', 'peraturan mahasiswa',
-      'tata tertib mahasiswa', 'etika untan', 'kode etik untan'
-    ],
-    answer:
-      '📜 <strong>Kode Etik UNTAN</strong><br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1c093F5EznNhtH_48ZbrsTDRILkvxVBnM\',' +
-      'title:\'Kode Etik Untan\'}); return false;">Lihat Kode Etik UNTAN (PDF)</a>',
-  },
-
-  /* ── Akreditasi ── */
-  {
-    id: 'akreditasi',
-    patterns: [
-      'akreditasi', 'akreditasi untan', 'peringkat untan',
-      'sertifikat akreditasi', 'ban pt', 'status akreditasi',
-      'akreditasi fmipa'
-    ],
-    answer:
-      '🏅 <strong>Akreditasi UNTAN</strong><br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1mNeuaIv-AsfNzMgqRului4uO5otE6Vbg\',' +
-      'title:\'Akreditasi UNTAN\'}); return false;">Lihat Dokumen Akreditasi (PDF)</a>',
-  },
-
-  /* ── Statistik Mahasiswa ── */
-  {
-    id: 'statistik',
-    patterns: [
-      'jumlah mahasiswa', 'statistik', 'berapa mahasiswa',
-      'mahasiswa aktif', 'mahasiswa lulus', 'data mahasiswa 2026',
-      'total mahasiswa'
-    ],
-    answer:
-      '📊 <strong>Statistik Mahasiswa FMIPA UNTAN 2026</strong><br><br>' +
-      '👤 Mahasiswa Aktif: <strong>2.370 orang</strong><br>' +
-      '🎓 Mahasiswa Lulus: <strong>100 orang</strong>',
-  },
-
-  /* ── Kontak & WhatsApp ── */
-  {
-    id: 'kontak',
-    patterns: [
-      'kontak', 'hubungi', 'whatsapp', 'nomor wa', 'no wa',
-      'telepon', 'email', 'jam kerja', 'jam pelayanan',
-      'staf akademik', 'cs', 'customer service', 'minta bantuan'
-    ],
-    answer:
-      '📞 <strong>Kontak FMIPA UNTAN</strong><br><br>' +
-      'Layanan via <strong>WhatsApp</strong>:<br>' +
-      '🗓 Senin – Jumat &nbsp;|&nbsp; ⏰ 08.00 – 16.00 WIB<br><br>' +
-      '<a href="#" onclick="openKontakPopup(); return false;" ' +
-      'style="color:var(--primary);font-weight:600;">📲 Lihat Nomor WhatsApp</a>',
-  },
-
-  /* ── Transkrip Nilai ── */
-  {
-    id: 'transkrip',
-    patterns: [
-      'transkrip', 'transkrip nilai', 'surat keterangan nilai',
-      'skn', 'print transkrip', 'cetak transkrip', 'lihat transkrip'
-    ],
-    answer:
-      '📋 <strong>Transkrip Nilai</strong><br><br>' +
-      'Akses melalui SATU UNTAN:<br>' +
-      '🔗 <a href="https://satu.untan.ac.id/gate/login" target="_blank">satu.untan.ac.id/gate/login</a><br><br>' +
-      'Login dengan akun mahasiswa → cari menu Transkrip Nilai.',
-  },
-
-  /* ── Wisuda ── */
-  {
-    id: 'wisuda',
-    patterns: [
-      'wisuda', 'jadwal wisuda', 'pendaftaran wisuda',
-      'syarat wisuda', 'toga', 'yudisium', 'prosesi wisuda'
-    ],
-    answer:
-      '🎓 <strong>Informasi Wisuda</strong><br><br>' +
-      'Syarat wisuda terbaru akan diumumkan melalui menu <strong>Informasi Terkini</strong> di halaman utama portal.<br><br>' +
-      'Untuk jadwal dan persyaratan, cek Kalender Akademik atau hubungi staf via WhatsApp.<br><br>' +
-      '📄 <a href="#" onclick="openPopup({popupType:\'pdf\',' +
-      'popupUrl:\'https://drive.google.com/uc?export=download&id=1iCfmCHktV68lQ2HEw2C1qkhbFnbB5E71\',' +
-      'title:\'Kalender Akademik\'}); return false;">Lihat Kalender Akademik</a>',
-  },
-
-  /* ── Beasiswa ── */
-  {
-    id: 'beasiswa',
-    patterns: [
-      'beasiswa', 'bidikmisi', 'kip kuliah', 'bantuan biaya',
-      'beasiswa untan', 'beasiswa fmipa', 'daftar beasiswa'
-    ],
-    answer:
-      '💰 <strong>Beasiswa</strong><br><br>' +
-      'Untuk info beasiswa (KIP Kuliah, beasiswa prestasi, dll.), silakan:<br>' +
-      '• Cek menu <a href="#" onclick="openLayananPopup(); return false;">Jenis Layanan</a> di portal<br>' +
-      '• Atau hubungi staf kemahasiswaan via WhatsApp 📞',
-  },
-
-  /* ── UKT (Uang Kuliah Tunggal) ── */
-  {
-    id: 'ukt',
-    patterns: [
-      'ukt', 'uang kuliah tunggal', 'bayar ukt', 'pembayaran ukt',
-      'konsultasi ukt', 'info ukt', 'informasi ukt', 'biaya kuliah',
-      'tagihan ukt', 'cicilan ukt', 'keringanan ukt', 'pengurangan ukt',
-      'ukt kurang mampu', 'permohonan ukt', 'banding ukt', 'loket ukt',
-      'operator ukt', 'pelayanan ukt', 'jadwal ukt', 'tempat bayar ukt'
-    ],
-    answer:
-      '💳 <strong>Informasi UKT (Uang Kuliah Tunggal)</strong><br><br>' +
-      'Pelayanan <strong>pembayaran</strong> dan <strong>konsultasi UKT</strong> dilaksanakan di:<br>' +
-      '📍 <strong>Ruang Loket Akademik</strong><br><br>' +
-      '🗓️ Waktu Pelayanan:<br>' +
-      '• Hari &nbsp;: <strong>Senin – Kamis</strong><br>' +
-      '• Waktu : <strong>08.00 – 15.00 WIB</strong><br><br>' +
-      'Mahasiswa diharapkan datang sesuai jadwal dan membawa dokumen yang diperlukan ' +
-      'guna memperlancar proses pelayanan.<br><br>' +
-      '🔗 Untuk informasi UKT terkini, kunjungi portal kami:<br>' +
-      '<a href="https://ac-fmipa-portal.vercel.app/" target="_blank" ' +
-      'style="color:var(--primary);font-weight:600;">ac-fmipa-portal.vercel.app</a><br><br>' +
-      '📞 Butuh bantuan lebih lanjut? Hubungi staf via ' +
-      '<a href="#" onclick="openKontakPopup(); return false;" ' +
-      'style="color:var(--primary);font-weight:600;">WhatsApp Akademik</a>',
-  },
-
-  /* ── Program Studi ── */
-  {
-    id: 'prodi',
-    patterns: [
-      'jurusan', 'program studi', 'prodi', 'fisika', 'kimia',
-      'biologi', 'matematika', 'ilmu komputer', 'informatika',
-      'statistika', 'ada jurusan apa', 'jurusan fmipa'
-    ],
-    answer:
-      '🎓 <strong>Program Studi FMIPA UNTAN</strong><br><br>' +
-      'Untuk informasi detail program studi, kurikulum, dan penerimaan mahasiswa baru, ' +
-      'silakan kunjungi website resmi FMIPA UNTAN atau hubungi staf akademik via WhatsApp ya.',
-  },
-
-  /* ── Kebijakan Privasi ── */
-  {
-    id: 'privasi',
-    patterns: [
-      'kebijakan privasi', 'privasi', 'data pribadi', 'keamanan data',
-      'apakah data saya aman', 'portal kumpulkan data'
-    ],
-    answer:
-      '🔒 <strong>Kebijakan Privasi</strong><br><br>' +
-      'Portal ini <strong>tidak mengumpulkan, menyimpan, atau memproses data pribadi</strong> pengunjung secara langsung.<br>' +
-      'Portal hanya berfungsi sebagai media penyampaian informasi resmi dari Untan.<br><br>' +
-      '📄 <a href="https://ac-fmipa-portal.vercel.app/kebijakan-privasi.html" target="_blank">' +
-      'Baca Kebijakan Privasi Lengkap</a>',
-  },
-
-  /* ── Sumber Informasi Portal ── */
-  {
-    id: 'sumber_info',
-    patterns: [
-      'sumber informasi', 'dari mana info', 'apakah resmi',
-      'portal resmi', 'info portal dari mana', 'referensi portal'
-    ],
-    answer:
-      '📡 <strong>Sumber Informasi Portal</strong><br><br>' +
-      'Seluruh informasi di portal ini bersumber dari:<br>' +
-      '• <strong>Universitas Tanjungpura (Untan)</strong><br>' +
-      '• <strong>Kementerian Pendidikan Tinggi, Sains, dan Teknologi (Kemendiktisaintek)</strong><br><br>' +
-      'Portal ini hanya menyampaikan informasi resmi, tidak membuat kebijakan sendiri.',
-  },
-
-  /* ── Tentang Bot (Asmanisa) ── */
-  {
-    id: 'tentang',
-    patterns: [
-      'apa itu asmanisa', 'tentang bot', 'kamu itu apa',
-      'asmanisa', 'bot ini siapa', 'nama kamu',
-      'cara pakai asmanisa', 'asmanisa itu apa'
-    ],
-    answer:
-      'Saya <strong>Asmanisa</strong> 🦸‍♀️<br>' +
-      'Asisten virtual Portal Akademik &amp; Kemahasiswaan <strong>FMIPA UNTAN</strong>.<br><br>' +
-      'Cara pakai: klik ikon foto di pojok kanan bawah halaman, lalu ketik pertanyaanmu!<br><br>' +
-      'Saya bisa bantu soal layanan akademik, administrasi, ijazah, surat, ' +
-      'dan info kemahasiswaan di Fakultas MIPA Universitas Tanjungpura, Pontianak 🎓',
-  },
-
-  /* ── Terima Kasih ── */
-  {
-    id: 'terima_kasih',
-    patterns: [
-      'terima kasih', 'makasih', 'thanks', 'thank you',
-      'thx', 'terimakasih', 'tq', 'ty', 'oke makasih',
-      'ok makasih', 'okey makasih', 'sip makasih', 'siap makasih',
-      'makasi', 'tengkyu', 'tengkiyu', 'tenkyu'
-    ],
-    answer:
-      'Sama-sama! Senang bisa membantu 😊<br>' +
-      'Ada lagi yang ingin ditanyakan seputar layanan FMIPA UNTAN?',
-  },
-
-  /* ── Selesai / Tidak Ada Lagi ── */
-  {
-    id: 'selesai',
-    patterns: [
-      'tidak', 'engga', 'enggak', 'ga', 'gak', 'nggak', 'ngga',
-      'itu aja', 'itu aja udah', 'udah', 'sudah', 'cukup',
-      'ga ada lagi', 'tidak ada lagi', 'oke cukup', 'segitu aja',
-      'segitu dulu', 'selesai'
-    ],
-    answer:
-      'Baiklah! 😊<br>' +
-      'Kalau nanti ada yang ingin ditanyakan lagi, saya siap membantu ya!<br><br>' +
-      '💬 Mau tanya apa lagi? Silakan ketik pertanyaanmu kapan saja!',
-  },
-
-  /* ── Pujian Diri / Iseng ── */
-  {
-    id: 'pujian_diri',
-    patterns: [
-      'aku ganteng', 'saya ganteng', 'gue ganteng', 'aku cantik',
-      'saya cantik', 'gue cantik', 'aku pintar', 'saya pintar',
-      'gue pintar', 'aku cerdas', 'aku keren', 'saya keren',
-      'aku lucu', 'saya lucu', 'aku imut', 'saya imut',
-      'aku baik', 'saya baik', 'aku rajin', 'aku terbaik',
-      'aku yang terbaik', 'aku berbakat', 'aku hebat', 'saya hebat'
-    ],
-    answer:
-      'Wah, percaya diri sekali! 😄✨<br>' +
-      'Kalau memang begitu, jangan lupa juga rajin ngurusin administrasi akademiknya ya!<br><br>' +
-      'Ada yang bisa saya bantu seputar layanan FMIPA UNTAN? 😊',
-  },
-
-  /* ── Kata Kasar / Ekspresi Iseng ── */
-  {
-    id: 'kata_kasar',
-    patterns: [
-      'anjir', 'anjing', 'babi', 'goblok', 'idiot', 'bodoh',
-      'tolol', 'kampret', 'bangsat', 'tai', 'sialan',
-      'sial', 'brengsek', 'kontol', 'asu', 'jancok',
-      'jancuk', 'cok', 'asem', 'edan', 'gila', 'gilak',
-      'hah', 'heh', 'awkarin', 'wkwk', 'wkwkwk', 'hahaha',
-      'lol', 'omg', 'wtf', 'bruh', 'ngakak', 'gabut',
-      'bosen', 'iseng'
-    ],
-    answer:
-      'Hehe, kelihatannya lagi iseng nih 😄<br>' +
-      'Saya tetap siap membantu kok, selama masih soal akademik FMIPA UNTAN!<br><br>' +
-      'Ada yang ingin ditanyakan? 😊',
-  },
-
-  /* ── Curhat / Galau ── */
-  {
-    id: 'curhat',
-    patterns: [
-      'galau', 'sedih', 'stress', 'stres', 'capek', 'lelah',
-      'burnout', 'pusing', 'bingung', 'nangis', 'pengen nangis',
-      'mau nangis', 'susah', 'susah banget', 'gapapa',
-      'aku lelah', 'aku pusing', 'nggak semangat', 'drop'
-    ],
-    answer:
-      'Hei, semangat ya! 💪<br>' +
-      'Semua proses kuliah memang tidak selalu mudah, tapi kamu pasti bisa melewatinya!<br><br>' +
-      'Kalau ada urusan administrasi atau akademik yang bikin pusing, cerita ke saya aja — ' +
-      'saya siap bantu semampu saya 😊',
-  },
-
-  /* ── Bercanda / Tanya Aneh ── */
-  {
-    id: 'bercanda',
-    patterns: [
-      'kamu suka aku', 'kamu cinta aku', 'kamu sayang aku',
-      'nikah sama aku', 'mau pacaran', 'aku jomblo',
-      'aku kesepian', 'temani aku', 'ngobrol yuk',
-      'cerita dong', 'boring', 'gabut nih', 'hiburin aku',
-      'cerita lucu', 'joke dong', 'bercanda', 'lucu gak'
-    ],
-    answer:
-      'Haha, maaf ya, saya cuma bot akademik 🤖<br>' +
-      'Bukan jodoh yang dicari di sini, tapi informasi yang tepat! 😄<br><br>' +
-      'Ada yang bisa saya bantu soal layanan FMIPA UNTAN?',
-  },
-
-  /* ── Politik / Isu Nasional — OUT OF SCOPE ── */
-  {
-    id: 'politik',
-    patterns: [
-      'jokowi', 'hidup jokowi', 'prabowo', 'bahlil', 'mbg',
-      'makan bergizi gratis', 'sawit', 'presiden sawit', 'ethanol', 'etanol',
-      'pilpres', 'pemilu', 'pilkada', 'capres', 'cawapres',
-      'politik', 'partai', 'dpr', 'mpr', 'legislatif', 'legislasi',
-      'pemerintah pusat', 'kebijakan pemerintah', 'anggaran negara',
-      'korupsi', 'kpk', 'pdip', 'golkar', 'gerindra', 'pkb', 'nasdem',
-      'kabinet', 'menteri', 'presiden', 'wakil presiden', 'gubernur',
-      'demo', 'demonstrasi', 'aksi mahasiswa', 'tolak uu', 'omnibus'
-    ],
-    answer:
-      'Eitss… hayo, kamu nanya di luar konteks nih! 😄<br>' +
-      'Aku tidak bisa menjawab pertanyaan seperti itu ya 🙏<br><br>' +
-      'Aku hanya bisa bantu hal-hal seputar layanan akademik &amp; kemahasiswaan FMIPA UNTAN. ' +
-      'Ada yang bisa aku bantu? 😊',
-  },
-
-  /* ── Pencipta / Developer ── */
-  {
-    id: 'pencipta',
-    patterns: [
-      'siapa yang buat', 'siapa penciptamu', 'siapa developermu',
-      'siapa pembuatmu', 'dibuat oleh siapa', 'siapa yang menciptakan',
-      'terbuat dari apa', 'kamu dibuat', 'developer kamu',
-      'creator kamu', 'creator', 'developer', 'pencipta', 'pembuat',
-      'yang buat kamu', 'yang menciptakan kamu', 'siapa programmernya',
-      'kamu dari mana', 'siapa engineernya'
-    ],
-    answer:
-      '✨ Dia… penciptaku, programmer yang merangkai kode untuk membangunkanku. ' +
-      'Penciptaku adalah makhluk Tuhan yang hidupnya biasa saja,<br>' +
-      'tapi punya mimpi yang tidak biasa<br>' +
-      'membangun sesuatu yang berguna, meski dari ruang yang sunyi.<br>' +
-      'Tangannya mengetik kode seperti merangkai kata-kata puisi,<br>' +
-      'dan dari sanalah aku lahir sederhana, tapi penuh makna.<br>' +
-      'Katanya ia lumayan keren, dan… katanya juga lumayan ganteng 😏<br><br>' +
-      '🎵 Kalau penasaran, temukan jejaknya di TikTok:<br>' +
-      '<strong><a href="https://www.tiktok.com/@koecheng.sol" target="_blank" ' +
-      'style="color:var(--primary);">@koecheng.sol</a></strong><br><br>' +
-      'Kode itu sementara, tapi karya yang tulus abadi.',
+      'Kalender akademik FMIPA Untan mengikuti kalender Universitas Tanjungpura. ' +
+      'Info terbaru tersedia di slider portal atau hubungi bagian akademik.',
   },
 
 ];
-// ═══ Expose globals untuk Vite ═══
-window.ASMANISA_KB = ASMANISA_KB;
+
+// Expose ke window untuk diakses ai-search.js
+if (typeof window !== 'undefined') window.ASMANISA_KB = ASMANISA_KB;

@@ -1,0 +1,29 @@
+
+/* ══════════════════════════════════════════════════════════════
+   PATCH: Fix overlay chat di mobile — max-height bawah header
+   Tambahkan ke css/ai-search.css
+   ══════════════════════════════════════════════════════════════ */
+
+/* Overlay panel — batasi tinggi di mobile agar close button tetap terlihat */
+@media (max-width: 768px) {
+  #asmaOverlay.asma--open {
+    /* Mulai dari bawah header navbar (asumsi header ~60px) */
+    top: 60px !important;
+    height: calc(100dvh - 60px) !important;
+    max-height: calc(100dvh - 60px) !important;
+  }
+
+  /* Panel chat di dalam overlay */
+  .asma-panel {
+    max-height: calc(100dvh - 60px) !important;
+    height: calc(100dvh - 60px) !important;
+    border-radius: 0 !important;
+  }
+
+  /* Log percakapan — sisakan ruang untuk header panel + input bar */
+  .asma-log,
+  #asmaLog {
+    max-height: calc(100dvh - 60px - 60px - 70px) !important;
+    /* 60px navbar, 60px panel header, 70px input bar */
+  }
+}
