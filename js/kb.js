@@ -98,11 +98,8 @@ const ASKA_KB = [
   {
     id: 'ukt_penanggung_jawab',
     answer:
-      'Urusan UKT di FMIPA Untan ditangani oleh:\n' +
-      '- Wakil Dekan Bidang Keuangan dan Umum: Dr. Evi Noviani, S.Si., M.Si.\n' +
-      '- Bagian Keuangan: Rinny Yusnita Absari, S.E., M.M. (Pengelola Data)\n' +
-      '- Bendahara: Rachmat Jamaluddin, A.Md. (BPP)\n' +
-      '- Loket Akademik: Senin-Kamis 08.00-15.00 WIB',
+      'Untuk informasi lebih lanjut soal UKT, silakan hubungi Pak Prima atau Bu Warsi di Ruang Akademik FMIPA Untan, atau melalui menu Kontak di portal.\n' +
+      'Jam layanan: Senin-Kamis 08.00-15.00 WIB.',
   },
 
   /* ── Data Pegawai & Dosen ── */
