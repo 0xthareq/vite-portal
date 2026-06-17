@@ -4,7 +4,7 @@
    ================================================================ */
 
 /* ══ INPUT BAR — sticky bottom ══════════════════════════════════ */
-.asma-bar {
+.aska-bar {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -17,7 +17,7 @@
   transition: opacity .2s;
 }
 
-.asma-bar-inner {
+.aska-bar-inner {
   max-width: 760px;
   margin: 0 auto;
   display: flex;
@@ -25,7 +25,7 @@
   gap: 10px;
 }
 
-.asma-bar-avatar {
+.aska-bar-avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -35,10 +35,10 @@
   transition: transform .2s;
 }
 
-.asma-bar-avatar:hover { transform: scale(1.07); }
+.aska-bar-avatar:hover { transform: scale(1.07); }
 
 /* Wrapper input + tombol kirim */
-.asma-bar-inputwrap {
+.aska-bar-inputwrap {
   flex: 1;
   display: flex;
   align-items: center;
@@ -51,12 +51,12 @@
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 
-.asma-bar-inputwrap:focus-within {
+.aska-bar-inputwrap:focus-within {
   border-color: var(--primary, #2589e9);
   box-shadow: 0 0 0 3px rgba(37,137,233,0.12), 0 2px 10px rgba(37,137,233,0.1);
 }
 
-.asma-bar-textarea {
+.aska-bar-textarea {
   flex: 1;
   border: none;
   background: transparent;
@@ -71,12 +71,12 @@
   padding: 2px 0;
 }
 
-.asma-bar-textarea::placeholder {
+.aska-bar-textarea::placeholder {
   color: #9ca3af;
   font-size: 13px;
 }
 
-.asma-bar-send {
+.aska-bar-send {
   flex-shrink: 0;
   width: 34px;
   height: 34px;
@@ -92,15 +92,15 @@
   box-shadow: 0 2px 8px rgba(37,137,233,0.35);
 }
 
-.asma-bar-send:hover:not(:disabled) {
+.aska-bar-send:hover:not(:disabled) {
   background: var(--primary-dark, #1a6cc9);
   transform: scale(1.08);
 }
 
-.asma-bar-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.aska-bar-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
 /* ══ OVERLAY — muncul di atas bar saat chat aktif ═══════════════ */
-.asma-overlay {
+.aska-overlay {
   position: fixed;
   left: 0;
   right: 0;
@@ -116,13 +116,13 @@
   transition: opacity .22s ease;
 }
 
-.asma-overlay.asma--open {
+.aska-overlay.aska--open {
   opacity: 1;
   pointer-events: all;
 }
 
 /* Backdrop gelap di belakang panel */
-.asma-overlay::before {
+.aska-overlay::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -134,10 +134,10 @@
   z-index: -1;
 }
 
-.asma-overlay.asma--open::before { opacity: 1; }
+.aska-overlay.aska--open::before { opacity: 1; }
 
 /* ══ PANEL percakapan ═══════════════════════════════════════════ */
-.asma-panel {
+.aska-panel {
   width: 100%;
   max-width: 760px;
   max-height: calc(100vh - 130px);
@@ -158,12 +158,12 @@
   margin: 0 8px;
 }
 
-.asma-overlay.asma--open .asma-panel {
+.aska-overlay.aska--open .aska-panel {
   transform: translateY(0);
 }
 
 /* ══ HEADER PANEL ═══════════════════════════════════════════════ */
-.asma-panel-header {
+.aska-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,13 +173,13 @@
   flex-shrink: 0;
 }
 
-.asma-panel-title {
+.aska-panel-title {
   display: flex;
   align-items: center;
   gap: 9px;
 }
 
-.asma-panel-avatar {
+.aska-panel-avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -187,7 +187,7 @@
   border: 2px solid rgba(37,137,233,0.25);
 }
 
-.asma-panel-name {
+.aska-panel-name {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -196,7 +196,7 @@
   color: var(--text, #111827);
 }
 
-.asma-online-dot {
+.aska-online-dot {
   display: inline-block;
   width: 7px;
   height: 7px;
@@ -205,14 +205,14 @@
   box-shadow: 0 0 0 2px rgba(34,197,94,.2);
 }
 
-.asma-panel-sub {
+.aska-panel-sub {
   display: block;
   font-size: 10.5px;
   color: #6b7280;
   margin-top: 1px;
 }
 
-.asma-close-btn {
+.aska-close-btn {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -226,14 +226,14 @@
   transition: all .15s;
 }
 
-.asma-close-btn:hover {
+.aska-close-btn:hover {
   background: #fee2e2;
   border-color: #fca5a5;
   color: #dc2626;
 }
 
 /* ══ LOG ════════════════════════════════════════════════════════ */
-.asma-log {
+.aska-log {
   flex: 1;
   overflow-y: auto;
   display: flex;
@@ -244,25 +244,25 @@
   min-height: 80px;
 }
 
-.asma-log::-webkit-scrollbar       { width: 3px; }
-.asma-log::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+.aska-log::-webkit-scrollbar       { width: 3px; }
+.aska-log::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
 
 /* ══ BUBBLES ════════════════════════════════════════════════════ */
-.asma-msg {
+.aska-msg {
   display: flex;
   align-items: flex-end;
   gap: 7px;
-  animation: asmaMsgIn .18s ease;
+  animation: askaMsgIn .18s ease;
 }
 
-@keyframes asmaMsgIn {
+@keyframes askaMsgIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.asma-msg--user  { flex-direction: row-reverse; }
+.aska-msg--user  { flex-direction: row-reverse; }
 
-.asma-avatar {
+.aska-avatar {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -271,7 +271,7 @@
   border: 1.5px solid rgba(0,0,0,0.07);
 }
 
-.asma-bubble {
+.aska-bubble {
   max-width: 80%;
   padding: 8px 13px;
   border-radius: 16px;
@@ -280,72 +280,72 @@
   word-break: break-word;
 }
 
-.asma-bubble--user {
+.aska-bubble--user {
   background: var(--primary, #2589e9);
   color: #fff;
   border-bottom-right-radius: 4px;
 }
 
-.asma-bubble--bot {
+.aska-bubble--bot {
   background: rgba(243,244,246,0.95);
   color: var(--text, #111827);
   border-bottom-left-radius: 4px;
 }
 
-.asma-bubble--bot a          { color: var(--primary,#2589e9); font-weight:600; text-decoration:none; }
-.asma-bubble--bot a:hover    { text-decoration: underline; }
-.asma-bubble--bot strong     { font-weight: 700; }
-.asma-bubble--bot ul         { margin: 5px 0 5px 17px; line-height: 1.7; }
+.aska-bubble--bot a          { color: var(--primary,#2589e9); font-weight:600; text-decoration:none; }
+.aska-bubble--bot a:hover    { text-decoration: underline; }
+.aska-bubble--bot strong     { font-weight: 700; }
+.aska-bubble--bot ul         { margin: 5px 0 5px 17px; line-height: 1.7; }
 
 /* ══ THINKING DOTS (saat AI masih di dalam <think>) ════════════ */
-.asma-bubble--thinking {
+.aska-bubble--thinking {
   background: rgba(243,244,246,0.95) !important;
   padding: 10px 14px !important;
 }
 
-.asma-think-dots {
+.aska-think-dots {
   display: flex;
   gap: 4px;
   align-items: center;
 }
 
-.asma-think-dots span {
+.aska-think-dots span {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #9ca3af;
-  animation: asmaDot 1.3s ease-in-out infinite;
+  animation: askaDot 1.3s ease-in-out infinite;
 }
 
-.asma-think-dots span:nth-child(2) { animation-delay: .18s; }
-.asma-think-dots span:nth-child(3) { animation-delay: .36s; }
+.aska-think-dots span:nth-child(2) { animation-delay: .18s; }
+.aska-think-dots span:nth-child(3) { animation-delay: .36s; }
 
 /* ══ TYPING ═════════════════════════════════════════════════════ */
-.asma-typing {
+.aska-typing {
   display: flex;
   gap: 4px;
   align-items: center;
   padding: 10px 13px;
 }
 
-.asma-typing span {
+.aska-typing span {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #9ca3af;
-  animation: asmaDot 1.3s ease-in-out infinite;
+  animation: askaDot 1.3s ease-in-out infinite;
 }
 
-.asma-typing span:nth-child(2) { animation-delay: .18s; }
-.asma-typing span:nth-child(3) { animation-delay: .36s; }
+.aska-typing span:nth-child(2) { animation-delay: .18s; }
+.aska-typing span:nth-child(3) { animation-delay: .36s; }
 
-@keyframes asmaDot {
+@keyframes askaDot {
   0%,60%,100% { transform: translateY(0);   opacity: .4; }
   30%          { transform: translateY(-4px); opacity: 1; }
 }
 
 /* ══ CHIPS ══════════════════════════════════════════════════════ */
-.asma-chips {
+.aska-chips {
   display: flex;
   gap: 6px;
   padding: 7px 14px;
@@ -356,9 +356,9 @@
   -ms-overflow-style: none;
 }
 
-.asma-chips::-webkit-scrollbar { display: none; }
+.aska-chips::-webkit-scrollbar { display: none; }
 
-.asma-chip {
+.aska-chip {
   flex-shrink: 0;
   padding: 4px 12px;
   border-radius: 50px;
@@ -372,7 +372,7 @@
   transition: all .15s;
 }
 
-.asma-chip:hover {
+.aska-chip:hover {
   border-color: var(--primary, #2589e9);
   color: var(--primary, #2589e9);
   background: rgba(37,137,233,0.06);
@@ -381,10 +381,10 @@
 
 /* ══ RESPONSIVE ═════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .asma-bar         { padding: 8px 12px 12px; }
-  .asma-panel       { border-radius: 16px 16px 12px 12px; margin: 0 4px; }
-  .asma-bubble      { max-width: 88%; font-size: 13px; }
-  .asma-bar-avatar  { width: 30px; height: 30px; }
+  .aska-bar         { padding: 8px 12px 12px; }
+  .aska-panel       { border-radius: 16px 16px 12px 12px; margin: 0 4px; }
+  .aska-bubble      { max-width: 88%; font-size: 13px; }
+  .aska-bar-avatar  { width: 30px; height: 30px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -394,7 +394,7 @@
 
 /* Overlay panel — batasi tinggi di mobile agar close button tetap terlihat */
 @media (max-width: 768px) {
-  #asmaOverlay.asma--open {
+  #askaOverlay.aska--open {
     /* Mulai dari bawah header navbar (asumsi header ~60px) */
     top: 60px !important;
     height: calc(100dvh - 60px) !important;
@@ -402,15 +402,15 @@
   }
 
   /* Panel chat di dalam overlay */
-  .asma-panel {
+  .aska-panel {
     max-height: calc(100dvh - 60px) !important;
     height: calc(100dvh - 60px) !important;
     border-radius: 0 !important;
   }
 
   /* Log percakapan — sisakan ruang untuk header panel + input bar */
-  .asma-log,
-  #asmaLog {
+  .aska-log,
+  #askaLog {
     max-height: calc(100dvh - 60px - 60px - 70px) !important;
     /* 60px navbar, 60px panel header, 70px input bar */
   }
